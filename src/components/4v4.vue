@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-for="player in red" :key="player.id">
+    <div v-for="player in red" :key="`redteam-${player.id}`">
       <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
     </div>
     ----------
-    <div v-for="player in blue" :key="player.id">
+    <div v-for="player in blue" :key="`blueteam-${player.id}`">
       <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
     </div>
   </div>
