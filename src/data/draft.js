@@ -1,43 +1,35 @@
 const draft = [
   {
     "pick": 1,
-    "player": "Nick",
-    "characterId": 71
+    "player": "Sam"
   },
   {
     "pick": 2,
-    "player": "Sam",
-    "characterId": 49
+    "player": "Marlene",
   },
   {
     "pick": 3,
-    "player": "Mike",
-    "characterId": 2
+    "player": "Kyle"
   },
   {
     "pick": 4,
-    "player": "Phil",
-    "characterId": 60
+    "player": "Mike"
   },
   {
     "pick": 5,
-    "player": "Kyle",
-    "characterId": 65
+    "player": "Phil"
   },
   {
     "pick": 6,
-    "player": "Jan",
-    "characterId": 9
+    "player": "Nick"
   },
   {
     "pick": 7,
-    "player": "Brian",
-    "characterId": 69
+    "player": "Jan"
   },
   {
     "pick": 8,
-    "player": "Marlene",
-    "characterId": 45
+    "player": "Brian"
   }
 ];
 

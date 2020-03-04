@@ -1,20 +1,20 @@
 <template>
   <div>
-    Smash
+    <h2>Draft</h2>
     <PlayerCard v-for="(player, index) in players" :key="player.id" :player="player" :index="index"/>
+    <CharacterPicker/>
   </div>
 </template>
 
 <script>
+import CharacterPicker from './CharacterPicker';
 import PlayerCard from './PlayerCard.vue';
 
 export default {
-  name: 'Smash',
+  name: 'Draft',
   components: {
-    PlayerCard,
-  },
-  created() {
-    this.$store.dispatch('loadPlayers')
+    CharacterPicker,
+    PlayerCard
   },
   computed: {
     players: {

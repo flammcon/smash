@@ -17,6 +17,10 @@ const store = new Vuex.Store({
     setPlayers (state, players) {
       state.players = players;
     },
+    updatePlayerCharacter (state, payload) {
+      const player = state.players.find(x => x.id === payload.playerId);
+      player.character = payload.character;
+    },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
       player.score += payload.score;
@@ -40,6 +44,11 @@ const store = new Vuex.Store({
     },
     updatePlayerPodScore({commit}, payload) {
       commit('updatePlayerPodScore', payload);
+    }
+  },
+  getters: {
+    getPlayerById: (state) => (id) => {
+      return state.players.find(player => player.id === id)
     }
   }
 });

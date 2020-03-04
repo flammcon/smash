@@ -4,7 +4,14 @@ import draft from '../data/draft';
 
 export default {
   getCharacters(cb) {
-    setTimeout(() => cb(characters), delay);
+    const chars = characters.map(value => {
+      const assetUrl = {url: this.getAssetUrl(value.id)};
+      return {
+        ...value, 
+        ...assetUrl
+      }
+    });
+    setTimeout(() => cb(chars), delay);
   },
 
   getPlayers(cb) {
@@ -12,7 +19,7 @@ export default {
       return {
         name: value.player,
         id: value.pick,
-        character: this.getAssetUrl(value.characterId),
+        character: this.getAssetUrl(0),
         score: 0
       };
     });
@@ -21,7 +28,10 @@ export default {
 
   getAssetUrl(id) {
     const character = characters.find(x => x.id == id);
-    return require(`../assets/characters/${id}-${character.name.replace(/[.]/g, "")}.png`);
+    
+    const url = id === 0 ? `Unknown` : `${id}-${character.name.replace(/[.]/g, "")}`;
+
+    return require(`../assets/characters/${url}.png`);
   },
 
   getCharacter(id) {

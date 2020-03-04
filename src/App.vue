@@ -1,17 +1,20 @@
 <template>
   <div id="app" class="container-fluid"> 
-    <Smash/>
+    <Draft/>
   </div>
 </template>
 
 <script>
-import Smash from './components/Smash.vue'
+import Draft from './components/Draft.vue'
 
 export default {
   name: 'App',
   components: {
-    Smash
-  }
+    Draft
+  },
+  created() {
+    this.$store.dispatch('loadPlayers')
+  },
 }
 </script>
 
