@@ -2,6 +2,7 @@
   <div v-if="current_player">
     <h2>Draft</h2>
     Select character for {{current_player.name}}
+    <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
     <div id="characters">
       <div class="character" v-for="character in characters" 
         v-bind:class="{disabled: disableCharacter(character.id)}"
@@ -41,6 +42,14 @@ export default {
     disableCharacter(character) {
       const disabled = this.$store.getters.getDisabledCharactersByPlayerId(this.current_player_id);
       return this.chosen_characters.find(id => id === character) || disabled.find(id => id === character);
+    },
+    selectRandomCharacter() {
+      const disabled = this.$store.getters.getDisabledCharactersByPlayerId(this.current_player_id);
+      const available = this.characters.filter(character => {
+        return !(this.chosen_characters.find(id => id === character.id) || disabled.find(id => id === character.id));
+      }, this);
+      const index = Math.floor(Math.random() * available.length);
+      this.selectCharacter(available[index]);
     }
   },
   computed: {
