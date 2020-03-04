@@ -38,7 +38,8 @@ export default {
       }
     },
     disableCharacter(character) {
-      return this.chosen_characters.find(id => id === character);
+      const disabled = this.$store.getters.getDisabledCharactersByPlayerId(this.current_player_id);
+      return this.chosen_characters.find(id => id === character) || disabled.find(id => id === character);
     }
   },
   computed: {
@@ -69,8 +70,8 @@ a {
   color: #42b983;
 }
 img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background-color: gold;
   box-sizing: border-box;
 }
@@ -95,8 +96,8 @@ img:hover {
 }
 
 .character {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   margin: 1px;
   position: relative;
   float: left;

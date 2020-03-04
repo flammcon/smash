@@ -49,6 +49,10 @@ const store = new Vuex.Store({
   getters: {
     getPlayerById: (state) => (id) => {
       return state.players.find(player => player.id === id)
+    },
+    getDisabledCharactersByPlayerId: (state) => (id) => {
+      const player = state.players.find(x => x.id === id);
+      return player.disabled;
     }
   }
 });

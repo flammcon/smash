@@ -1,35 +1,43 @@
 const draft = [
   {
     "pick": 1,
-    "player": "Sam"
+    "player": "Sam",
+    "disabled": [49]
   },
   {
     "pick": 2,
     "player": "Marlene",
+    "disabled": [16]
   },
   {
     "pick": 3,
-    "player": "Kyle"
+    "player": "Kyle",
+    "disabled": [16, 54]
   },
   {
     "pick": 4,
-    "player": "Mike"
+    "player": "Mike",
+    "disabled": [16]
   },
   {
     "pick": 5,
-    "player": "Phil"
+    "player": "Phil",
+    "disabled": [9]
   },
   {
     "pick": 6,
-    "player": "Nick"
+    "player": "Nick",
+    "disabled": [33, 71]
   },
   {
     "pick": 7,
-    "player": "Jan"
+    "player": "Jan",
+    "disabled": [65, 75, 9, 62, 57]
   },
   {
     "pick": 8,
-    "player": "Brian"
+    "player": "Brian",
+    "disabled": [3, 50, 69, 80, 55]
   }
 ];
 

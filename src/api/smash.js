@@ -20,7 +20,13 @@ export default {
         name: value.player,
         id: value.pick,
         character: this.getAssetUrl(0),
-        score: 0
+        results: {
+          bloodbath: 0,
+          fourVsFour: 0,
+          twoVsTwo: 0,
+          freeForAll: 0
+        },
+        disabled: value.disabled
       };
     });
     setTimeout(() => cb(players), delay);

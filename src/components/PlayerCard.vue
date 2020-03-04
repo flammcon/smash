@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center" style="width: 150px">
+  <div class="card text-center border-0">
     <div class="row no-gutters">
       <div class="col-5">
          <img class="card-img" :alt="player.name" :src="player.character"/>
