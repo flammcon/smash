@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center border-0">
+  <div class="card border-0">
     <div class="row no-gutters">
       <div class="col-5">
          <img class="card-img" :alt="player.name" :src="player.character"/>
@@ -17,12 +17,6 @@ export default {
   props: {
     player: Object,
     index: Number
-  },
-  methods: {
-    getIconName(index) {
-      return `mdi-numeric-${index+1}`;
-    },
-    click() { }
   }
 }
 </script>

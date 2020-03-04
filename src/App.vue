@@ -27,21 +27,44 @@
         </table>
       </div>
       <div class="col">
-        <Draft/>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-draft-tab" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-draft" aria-selected="true">Draft</a>
+            <a class="nav-item nav-link" id="nav-bloodbath-tab" data-toggle="tab" href="#nav-bloodbath" role="tab" aria-controls="nav-bloodbath" aria-selected="false">Bloodbath</a>
+            <a class="nav-item nav-link" id="nav-4v4-tab" data-toggle="tab" href="#nav-4v4" role="tab" aria-controls="nav-4v4" aria-selected="false">4v4</a>
+            <a class="nav-item nav-link" id="nav-2v2v2v2-tab" data-toggle="tab" href="#nav-2v2v2v2" role="tab" aria-controls="nav-2v2v2v2" aria-selected="false">2v2v2v2</a>
+            <a class="nav-item nav-link" id="nav-2v2-tab" data-toggle="tab" href="#nav-2v2" role="tab" aria-controls="nav-2v2" aria-selected="false">2v2</a>
+            <a class="nav-item nav-link" id="nav-1v1v1v1-tab" data-toggle="tab" href="#nav-1v1v1v1" role="tab" aria-controls="nav-1v1v1v1" aria-selected="false">1v1v1v1</a>
+            <a class="nav-item nav-link" id="nav-1v1-tab" data-toggle="tab" href="#nav-1v1" role="tab" aria-controls="nav-1v1" aria-selected="false">1v1</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-draft" role="tabpanel" aria-labelledby="nav-draft-tab"><Draft/></div>
+          <div class="tab-pane fade" id="nav-bloodbath" role="tabpanel" aria-labelledby="nav-bloodbath-tab"><Bloodbath/></div>
+          <div class="tab-pane fade" id="nav-4v4" role="tabpanel" aria-labelledby="nav-4v4-tab"><FourVsFour/></div>
+          <div class="tab-pane fade" id="nav-2v2v2v2" role="tabpanel" aria-labelledby="nav-2v2v2v2-tab">...</div>
+          <div class="tab-pane fade" id="nav-2v2" role="tabpanel" aria-labelledby="nav-2v2-tab">...</div>
+          <div class="tab-pane fade" id="nav-1v1v1v1" role="tabpanel" aria-labelledby="nav-1v1v1v1-tab">...</div>
+          <div class="tab-pane fade" id="nav-1v1" role="tabpanel" aria-labelledby="nav-1v1-tab">...</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Draft from './components/Draft'
 import PlayerCard from './components/PlayerCard'
+import Draft from './components/Draft'
+import Bloodbath from './components/Bloodbath';
+import FourVsFour from './components/4v4';
 
 export default {
   name: 'App',
   components: {
+    PlayerCard,
     Draft,
-    PlayerCard
+    Bloodbath,
+    FourVsFour
   },
   created() {
     this.$store.dispatch('loadPlayers')

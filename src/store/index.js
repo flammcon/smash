@@ -21,6 +21,10 @@ const store = new Vuex.Store({
       const player = state.players.find(x => x.id === payload.playerId);
       player.character = payload.character;
     },
+    updateBloodbathRank (state, payload) {
+      const player = state.players.find(x => x.id === payload.playerId);
+      player.results.bloodbath = payload.rank;
+    },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
       player.score += payload.score;
@@ -41,6 +45,9 @@ const store = new Vuex.Store({
       smash.getPlayers(players => {
         commit('setPlayers', players);
       })
+    },
+    updateBloodbathResults: ({ commit }, payload) => {
+      commit("updateBloodbathRank", payload);
     },
     updatePlayerPodScore({commit}, payload) {
       commit('updatePlayerPodScore', payload);
