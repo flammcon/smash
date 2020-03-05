@@ -23,8 +23,9 @@ export default {
         results: {
           bloodbath: 0,
           fourVsFour: 0,
+          twoVsTwoSeeding: 0,
           twoVsTwo: 0,
-          freeForAll: 0
+          oneVsOne: 0
         },
         disabled: value.disabled
       };

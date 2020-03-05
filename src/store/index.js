@@ -9,6 +9,9 @@ const store = new Vuex.Store({
   state: {  
     characters: [],
     players: [],
+    results: {
+      twoVsTwoSeeding: []
+    }
   },
   mutations: {
     setCharacters (state, characters) {
@@ -17,6 +20,9 @@ const store = new Vuex.Store({
     setPlayers (state, players) {
       state.players = players;
     },
+    set2v2SeedingResults (state, results) {
+      state.results.twoVsTwoSeeding = results;
+    },
     updatePlayerCharacter (state, payload) {
       const player = state.players.find(x => x.id === payload.playerId);
       player.character = payload.character;
@@ -24,6 +30,10 @@ const store = new Vuex.Store({
     updateBloodbathRank (state, payload) {
       const player = state.players.find(x => x.id === payload.playerId);
       player.results.bloodbath = payload.rank;
+    },
+    update2v2SeedingRank (state, payload) {
+      const player = state.players.find(x => x.id === payload.playerId);
+      player.results.twoVsTwoSeeding = payload.rank;
     },
     update4v4Scores(state, winners) {
       winners.forEach(winner => {
@@ -53,19 +63,33 @@ const store = new Vuex.Store({
       })
     },
     updateBloodbathResults: ({ commit }, payload) => {
-      commit("updateBloodbathRank", payload);
+      payload.forEach((player, index) => {
+        commit("updateBloodbathRank", {playerId: player.id, rank: index + 1});
+      })
+    },
+    update2v2SeedingResults: ({ commit }, payload) => {
+      commit("set2v2SeedingResults", payload);
+      payload.forEach((team, index) => {
+        commit("update2v2SeedingRank", {playerId: team.player1.id, rank: index + 1});
+        commit("update2v2SeedingRank", {playerId: team.player2.id, rank: index + 1});
+      })
     },
     updatePlayerPodScore({commit}, payload) {
       commit('updatePlayerPodScore', payload);
     }
   },
   getters: {
-    getPlayerById: (state) => (id) => {
+    playerById: (state) => (id) => {
       return state.players.find(player => player.id === id)
     },
-    getDisabledCharactersByPlayerId: (state) => (id) => {
+    disabledCharactersByPlayerId: (state) => (id) => {
       const player = state.players.find(x => x.id === id);
       return player.disabled;
+    }, 
+    bloodbathResults: (state) => {
+      return state.players.sort((a, b) => {
+        return a.results.bloodbath < b.results.bloodbath ? -1 : 1;
+      });
     }
   }
 });

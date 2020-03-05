@@ -1,35 +1,41 @@
 <template>
-  <div>
-    <h3>Red Team</h3>
-    <div class="row">
-      <div class="col-3">
-        <div v-for="player in red" :key="`redteam-${player.id}`">
-          <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
-        </div>
-      </div>
-      <div class="col-3">
-        <button type="button" v-bind:class="[redWins > 0 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins !== 0 || gameOver">Win 1</button>
-        <button type="button" v-bind:class="[redWins > 1 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins !== 1 || gameOver">Win 2</button>
-        <button type="button" v-bind:class="[redWins > 2 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins !== 2 || gameOver">Win 3</button>
-      </div>
+  <div div class="row">
+    <div class="col-2">
+      <h3>Bloodbath</h3>
+      <Bloodbath/>
     </div>
-    <h3>Blue Team</h3>
-    <div class="row">
-      <div class="col-3">
-        <div v-for="player in blue" :key="`blueteam-${player.id}`">
-          <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
+    <div class="col" v-if="red.length > 0">
+      <h3>Red Team</h3>
+      <div class="row">
+        <div class="col-2">
+          <ul id="redteam" class="list-group">
+            <li v-for="player in red" :key="`redteam-${player.id}`" class="list-group-item">{{player.name}}</li>  
+          </ul>
+        </div>
+        <div class="col-8">
+          <button type="button" v-bind:class="[redWins > 0 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+            @click="redWin" :disabled="redWins !== 0 || gameOver">Win 1</button>
+          <button type="button" v-bind:class="[redWins > 1 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+            @click="redWin" :disabled="redWins !== 1 || gameOver">Win 2</button>
+          <button type="button" v-bind:class="[redWins > 2 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+            @click="redWin" :disabled="redWins !== 2 || gameOver">Win 3</button>
         </div>
       </div>
-      <div class="col-3">
-        <button type="button" v-bind:class="[blueWins > 0 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins !== 0 || gameOver">Win 1</button>
-        <button type="button" v-bind:class="[blueWins > 1 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins !== 1 || gameOver">Win 2</button>
-        <button type="button" v-bind:class="[blueWins > 2 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins !== 2 || gameOver">Win 3</button>
+      <h3>Blue Team</h3>
+      <div class="row">
+        <div class="col-2">
+          <ul id="blueteam" class="list-group">
+            <li v-for="player in blue" :key="`blueteam-${player.id}`" class="list-group-item">{{player.name}}</li>  
+          </ul>
+        </div>
+        <div class="col-8">
+          <button type="button" v-bind:class="[blueWins > 0 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+            @click="blueWin" :disabled="blueWins !== 0 || gameOver">Win 1</button>
+          <button type="button" v-bind:class="[blueWins > 1 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+            @click="blueWin" :disabled="blueWins !== 1 || gameOver">Win 2</button>
+          <button type="button" v-bind:class="[blueWins > 2 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+            @click="blueWin" :disabled="blueWins !== 2 || gameOver">Win 3</button>
+        </div>
       </div>
     </div>
   </div>
@@ -37,9 +43,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import Bloodbath from './Bloodbath';
 
 export default {
   name: 'FourVsFour',
+  components: {
+    Bloodbath
+  },
   data() {
     return {
       redWins: 0,

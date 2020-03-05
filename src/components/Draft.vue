@@ -39,11 +39,11 @@ export default {
       }
     },
     disableCharacter(character) {
-      const disabled = this.$store.getters.getDisabledCharactersByPlayerId(this.current_player_id);
+      const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
       return this.chosen_characters.find(id => id === character) || disabled.find(id => id === character);
     },
     selectRandomCharacter() {
-      const disabled = this.$store.getters.getDisabledCharactersByPlayerId(this.current_player_id);
+      const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
       const available = this.characters.filter(character => {
         return !(this.chosen_characters.find(id => id === character.id) || disabled.find(id => id === character.id));
       }, this);
@@ -56,7 +56,7 @@ export default {
       characters: state => state.characters,
     }),
     current_player() {
-      return this.$store.getters.getPlayerById(this.current_player_id);
+      return this.$store.getters.playerById(this.current_player_id);
     }
   }
 }

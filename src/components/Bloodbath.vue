@@ -2,28 +2,28 @@
   <div>
     <button v-if="results.length === 0" type="button" class="btn btn-primary" @click="getPlayers">Load</button>
     <div v-if="results.length > 0">
-    <draggable
-        :list="this.results"
-        class="list-group"
-        ghost-class="ghost"
-      >
-      <div v-for="(player, index) in this.results" :key="player.id">
-        <span class="input-group-text" style="width:85px; justify-content:center">{{index+1}} - {{player.name}}</span>  
-      </div>
-    </draggable>
-    <button type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
+      <table class="table table-sm">
+        <draggable v-model="results" tag="tbody">
+          <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
+            <th scope="row">{{index + 1}}</th>
+            <td><PlayerCard :player="player" :index="index"/></td>
+          </tr>
+        </draggable>
+      </table>
+      <button type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
 import draggable from "vuedraggable";
+import PlayerCard from "./PlayerCard";
 
 export default {
   name: 'Bloodbath',
   components: {
-    draggable
+    draggable,
+    PlayerCard
   },
   data() {
     return {
@@ -32,9 +32,7 @@ export default {
   },
   methods: {
     updateRanks() {
-      this.results.forEach((player, index) => {
-        this.$store.dispatch('updateBloodbathResults', {playerId: player.id, rank: index+1})
-      });
+      this.$store.dispatch('updateBloodbathResults', this.results);
     },
     getPlayers() {
       this.results = [...this.$store.state.players];
