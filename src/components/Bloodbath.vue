@@ -1,20 +1,23 @@
 <template>
   <div>
+    <button v-if="results.length === 0" type="button" class="btn btn-primary" @click="getPlayers">Load</button>
+    <div v-if="results.length > 0">
     <draggable
-        :list="players"
+        :list="this.results"
         class="list-group"
         ghost-class="ghost"
       >
-      <div v-for="(player, index) in players" :key="player.id">
+      <div v-for="(player, index) in this.results" :key="player.id">
         <span class="input-group-text" style="width:85px; justify-content:center">{{index+1}} - {{player.name}}</span>  
       </div>
     </draggable>
     <button type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import draggable from "vuedraggable";
 
 export default {
@@ -22,16 +25,19 @@ export default {
   components: {
     draggable
   },
-  computed: {
-    ...mapState({
-      players: state => state.players,
-    })
+  data() {
+    return {
+      results: []
+    }
   },
   methods: {
     updateRanks() {
-      this.players.forEach((player, index) => {
+      this.results.forEach((player, index) => {
         this.$store.dispatch('updateBloodbathResults', {playerId: player.id, rank: index+1})
       });
+    },
+    getPlayers() {
+      this.results = [...this.$store.state.players];
     }
   }
 }

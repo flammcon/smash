@@ -1,11 +1,36 @@
 <template>
   <div>
-    <div v-for="player in red" :key="`redteam-${player.id}`">
-      <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
+    <h3>Red Team</h3>
+    <div class="row">
+      <div class="col-3">
+        <div v-for="player in red" :key="`redteam-${player.id}`">
+          <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
+        </div>
+      </div>
+      <div class="col-3">
+        <button type="button" v-bind:class="[redWins > 0 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+          @click="redWin" :disabled="redWins > 0 || gameOver">Win 1</button>
+        <button type="button" v-bind:class="[redWins > 1 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+          @click="redWin" :disabled="redWins > 1 || gameOver">Win 2</button>
+        <button type="button" v-bind:class="[redWins > 2 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
+          @click="redWin" :disabled="redWins > 2 || gameOver">Win 3</button>
+      </div>
     </div>
-    ----------
-    <div v-for="player in blue" :key="`blueteam-${player.id}`">
-      <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
+    <h3>Blue Team</h3>
+    <div class="row">
+      <div class="col-3">
+        <div v-for="player in blue" :key="`blueteam-${player.id}`">
+          <span class="input-group-text" style="width:85px; justify-content:center">{{player.name}}</span>  
+        </div>
+      </div>
+      <div class="col-3">
+        <button type="button" v-bind:class="[blueWins > 0 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+          @click="blueWin" :disabled="blueWins > 0 || gameOver">Win 1</button>
+        <button type="button" v-bind:class="[blueWins > 1 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+          @click="blueWin" :disabled="blueWins > 1 || gameOver">Win 2</button>
+        <button type="button" v-bind:class="[blueWins > 2 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
+          @click="blueWin" :disabled="blueWins > 2 || gameOver">Win 3</button>
+      </div>
     </div>
   </div>
 </template>
@@ -15,20 +40,41 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'FourVsFour',
+  data() {
+    return {
+      redWins: 0,
+      blueWins: 0
+    }
+  },
   computed: {
     ...mapState({
       players: state => state.players,
     }),
     red() {
-      return this.players.filter((player, index) => {
-        return index === 0 || index === 3 || index === 4 || index === 7;
+      return this.players.filter(player => {
+        const rank = player.results.bloodbath;
+        return  rank === 1 || rank === 4 || rank === 5 || rank === 8;
       });
     },
     blue() {
-      return this.players.filter((player, index) => {
-        return index === 1 || index === 2 || index === 5 || index === 6;
+      return this.players.filter(player => {
+        const rank = player.results.bloodbath;
+        return rank === 2 || rank === 3 || rank === 6 || rank === 7;
       });
+    },
+    gameOver() {
+      return this.redWins === 3 || this.blueWins === 3;
     }
+  },
+  methods: {
+    redWin: function() { 
+      this.redWins++; 
+      if (this.redWins === 3) {
+        this.$store.commit('update4v4Scores', this.red);
+      }
+    },
+    blueWin: function() { this.blueWins++; },
+
   }
 }
 </script>

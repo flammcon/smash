@@ -25,6 +25,12 @@ const store = new Vuex.Store({
       const player = state.players.find(x => x.id === payload.playerId);
       player.results.bloodbath = payload.rank;
     },
+    update4v4Scores(state, winners) {
+      winners.forEach(winner => {
+        const player = state.players.find(x => x.id === winner.id);
+        player.results.fourVsFour = 2;
+      });
+    },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
       player.score += payload.score;
