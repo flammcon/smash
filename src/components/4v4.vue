@@ -73,7 +73,12 @@ export default {
         this.$store.commit('update4v4Scores', this.red);
       }
     },
-    blueWin: function() { this.blueWins++; },
+    blueWin: function() { 
+      this.blueWins++; 
+      if (this.blueWins === 3) {
+        this.$store.commit('update4v4Scores', this.blue);
+      }
+    },
 
   }
 }
