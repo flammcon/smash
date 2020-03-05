@@ -15,8 +15,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(player, index) in players" :key="player.id">
-              <th scope="row">{{player.id}}</th>
+            <tr v-for="(player, index) in sortedPlayers" :key="player.id">
+              <th scope="row">{{index + 1}}</th>
               <td><PlayerCard :player="player" :index="index"/></td>
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
@@ -77,6 +77,13 @@ export default {
       get() {
         return this.$store.state.players;
       }
+    },
+    sortedPlayers() {
+      return [...this.players].sort((a, b) => {
+        const totalA = this.totalPoints(a.results);
+        const totalB = this.totalPoints(b.results);
+        return totalA > totalB ? -1 : 1;
+      });
     }
   },
   methods: {
