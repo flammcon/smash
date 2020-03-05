@@ -9,11 +9,11 @@
       </div>
       <div class="col-3">
         <button type="button" v-bind:class="[redWins > 0 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins > 0 || gameOver">Win 1</button>
+          @click="redWin" :disabled="redWins !== 0 || gameOver">Win 1</button>
         <button type="button" v-bind:class="[redWins > 1 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins > 1 || gameOver">Win 2</button>
+          @click="redWin" :disabled="redWins !== 1 || gameOver">Win 2</button>
         <button type="button" v-bind:class="[redWins > 2 ? 'btn-danger' : 'btn-outline-danger', 'btn']" 
-          @click="redWin" :disabled="redWins > 2 || gameOver">Win 3</button>
+          @click="redWin" :disabled="redWins !== 2 || gameOver">Win 3</button>
       </div>
     </div>
     <h3>Blue Team</h3>
@@ -25,11 +25,11 @@
       </div>
       <div class="col-3">
         <button type="button" v-bind:class="[blueWins > 0 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins > 0 || gameOver">Win 1</button>
+          @click="blueWin" :disabled="blueWins !== 0 || gameOver">Win 1</button>
         <button type="button" v-bind:class="[blueWins > 1 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins > 1 || gameOver">Win 2</button>
+          @click="blueWin" :disabled="blueWins !== 1 || gameOver">Win 2</button>
         <button type="button" v-bind:class="[blueWins > 2 ? 'btn-primary' : 'btn-outline-primary', 'btn']" 
-          @click="blueWin" :disabled="blueWins > 2 || gameOver">Win 3</button>
+          @click="blueWin" :disabled="blueWins !== 2 || gameOver">Win 3</button>
       </div>
     </div>
   </div>
