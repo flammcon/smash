@@ -5,79 +5,59 @@
       <div class="split split-one">
         <div class="round round-one current">
           <div class="round-details"><br/><span class="date">Game 1</span></div> 
-          <ul class="matchup">
-            <li class="team team-top">{{teams[0].player1.name}}<span class="score">0</span></li>
-            <li class="team team-bottom">{{teams[0].player2.name}}<span class="score">0</span></li>
-          </ul>
-          <ul class="matchup">
-            <li class="team team-top">{{teams[3].player1.name}}<span class="score">0</span></li>
-            <li class="team team-bottom">{{teams[3].player2.name}}<span class="score">0</span></li>
-          </ul>                                    
-        </div>  <!-- END ROUND ONE -->
+          <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.id}`" 
+            :seed="`${team.id}`" :team="team" :wins="team.wins" @click.native="addWin(game1, team)"/>
+        </div> 
+        <!-- END ROUND ONE -->
 
         <div class="round round-two">
-          <div class="round-details"><br/></div>      
-          <ul class="matchup">
-            <li class="team team-top">Winner Game 1<span class="score">&nbsp;</span></li>
-            <li class="team team-bottom">Winner Game 1<span class="score">&nbsp;</span></li>
-          </ul>                                     
-        </div>  <!-- END ROUND TWO -->  
+          <div class="round-details"><br/></div>
+          <BracketTeam :seed="`${game4.teams[0].id}`" :team="game4.teams[0]" :wins="game4.teams[0].wins" @click.native="addWin(game4, game4.teams[0])"/>
+        </div> 
+        <!-- END ROUND TWO -->  
       </div> 
 
       <div class="champion">
         <div class="final">
           <i class="fa fa-trophy"></i>
           <div class="round-details">Champions<br/><span class="date">Game 4</span></div>    
-          <ul class ="matchup championship">
-            <li class="team team-top">Winner Game 4<span class="vote-count">&nbsp;</span></li>
-            <li class="team team-bottom">Winner Game 4<span class="vote-count">&nbsp;</span></li>
+          <ul class="team championship">
+            <li class="player player-top">{{game4.winner.player1 ? game4.winner.player1.name : "Winner Game 4"}}<span class="vote-count">&nbsp;</span></li>
+            <li class="player player-bottom">{{game4.winner.player2 ? game4.winner.player2.name : "Winner Game 4"}}<span class="vote-count">&nbsp;</span></li>
           </ul>
         </div>
       </div>
 
       <div class="split split-two"> 
-
+        
         <div class="round round-two">
-          <div class="round-details"><br/></div>                  
-          <ul class="matchup">
-            <li class="team team-top">Winner Game 2<span class="score">&nbsp;</span></li>
-            <li class="team team-bottom">Winner Game 2<span class="score">&nbsp;</span></li>
-          </ul>                           
-        </div>  <!-- END ROUND TWO -->
+          <div class="round-details"><br/></div>
+          <BracketTeam :seed="`${game4.teams[1].id}`" :team="game4.teams[1]" :wins="game4.teams[1].wins" @click.native="addWin(game4, game4.teams[1])" reverse/>                   
+        </div> 
+        <!-- END ROUND TWO -->
 
         <div class="round round-one current">
-          <div class="round-details"><br/><span class="date">Game 2</span></div> 
-          <ul class="matchup">
-            <li class="team team-top">{{teams[1].player1.name}}<span class="score">0</span></li>
-            <li class="team team-bottom">{{teams[1].player2.name}}<span class="score">0</span></li>
-          </ul>
-          <ul class="matchup">
-            <li class="team team-top">{{teams[2].player1.name}}<span class="score">0</span></li>
-            <li class="team team-bottom">{{teams[2].player2.name}}<span class="score">0</span></li>
-          </ul>                                   
-        </div>  <!-- END ROUND ONE -->                          
+          <div class="round-details"><br/><span class="date">Game 2</span></div>
+          <BracketTeam v-for="team in game2.teams" :key="`game2-team${team.id}`" reverse
+            :seed="`${team.id}`" :team="team" :wins="team.wins" @click.native="addWin(game2, team)"/>                               
+        </div>
+        <!-- END ROUND ONE -->                          
       </div>
     </div>
     <h4>Losers Bracket</h4>
     <div class="container">
       <div class="split split-one">
         <div class="round round-one">
-          <div class="round-details"><br/><span class="date">Game 3</span></div> 
-          <ul class="matchup">
-            <li class="team team-top">Loser Game 1<span class="score">&nbsp;</span></li>
-            <li class="team team-bottom">Loser Game 1<span class="score">&nbsp;</span></li>
-          </ul>
-          <ul class="matchup">
-            <li class="team team-top">Loser Game 2<span class="score">&nbsp;</span></li>
-            <li class="team team-bottom">Loser Game 2<span class="score">&nbsp;</span></li>
-          </ul>                                 
+          <div class="round-details"><br/><span class="date">Game 3</span></div>
+          <BracketTeam v-for="(team, index) in game3.teams" :key="`game3-team${index}`" 
+            :seed="`${team.id}`" :team="team" :wins="team.wins" @click.native="addWin(game3, team)"/>
         </div>  <!-- END ROUND ONE -->
 
         <div class="round round-two">
-          <div class="round-details">3rd Place<br/></div>       
-          <ul class="matchup">
-            <li class="team team-top">Winner Game 3<span class="score">&nbsp;</span></li>
-            <li class="team team-bottom">Winner Game 3<span class="score">&nbsp;</span></li>
+          <div class="round-details">3rd Place<br/></div>     
+          <ul class="team">
+            <li class="player player-top">{{game3.winner.player1 ? game3.winner.player1.name : "Game 3 Winner"}}<span class="right">&nbsp;</span></li>
+            <li class="player player-bottom">{{game3.winner.player2 ? game3.winner.player2.name : "Game 3 Winner"}}<span class="right">&nbsp;</span></li>
           </ul>                                     
         </div>  <!-- END ROUND TWO -->              
       </div>
@@ -86,14 +66,86 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+//import { mapState } from 'vuex'
+import BracketTeam from './BracketTeam'
 
 export default {
   name: 'Bracket',
-  computed: {
-    ...mapState({
-      teams: state => state.results.twoVsTwoSeeding,
-    }),
+  components: {
+    BracketTeam
+  },
+  props: {
+    teams: Array
+  },
+  data() {
+    return {
+      game1: {
+        teams: [ { ...this.teams[0], wins: 0 }, { ...this.teams[3], wins: 0 } ],
+        winner: {},
+        loser: {},
+        isOver: false,
+      },
+      game2: {
+        teams: [ { ...this.teams[1], wins: 0 }, { ...this.teams[2], wins: 0 } ],
+        winner: {},
+        loser: {},
+        isOver: false,
+      },
+      game3: {
+        teams: [
+          { id: "", player1: { name: "Loser Game 1" }, player2: { name: "Loser Game 1" }, wins: 0 },
+          { id: "", player1: { name: "Loser Game 2" }, player2: { name: "Loser Game 2" }, wins: 0 }
+        ],
+        winner: {},
+        loser: {},
+        isOver: false,
+      },
+      game4: {
+        teams: [
+          { id: "", player1: { name: "Winner Game 1" }, player2: { name: "Winner Game 1" }, wins: 0 },
+          { id: "", player1: { name: "Winner Game 2" }, player2: { name: "Winner Game 2" }, wins: 0 }
+        ],
+        winner: {},
+        loser: {},
+        isOver: false,
+      }
+    }
+  },
+  watch:{
+    'game1.isOver': function () {
+      this.updateLoserGame(this.game1, this.game3, 0);
+      this.updateWinnerGame(this.game1, this.game4, 0);
+    },
+    'game2.isOver': function() {
+      this.updateLoserGame(this.game2, this.game3, 1);
+      this.updateWinnerGame(this.game2, this.game4, 1);
+    },
+    'game4.isOver': function() {
+      const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
+      this.$store.commit('update2v2Scores', results);
+    }
+ },
+  methods: {
+    addWin: function(game, team) {
+      if (!game.isOver) {
+        team.wins++;
+        if (team.wins === 2) {
+          game.winner = {...team};
+          game.loser = {...game.teams.find(x => x.id !== team.id)};
+          game.isOver = true;
+        }
+      }
+    },
+    updateLoserGame(currentGame, loserGame, index) {
+      const loser = {...currentGame.loser};
+      loser.wins = 0;
+      loserGame.teams[index] = loser;
+    },
+    updateWinnerGame(currentGame, winnerGame, index) {
+      const winner = {...currentGame.winner};
+      winner.wins = 0;
+      winnerGame.teams[index] = winner;
+    }
   }
 }
 </script>
@@ -108,15 +160,17 @@ export default {
 .round {display:block;float:left;display: -webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;width:95%;width:30.8333%\9;}
 .split-one .round {margin: 0 2.5% 0 0;}
 .split-two .round {margin: 0 0 0 2.5%;}
-.matchup {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
-.score {font-size: 11px;text-transform: uppercase;float: right;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;right: 5px;}
-.team {padding: 0 5px;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
-.round-two .matchup {margin:0; height: 60px;padding: 40px 0;}
-.round-three .matchup {margin:0; height: 60px; padding: 130px 0;}
+.team {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
+.team:hover .player {background-color: rgba(255, 255, 255, 0.7)}
+.right {font-size: 11px;text-transform: uppercase;float: right;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;right: 5px;}
+.left {font-size: 11px;text-transform: uppercase;float: left;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;left: 5px;}
+.player {padding: 0 5px;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
+.round-two .team {margin:0; height: 60px;padding: 40px 0;}
+.round-three .team {margin:0; height: 60px; padding: 130px 0;}
 .round-details {font-family: 'Roboto Condensed', sans-serif; font-size: 13px; color: #2C7399;text-transform: uppercase;text-align: center;height: 40px;}
 .champion li, .round li {background-color: #fff;box-shadow: none; opacity: 0.45;}
 .current li {opacity: 1;}
-.current li.team {background-color: #fff;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);opacity: 1;}
+.current li.player {background-color: #fff;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);opacity: 1;}
 .vote-options {display: block;height: 52px;}
 .share .container {margin: 0 auto; text-align: center;}
 .share-icon {font-size: 24px; color: #fff;padding: 25px;}
@@ -164,8 +218,6 @@ export default {
 .share-icon:hover { opacity:1;  -webkit-animation: pulse 0.5s; animation: pulse 0.5s;}
 .date {font-size: 10px; letter-spacing: 2px;font-family: 'Istok Web', sans-serif;color:#3F915F;}
 
-
-
 @media screen and (min-width: 981px) and (max-width: 1099px) {
   .container {margin: 0 1%;}
   .champion {width: 14%;}
@@ -188,7 +240,6 @@ export default {
 
 
 @media screen and (max-width: 400px) {
-
   .split {width: 95%;margin: 25px 2.5%;}
   .round {width:21%;}
   .current {-webkit-flex-grow:1;-moz-flex-grow:1;flex-grow:1;}

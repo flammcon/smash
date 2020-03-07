@@ -5,7 +5,7 @@
       <TwoVsTwoSeeding/>
     </div>
     <div class="col" v-if="teams.length > 0">
-      <Bracket/>
+      <Bracket :teams="teams"/>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapState({
-      teams: state => state.results.twoVsTwoSeeding,
+      teams: state => state.results.twoVsTwoSeeding
     }),
   },
   methods: {

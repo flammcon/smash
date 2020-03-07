@@ -35,6 +35,24 @@ const store = new Vuex.Store({
       const player = state.players.find(x => x.id === payload.playerId);
       player.results.twoVsTwoSeeding = payload.rank;
     },
+    update2v2Scores(state, results) {
+      results.forEach((team, index) => {
+        let points = 0;
+        if (index === 0) {
+          points = 4;
+        } else if (index === 1) {
+          points = 2;
+        } else if (index === 2) {
+          points = 1;
+        }
+
+        const player1 = state.players.find(x => x.id === team.player1.id);
+        player1.results.twoVsTwo = points;
+      
+        const player2 = state.players.find(x => x.id === team.player2.id);
+        player2.results.twoVsTwo = points;
+      });
+    },
     update4v4Scores(state, winners) {
       winners.forEach(winner => {
         const player = state.players.find(x => x.id === winner.id);
