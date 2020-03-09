@@ -41,7 +41,7 @@
           <div class="tab-pane fade" id="nav-4v4" role="tabpanel" aria-labelledby="nav-4v4-tab"><FourVsFour/></div>
           <div class="tab-pane fade" id="nav-2v2" role="tabpanel" aria-labelledby="nav-2v2-tab"><TwoVsTwo/></div>
           <div class="tab-pane fade" id="nav-pods" role="tabpanel" aria-labelledby="nav-pods-tab"><Pods/></div>
-          <div class="tab-pane fade" id="nav-1v1" role="tabpanel" aria-labelledby="nav-1v1-tab">...</div>
+          <div class="tab-pane fade" id="nav-1v1" role="tabpanel" aria-labelledby="nav-1v1-tab"><SoloBracket/></div>
         </div>
       </div>
     </div>
@@ -54,6 +54,7 @@ import Draft from './components/Draft'
 import FourVsFour from './components/4v4';
 import TwoVsTwo from './components/2v2';
 import Pods from './components/Pods';
+import SoloBracket from './components/SoloBracket';
 
 export default {
   name: 'App',
@@ -62,7 +63,8 @@ export default {
     Draft,
     FourVsFour,
     TwoVsTwo,
-    Pods
+    Pods,
+    SoloBracket
   },
   created() {
     this.$store.dispatch('loadPlayers')

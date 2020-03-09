@@ -106,17 +106,10 @@ export default {
   watch: {
     'lockedPods': function(newValue, oldValue) {
       if (newValue === 8) {
-        // let duplicates = [];
-        // this.sortedPlayers.forEach((player, index) => {
-        //   const firstIndex = podScores.indexOf(player.results.podScore);
-        //   if (firstIndex !== index) {
-        //     duplicates = [firstIndex, index];
-        //   }
-        // });
         if (!this.hasDuplicatePodScores()) {
           this.gameOver = true;
         }
-      } else if (oldValue === 8) {
+      } else if (oldValue === 8 && this.gameOver) {
         this.gameOver = false;
         this.$store.commit('set1v1SeedingResults', []);
       }
