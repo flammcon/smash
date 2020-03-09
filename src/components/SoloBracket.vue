@@ -5,13 +5,16 @@
       <div class="split split-one">
         <div class="round round-one">
           <div class="round-details">Round 1<br/><span class="date">Games 1 and 2</span></div>
-          <Matchup :players="game1.players" :current="game1.isCurrent"/>
-          <Matchup :players="game2.players" :current="game2.isCurrent"/>                         
+          <Matchup :players="game1Players" :game.sync="game1" 
+            @matchOver="updateNextMatch(game1, game2, game7, game5, 0)"/>
+          <Matchup :players="game2Players" :game.sync="game2"
+            @matchOver="updateNextMatch(game2, game3, game7, game5, 1)"/>                         
         </div>  <!-- END ROUND ONE -->
 
         <div class="round round-two">
           <div class="round-details">Round 2<br/><span class="date">Game 7</span></div>      
-          <Matchup :players="game7.players" :current="game7.isCurrent"/>                                  
+          <Matchup :players="game7.players" :game.sync="game7"
+            @matchOver="updateNextMatch(game7, game8, game12, game11, 0)"/>                                  
         </div>  <!-- END ROUND TWO -->  
       </div> 
 
@@ -19,28 +22,33 @@
         <div class="final">
           <i class="fa fa-trophy"></i>
           <div class="round-details">Championship<br/><span class="date">Game 12</span></div>    
-          <Matchup :players="game12.players" :current="game12.isCurrent"/>      
+          <Matchup :players="game12.players" :game.sync="game12"
+            @matchOver="updateNextMatch(game12, null, null, null, 0)"/>      
         </div>
       </div>
 
       <div class="split split-two"> 
         <div class="round round-two">
           <div class="round-details">Round 2<br/><span class="date">Game 8</span></div>                  
-          <Matchup :players="game8.players" :current="game8.isCurrent" reverse/>                          
+          <Matchup :players="game8.players" :game.sync="game8" reverse
+            @matchOver="updateNextMatch(game8, game9, game12, game11, 1)"/>                          
         </div>  <!-- END ROUND TWO -->
 
         <div class="round round-one">
           <div class="round-details">Round 1<br/><span class="date">Games 3 and 4</span></div>
-          <Matchup :players="game3.players" :current="game3.isCurrent" reverse/>
-          <Matchup :players="game4.players" :current="game4.isCurrent" reverse/>                          
+          <Matchup :players="game3Players" :game.sync="game3" reverse
+            @matchOver="updateNextMatch(game3, game4, game8, game6, 0)"/>
+          <Matchup :players="game4Players" :game.sync="game4" reverse
+            @matchOver="updateNextMatch(game4, game5, game8, game6, 1)"/>                          
         </div>  <!-- END ROUND ONE -->                          
       </div>
     </div>
     <div class="container">
       <div class="split split-one">
         <div class="round round-one">
-          <div class="round-details">3rd Place<br/><span class="date">Games 11</span></div>
-          <Matchup :players="game11.players" :current="game11.isCurrent"/>                                 
+          <div class="round-details">3rd Place<br/><span class="date">Game 11</span></div>
+          <Matchup :players="game11.players" :game.sync="game11"
+            @matchOver="updateNextMatch(game11, game12, null, null, 0)"/>                                 
         </div>  <!-- END ROUND ONE -->
         <div class="round round-two"/>
       </div> 
@@ -56,13 +64,16 @@
       <div class="split split-one">
         <div class="round round-one">
           <div class="round-details"><br/><span class="date">Games 5 and 6</span></div>
-          <Matchup :players="game5.players" :current="game5.isCurrent"/>  
-          <Matchup :players="game5.players" :current="game5.isCurrent"/>                                  
+          <Matchup :players="game5.players" :game.sync="game5"
+            @matchOver="updateNextMatch(game5, game6, game10, game9, 0)"/>  
+          <Matchup :players="game6.players" :game.sync="game6"
+            @matchOver="updateNextMatch(game6, game7, game10, game9, 1)"/>                                  
         </div>  <!-- END ROUND ONE -->
 
         <div class="round round-two">
           <div class="round-details">5th Place<br/><span class="date">Game 10</span></div>       
-          <Matchup :players="game10.players" :current="game10.isCurrent"/>                                  
+          <Matchup :players="game10.players" :game.sync="game10"
+            @matchOver="updateNextMatch(game10, game11, null, null, 0)"/>                                  
         </div>  <!-- END ROUND TWO -->  
       </div> 
 
@@ -71,7 +82,8 @@
       <div class="split split-two"> 
         <div class="round round-two">
           <div class="round-details">7th Place<br/><span class="date">Game 9</span></div>
-          <Matchup :players="game9.players" :current="game9.isCurrent"/>  
+          <Matchup :players="game9.players" :game.sync="game9"
+            @matchOver="updateNextMatch(game9, game10, null, null, 0)"/>  
         </div>  <!-- END ROUND TWO -->
 
         <div class="round round-one">                         
@@ -90,7 +102,7 @@ export default {
   components: {
     Matchup
   },
-    data() {
+  data() {
     return {
       game1: {
         players: [
@@ -218,6 +230,51 @@ export default {
     ...mapState({
       players: state => state.results.oneVsOneSeeding,
     }),
+    game1Players() {
+      return this.players.length > 0 ? [{...this.players[0], wins:0, seed:1}, {...this.players[7], wins:0, seed:8}] : this.game1.players;
+    },
+    game2Players() {
+      return this.players.length > 0 ? [{...this.players[3], wins:0, seed:4}, {...this.players[4], wins:0, seed:5}] : this.game2.players;
+    },
+    game3Players() {
+      return this.players.length > 0 ? [{...this.players[2], wins:0, seed:3}, {...this.players[5], wins:0, seed:6}] : this.game3.players;
+    },
+    game4Players() {
+      return this.players.length > 0 ? [{...this.players[1], wins:0, seed:2}, {...this.players[6], wins:0, seed:7}] : this.game4.players;
+    }
+  },
+  methods: {
+    updateNextMatch(currentGame, nextGame, winnerGame, loserGame, index) {
+      if (winnerGame) {
+        const winner = {...currentGame.winner};
+        winner.wins = 0;
+
+        const loser = {...currentGame.loser};
+        loser.wins = 0;
+
+        winnerGame.players.splice(index, 1, winner);
+        loserGame.players.splice(index, 1, loser);
+      }
+
+      currentGame.isOver = true;
+      currentGame.isCurrent = false;
+
+      if (nextGame) {
+        nextGame.isCurrent = true;
+      } else {
+        const results = [
+          this.game9.loser,
+          this.game9.winner,
+          this.game10.loser,
+          this.game10.winner,
+          this.game11.loser,
+          this.game11.winner,
+          this.game12.loser,
+          this.game12.winner,
+        ];
+        this.$store.commit('update1v1Scores', results);
+      }
+    }
   }
 }
 </script>
@@ -232,15 +289,10 @@ export default {
 .round {display:block;float:left;display: -webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;width:95%;width:30.8333%\9;}
 .split-one .round {margin: 0 2.5% 0 0;}
 .split-two .round {margin: 0 0 0 2.5%;}
-.matchup {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
-.score {font-size: 11px;text-transform: uppercase;float: right;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;right: 5px;}
-.team {padding: 0 5px;margin: 3px 0;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
 .round-two .matchup {margin:0; height: 60px;padding: 40px 0;}
 .round-three .matchup {margin:0; height: 60px; padding: 130px 0;}
 .round-details {font-family: 'Roboto Condensed', sans-serif; font-size: 13px; color: #2C7399;text-transform: uppercase;text-align: center;height: 40px;}
 .champion li, .round li {background-color: #fff;box-shadow: none; opacity: 0.45;}
-.current li {opacity: 1;}
-.current li.team {background-color: #fff;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);opacity: 1;}
 .vote-options {display: block;height: 52px;}
 .share .container {margin: 0 auto; text-align: center;}
 .share-icon {font-size: 24px; color: #fff;padding: 25px;}
