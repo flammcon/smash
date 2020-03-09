@@ -10,7 +10,9 @@ const store = new Vuex.Store({
     characters: [],
     players: [],
     results: {
-      twoVsTwoSeeding: []
+      bloodbath: [],
+      twoVsTwoSeeding: [],
+      oneVsOneSeeding: []
     }
   },
   mutations: {
@@ -20,8 +22,14 @@ const store = new Vuex.Store({
     setPlayers (state, players) {
       state.players = players;
     },
+    setBloodBathResults (state, results) {
+      state.results.bloodbath = results;
+    },
     set2v2SeedingResults (state, results) {
       state.results.twoVsTwoSeeding = results;
+    },
+    set1v1SeedingResults (state, results) {
+      state.results.oneVsOneSeeding = results;
     },
     updatePlayerCharacter (state, payload) {
       const player = state.players.find(x => x.id === payload.playerId);
@@ -61,7 +69,7 @@ const store = new Vuex.Store({
     },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
-      player.score += payload.score;
+      player.results.podScore += payload.score;
     },
     clearPlayerPodScores (state) {
       for (const player of state.players) {
@@ -81,6 +89,7 @@ const store = new Vuex.Store({
       })
     },
     updateBloodbathResults: ({ commit }, payload) => {
+      commit("setBloodBathResults", payload);
       payload.forEach((player, index) => {
         commit("updateBloodbathRank", {playerId: player.id, rank: index + 1});
       })

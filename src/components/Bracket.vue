@@ -139,7 +139,6 @@ export default {
   methods: {
     addWin: function(game, team) {
       if (!game.isOver && game.isCurrent) {
-        console.log(team);
         team.wins++;
         if (team.wins === 2) {
           game.winner = {...team};

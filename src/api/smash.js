@@ -25,7 +25,8 @@ export default {
           fourVsFour: 0,
           twoVsTwoSeeding: 0,
           twoVsTwo: 0,
-          oneVsOne: 0
+          oneVsOne: 0,
+          podScore: 0,
         },
         disabled: value.disabled
       };
@@ -35,9 +36,7 @@ export default {
 
   getAssetUrl(id) {
     const character = characters.find(x => x.id == id);
-    
     const url = id === 0 ? `Unknown` : `${id}-${character.name.replace(/[.]/g, "")}`;
-
     return require(`../assets/characters/${url}.png`);
   },
 

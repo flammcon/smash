@@ -32,7 +32,7 @@
             <a class="nav-item nav-link active" id="nav-draft-tab" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-draft" aria-selected="true">Draft</a>
             <a class="nav-item nav-link" id="nav-4v4-tab" data-toggle="tab" href="#nav-4v4" role="tab" aria-controls="nav-4v4" aria-selected="false">4v4</a>
             <a class="nav-item nav-link" id="nav-2v2-tab" data-toggle="tab" href="#nav-2v2" role="tab" aria-controls="nav-2v2" aria-selected="false">2v2</a>
-            <a class="nav-item nav-link" id="nav-1v1v1v1-tab" data-toggle="tab" href="#nav-1v1v1v1" role="tab" aria-controls="nav-1v1v1v1" aria-selected="false">1v1v1v1</a>
+            <a class="nav-item nav-link" id="nav-pods-tab" data-toggle="tab" href="#nav-pods" role="tab" aria-controls="nav-pods" aria-selected="false">Pods</a>
             <a class="nav-item nav-link" id="nav-1v1-tab" data-toggle="tab" href="#nav-1v1" role="tab" aria-controls="nav-1v1" aria-selected="false">1v1</a>
           </div>
         </nav>
@@ -40,7 +40,7 @@
           <div class="tab-pane fade show active" id="nav-draft" role="tabpanel" aria-labelledby="nav-draft-tab"><Draft/></div>
           <div class="tab-pane fade" id="nav-4v4" role="tabpanel" aria-labelledby="nav-4v4-tab"><FourVsFour/></div>
           <div class="tab-pane fade" id="nav-2v2" role="tabpanel" aria-labelledby="nav-2v2-tab"><TwoVsTwo/></div>
-          <div class="tab-pane fade" id="nav-1v1v1v1" role="tabpanel" aria-labelledby="nav-1v1v1v1-tab">...</div>
+          <div class="tab-pane fade" id="nav-pods" role="tabpanel" aria-labelledby="nav-pods-tab"><Pods/></div>
           <div class="tab-pane fade" id="nav-1v1" role="tabpanel" aria-labelledby="nav-1v1-tab">...</div>
         </div>
       </div>
@@ -53,6 +53,7 @@ import PlayerCard from './components/PlayerCard'
 import Draft from './components/Draft'
 import FourVsFour from './components/4v4';
 import TwoVsTwo from './components/2v2';
+import Pods from './components/Pods';
 
 export default {
   name: 'App',
@@ -60,7 +61,8 @@ export default {
     PlayerCard,
     Draft,
     FourVsFour,
-    TwoVsTwo
+    TwoVsTwo,
+    Pods
   },
   created() {
     this.$store.dispatch('loadPlayers')
