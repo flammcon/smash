@@ -3,14 +3,14 @@
     <button v-if="results.length === 0" type="button" class="btn btn-primary" @click="getPlayers">Load</button>
     <div v-if="results.length > 0">
       <table class="table table-sm">
-        <draggable v-model="results" tag="tbody">
+        <draggable v-model="results" tag="tbody" :disabled="locked">
           <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
             <th scope="row">{{index + 1}}</th>
             <td><PlayerCard :player="player" :index="index"/></td>
           </tr>
         </draggable>
       </table>
-      <button type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
+      <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
     </div>
   </div>
 </template>
@@ -27,12 +27,14 @@ export default {
   },
   data() {
     return {
-      results: []
+      results: [],
+      locked: false,
     }
   },
   methods: {
     updateRanks() {
       this.$store.dispatch('updateBloodbathResults', this.results);
+      this.locked = true;
     },
     getPlayers() {
       this.results = [...this.$store.state.players];
