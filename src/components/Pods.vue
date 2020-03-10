@@ -12,7 +12,7 @@
         <tbody>
           <tr v-for="(player, index) in sortedPlayers" :key="player.id">
             <th scope="row">{{index + 1}}</th>
-            <td @click="incrementPodScore(player.id)"><PlayerCard :player="player" :index="index"/></td>
+            <td @click="incrementPodScore(player)"><PlayerCard :player="player" :index="index"/></td>
             <th scope="row">{{player.results.podScore}}</th>
           </tr>
         </tbody>
@@ -37,7 +37,6 @@
 
 <script>
 import { mapState } from 'vuex'
-//import draggable from "vuedraggable";
 import PlayerCard from './PlayerCard';
 import Pod from './Pod';
 
@@ -46,7 +45,6 @@ export default {
   components: {
     Pod,
     PlayerCard
-    //draggable
   },
   data() {
     return {
@@ -125,9 +123,15 @@ export default {
       const podScores = this.sortedPlayers.map(player => player.results.podScore);
       return podScores.some((item, index) => podScores.indexOf(item) !== index)
     },
-    incrementPodScore(id) {
-      if (this.lockedPods === 8 && this.hasDuplicatePodScores()) {
-        this.$store.dispatch('updatePlayerPodScore', {id: id, score: -0.5});
+    hasDuplicatePodScore(player) {
+      const podScores = this.sortedPlayers.map(player => player.results.podScore);
+      const podScore = player.results.podScore;
+
+      return podScores.indexOf(podScore) != podScores.lastIndexOf(podScore);
+    },
+    incrementPodScore(player) {
+      if (this.lockedPods === 8 && this.hasDuplicatePodScore(player)) {
+        this.$store.dispatch('updatePlayerPodScore', {id: player.id, score: -0.1});
         if (!this.hasDuplicatePodScores()) {
           this.gameOver = true;
         }
