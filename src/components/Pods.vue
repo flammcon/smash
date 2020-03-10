@@ -13,7 +13,7 @@
           <tr v-for="(player, index) in sortedPlayers" :key="player.id">
             <th scope="row">{{index + 1}}</th>
             <td @click="incrementPodScore(player)"><PlayerCard :player="player" :index="index"/></td>
-            <th scope="row">{{player.results.podScore}}</th>
+            <th scope="row">{{player.results.podScore.toFixed(1)}}</th>
           </tr>
         </tbody>
       </table>

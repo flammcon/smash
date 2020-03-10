@@ -15,13 +15,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(player, index) in sortedPlayers" :key="player.id">
+            <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementTotalScore(player)">
               <th scope="row">{{index + 1}}</th>
               <td><PlayerCard :player="player" :index="index"/></td>
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
-              <td style="font-weight: bold">{{totalPoints(player.results)}}</td>
+              <td style="font-weight: bold">{{totalPoints(player.results).toFixed(1)}}</td>
             </tr>
           </tbody>
         </table>
@@ -88,7 +88,18 @@ export default {
   },
   methods: {
     totalPoints(results) {
-      return results.fourVsFour + results.twoVsTwo + results.oneVsOne;
+      return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
+    },
+    hasDuplicateTotalScore(player) {
+      const totalScores = this.sortedPlayers.map(player => this.totalPoints(player.results));
+      const totalScore = this.totalPoints(player.results);
+
+      return totalScores.indexOf(totalScore) != totalScores.lastIndexOf(totalScore);
+    },
+    incrementTotalScore(player) {
+      if (this.$store.state.results.gameOver && this.hasDuplicateTotalScore(player)) {
+        player.results.totalAdj += 0.1;
+      }
     }
   }
 }

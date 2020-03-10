@@ -27,6 +27,7 @@ export default {
           twoVsTwo: 0,
           oneVsOne: 0,
           podScore: 0,
+          totalAdj: 0
         },
         disabled: value.disabled
       };

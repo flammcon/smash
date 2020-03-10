@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     results: {
       bloodbath: [],
       twoVsTwoSeeding: [],
-      oneVsOneSeeding: []
+      oneVsOneSeeding: [],
+      gameOver: false
     }
   },
   mutations: {
@@ -71,6 +72,7 @@ const store = new Vuex.Store({
         const team = state.players.find(x => x.id === player.id);
         team.results.oneVsOne = points;
       });
+      state.results.gameOver = true;
     },
     update4v4Scores(state, winners) {
       winners.forEach(winner => {
