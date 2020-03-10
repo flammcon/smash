@@ -6,6 +6,7 @@
           :list="this.teams"
           class="list-group"
           ghost-class="ghost"
+          :disabled="locked"
         >
 
         <div v-for="team in this.teams" :key="team.id">
@@ -15,7 +16,7 @@
           </ul>
         </div>
       </draggable>
-      <button type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
+      <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
     </div>
   </div>
 </template>
@@ -30,12 +31,14 @@ export default {
   },
   data() {
     return {
-      teams: []
+      teams: [],
+      locked: false
     }
   },
   methods: {
     updateRanks() {
       this.$store.dispatch('update2v2SeedingResults', this.teams);
+      this.locked = true;
     },
     getTeams() {
       const players = this.$store.getters.bloodbathResults;
