@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     selectCharacter(character) {
-      if (!this.disableCharacter(character.id)) {
+      if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
         this.$store.commit("updatePlayerCharacter", {playerId: this.current_player_id, character: character.url});
         this.current_player_id += 1;
         this.chosen_characters.push(character.id);
@@ -98,21 +98,21 @@ img:hover {
   flex-wrap: wrap;
 }
 
-.chosen > img {
-  background-color: lightskyblue;
-}
-
-.chosen > img:hover {
-  background-color: lightskyblue;
-  border: 0px;
-}
-
 .disabled > img {
   background-color: lightgrey;
 }
 
 .disabled > img:hover {
   background-color: lightgrey;
+  border: 0px;
+}
+
+.chosen > img {
+  background-color: lightskyblue;
+}
+
+.chosen > img:hover {
+  background-color: lightskyblue;
   border: 0px;
 }
 
