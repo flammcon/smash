@@ -1,5 +1,5 @@
 <template>
-  <section id="bracket">
+  <section id="bracket" v-if="players.length > 0">
     <h4>Winners Bracket</h4>
     <div class="container">
       <div class="split split-one">

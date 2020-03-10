@@ -130,7 +130,8 @@ const store = new Vuex.Store({
       return state.players.sort((a, b) => {
         return a.results.bloodbath < b.results.bloodbath ? -1 : 1;
       });
-    }
+    },
+    isBloodbathSet: (state) => state.results.bloodbath.length > 0
   }
 });
 

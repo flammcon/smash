@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="isBloodbathSet">
     <div class="col-2">
       <h3>Bloodbath</h3>
       <TwoVsTwoSeeding/>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import TwoVsTwoSeeding from './2v2v2v2';
 import Bracket from './Bracket';
 
@@ -25,6 +25,7 @@ export default {
     ...mapState({
       teams: state => state.results.twoVsTwoSeeding
     }),
+    ...mapGetters(['isBloodbathSet']),
   },
   methods: {
     gameOver: function() { 
