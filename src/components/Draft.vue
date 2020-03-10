@@ -4,7 +4,7 @@
     <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
     <div id="characters">
       <div class="character" v-for="character in characters" 
-        v-bind:class="{disabled: disableCharacter(character.id)}"
+        v-bind:class="{disabled: disableCharacter(character.id), chosen: chosenCharacter(character.id)}"
         :key="character.id" 
         @click="selectCharacter(character)">
         <img :src="character.url" :alt="character.name"/>
@@ -40,7 +40,10 @@ export default {
     },
     disableCharacter(character) {
       const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
-      return this.chosen_characters.find(id => id === character) || disabled.find(id => id === character);
+      return disabled.find(id => id === character);
+    },
+    chosenCharacter(character) {
+      return this.chosen_characters.find(id => id === character);
     },
     selectRandomCharacter() {
       const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
@@ -93,6 +96,15 @@ img:hover {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.chosen > img {
+  background-color: lightpink;
+}
+
+.chosen > img:hover {
+  background-color: lightpink;
+  border: 0px;
 }
 
 .disabled > img {
