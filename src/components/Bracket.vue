@@ -6,13 +6,13 @@
         <div v-bind:class="[{current: game1.isCurrent || game1.isOver}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 1</span></div> 
           <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.id}`" 
-            :seed="`${team.id}`" :team="team" @click.native="addWin(game1, team)"/>
+            :seed="`${team.seed}`" :team="team" @click.native="addWin(game1, team)"/>
         </div> 
         <!-- END ROUND ONE -->
 
         <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
           <div class="round-details"><br/></div>
-          <BracketTeam :seed="`${game4.teams[0].id}`" :team="game4.teams[0]" @click.native="addWin(game4, game4.teams[0])"/>
+          <BracketTeam :seed="`${game4.teams[0].seed}`" :team="game4.teams[0]" @click.native="addWin(game4, game4.teams[0])"/>
         </div> 
         <!-- END ROUND TWO -->  
       </div> 
@@ -31,14 +31,14 @@
       <div class="split split-two"> 
         <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
           <div class="round-details"><br/></div>
-          <BracketTeam :seed="`${game4.teams[1].id}`" :team="game4.teams[1]" @click.native="addWin(game4, game4.teams[1])" reverse/>                   
+          <BracketTeam :seed="`${game4.teams[1].seed}`" :team="game4.teams[1]" @click.native="addWin(game4, game4.teams[1])" reverse/>                   
         </div> 
         <!-- END ROUND TWO -->
 
         <div v-bind:class="[{current: game2.isCurrent || game2.isOver}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 2</span></div>
           <BracketTeam v-for="team in game2.teams" :key="`game2-team${team.id}`" reverse
-            :seed="`${team.id}`" :team="team" @click.native="addWin(game2, team)"/>                               
+            :seed="`${team.seed}`" :team="team" @click.native="addWin(game2, team)"/>                               
         </div>
         <!-- END ROUND ONE -->                          
       </div>
@@ -49,7 +49,7 @@
         <div v-bind:class="[{current: game3.isCurrent || game3.isOver}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 3</span></div>
           <BracketTeam v-for="(team, index) in game3.teams" :key="`game3-team${index}`" 
-            :seed="`${team.id}`" :team="team" @click.native="addWin(game3, team)"/>
+            :seed="`${team.seed}`" :team="team" @click.native="addWin(game3, team)"/>
         </div>  <!-- END ROUND ONE -->
 
         <div v-bind:class="[{current: game3.isOver}, 'round round-two']">
@@ -79,14 +79,14 @@ export default {
   data() {
     return {
       game1: {
-        teams: [ { ...this.teams[0], wins: 0 }, { ...this.teams[3], wins: 0 } ],
+        teams: [ { ...this.teams[0], wins: 0, seed: 1 }, { ...this.teams[3], wins: 0, seed: 4 } ],
         winner: {},
         loser: {},
         isOver: false,
         isCurrent: true
       },
       game2: {
-        teams: [ { ...this.teams[1], wins: 0 }, { ...this.teams[2], wins: 0 } ],
+        teams: [ { ...this.teams[1], wins: 0, seed: 2 }, { ...this.teams[2], wins: 0, seed:3 } ],
         winner: {},
         loser: {},
         isOver: false,
@@ -94,8 +94,8 @@ export default {
       },
       game3: {
         teams: [
-          { id: "", player1: { name: "Loser Game 1" }, player2: { name: "Loser Game 1" }, wins: 0 },
-          { id: "", player1: { name: "Loser Game 2" }, player2: { name: "Loser Game 2" }, wins: 0 }
+          { player1: { name: "Loser Game 1" }, player2: { name: "Loser Game 1" }, wins: 0, seed: "" },
+          { player1: { name: "Loser Game 2" }, player2: { name: "Loser Game 2" }, wins: 0, seed: "" }
         ],
         winner: {},
         loser: {},
@@ -104,8 +104,8 @@ export default {
       },
       game4: {
         teams: [
-          { id: "", player1: { name: "Winner Game 1" }, player2: { name: "Winner Game 1" }, wins: 0 },
-          { id: "", player1: { name: "Winner Game 2" }, player2: { name: "Winner Game 2" }, wins: 0 }
+          { player1: { name: "Winner Game 1" }, player2: { name: "Winner Game 1" }, wins: 0, seed: "" },
+          { player1: { name: "Winner Game 2" }, player2: { name: "Winner Game 2" }, wins: 0, seed: "" }
         ],
         winner: {},
         loser: {},
