@@ -99,11 +99,11 @@ img:hover {
 }
 
 .chosen > img {
-  background-color: lightpink;
+  background-color: lightskyblue;
 }
 
 .chosen > img:hover {
-  background-color: lightpink;
+  background-color: lightskyblue;
   border: 0px;
 }
 
