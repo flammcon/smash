@@ -15,7 +15,7 @@
               <li class="list-group-item">{{team.player1.results.bloodbath}} - {{team.player1.name}}</li>
               <li class="list-group-item">{{team.player2.results.bloodbath}} - {{team.player2.name}}</li>  
             </ul>
-            <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-bars']"/>
+            <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']"/>
           </div>
         </div>
       </draggable>

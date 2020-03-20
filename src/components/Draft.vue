@@ -9,7 +9,7 @@
       >
         <li v-for="player in draft_order" :key="`draft-${player.id}`" class="list-group-item player">
           <div class="playerName">{{player.name}}</div>
-          <i class="fas fa-bars hamburger"/>
+          <i class="fas fa-grip-lines grip"/>
         </li>
       </draggable>
     </ul>
@@ -194,7 +194,7 @@ img:hover {
    flex:1;
 }
 
-.hamburger {
+.grip {
   align-self: center;
 }
 </style>
