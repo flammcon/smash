@@ -23,4 +23,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.card-img {
+  width: 80px;
+  height: 80px;
+  background-color: gold;
+  box-sizing: border-box;
+}
 </style>
