@@ -1,6 +1,19 @@
 <template>
-  <div v-if="current_player">
-    <h5>Select character for <span style="font-weight:bold;">{{current_player.name}}</span></h5>
+  <div v-if="!draft_locked">
+    <h5>Set draft order</h5>
+    <ul class="list-group" id="draft-order">
+      <draggable
+        :list="draft_order"
+        class="list-group"
+        ghost-class="ghost"
+      >
+        <li v-for="player in draft_order" :key="`draft-${player.id}`" class="list-group-item">{{player.name}}</li>
+      </draggable>
+    </ul>
+    <button type="button" class="btn btn-primary btn-sm" :disabled="draft_locked" @click="lockDraftOrder()">Lock</button>
+  </div>
+  <div v-else>
+    <h5 v-if="!draft_over">Select character for <span style="font-weight:bold;">{{current_player.name}}</span></h5>
     <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
     <div id="characters">
       <div class="character" v-for="character in characters" 
@@ -15,51 +28,72 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'Draft',
-  props: {
+  components: {
+    draggable
   },
   created() {
-    this.$store.dispatch('loadCharacters')
+    this.loadCharacters();
   },
   data() {
     return {
-      current_player_id: 1,
-      chosen_characters: []
+      current_draft_pick: 0,
+      drafted_characters: [],
+      draft_locked: false,
     }
   },
   methods: {
+    ...mapActions(['loadCharacters']),
+    ...mapMutations(['updatePlayerCharacter', 'setPlayerDraftPick']),
+    lockDraftOrder() {
+      this.draft_locked = true;
+      this.draft_order.forEach((value, index) => {
+        this.setPlayerDraftPick({playerId: value.id, draftPick: index + 1});
+      });
+    },
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
-        this.$store.commit("updatePlayerCharacter", {playerId: this.current_player_id, character: character.url});
-        this.current_player_id += 1;
-        this.chosen_characters.push(character.id);
+        this.updatePlayerCharacter({playerId: this.current_player_id, character: character.url});
+        this.current_draft_pick++;
+        this.drafted_characters.push(character.id);
       }
     },
     disableCharacter(character) {
-      const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
-      return disabled.find(id => id === character);
+      if (this.draft_over) {
+        return !this.drafted_characters.find(id => id === character);
+      } else {
+        return this.disabled_characters.find(id => id === character);
+      }
     },
     chosenCharacter(character) {
-      return this.chosen_characters.find(id => id === character);
+      return this.drafted_characters.find(id => id === character);
     },
     selectRandomCharacter() {
-      const disabled = this.$store.getters.disabledCharactersByPlayerId(this.current_player_id);
       const available = this.characters.filter(character => {
-        return !(this.chosen_characters.find(id => id === character.id) || disabled.find(id => id === character.id));
+        return !(this.drafted_characters.find(id => id === character.id) || this.disabled_characters.find(id => id === character.id));
       }, this);
       const index = Math.floor(Math.random() * available.length);
       this.selectCharacter(available[index]);
     }
   },
   computed: {
-    ...mapState({
-      characters: state => state.characters,
-    }),
+    ...mapState(['characters', 'players', 'draft_order']),
+    ...mapGetters(['disabledCharactersByPlayerId', 'playerById']),
+    draft_over() {
+      return this.current_draft_pick === 8;
+    },
+    disabled_characters() {
+      return this.draft_over ? [] : this.disabledCharactersByPlayerId(this.current_player_id);
+    },
+    current_player_id() {
+      return this.draft_over ? -1 : this.draft_order[this.current_draft_pick].id;
+    },
     current_player() {
-      return this.$store.getters.playerById(this.current_player_id);
+      return this.draft_over ? {} : this.playerById(this.current_player_id);
     }
   }
 }

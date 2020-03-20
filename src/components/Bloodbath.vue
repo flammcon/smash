@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import draggable from "vuedraggable";
 import PlayerCard from "./PlayerCard";
 
@@ -32,13 +33,17 @@ export default {
       locked: false,
     }
   },
+  computed: {
+    ...mapGetters(['sortedPlayerList']),
+  },
   methods: {
+    ...mapActions(['updateBloodbathResults']),
     updateRanks() {
-      this.$store.dispatch('updateBloodbathResults', this.results);
+      this.updateBloodbathResults(this.results);
       this.locked = true;
     },
     getPlayers() {
-      this.results = [...this.$store.state.players];
+      this.results = [...this.sortedPlayerList];
     }
   }
 }
