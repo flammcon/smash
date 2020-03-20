@@ -11,7 +11,7 @@
         >
         <li v-for="player in players" :key="`${title}-${player.id}`" class="list-group-item team">
           <div class="name">{{player.name}}</div>
-          <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-bars']"/>
+          <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']"/>
         </li>
       </draggable>
     </ul>
