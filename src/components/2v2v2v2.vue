@@ -10,10 +10,13 @@
         >
 
         <div v-for="team in this.teams" :key="team.id">
-          <ul :id="`team-${team.id}`" style="padding: 5px;" class="list-group">
-            <li class="list-group-item">{{team.player1.results.bloodbath}} - {{team.player1.name}}</li>
-            <li class="list-group-item">{{team.player2.results.bloodbath}} - {{team.player2.name}}</li>  
-          </ul>
+          <div class="teams">
+            <ul :id="`team-${team.id}`" style="padding: 5px; width: 150px" class="list-group">
+              <li class="list-group-item">{{team.player1.results.bloodbath}} - {{team.player1.name}}</li>
+              <li class="list-group-item">{{team.player2.results.bloodbath}} - {{team.player2.name}}</li>  
+            </ul>
+            <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-bars']"/>
+          </div>
         </div>
       </draggable>
       <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import draggable from "vuedraggable";
 
 export default {
@@ -35,13 +39,17 @@ export default {
       locked: false
     }
   },
+  computed: {
+    ...mapGetters(['bloodbathResults']),
+  },
   methods: {
+    ...mapActions(['update2v2SeedingResults']),
     updateRanks() {
-      this.$store.dispatch('update2v2SeedingResults', this.teams);
+      this.update2v2SeedingResults(this.teams);
       this.locked = true;
     },
     getTeams() {
-      const players = this.$store.getters.bloodbathResults;
+      const players = this.bloodbathResults;
       this.teams = [
         {id: 1, player1: players[0], player2: players[6]},
         {id: 2, player1: players[1], player2: players[7]},
@@ -55,4 +63,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.teams {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.disabled {
+  color: lightgray;
+}
 </style>

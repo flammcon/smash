@@ -4,7 +4,7 @@
       <div class="col-5">
          <img class="card-img" :alt="player.name" :src="player.character"/>
       </div>
-      <div class="col-7 card-body">
+      <div class="col-7 name">
           {{player.name}}
       </div>
     </div>
@@ -28,5 +28,9 @@ export default {
   height: 80px;
   background-color: gold;
   box-sizing: border-box;
+}
+.name {
+  align-self: center;
+
 }
 </style>

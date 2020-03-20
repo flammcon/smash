@@ -6,8 +6,8 @@
         <draggable v-model="results" tag="tbody" :disabled="locked">
           <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
             <th scope="row">{{index + 1}}</th>
-            <td><i class="fa fa-arrows-alt-v arrow-size" /></td>
             <td><PlayerCard :player="player" :index="index"/></td>
+            <td><i v-bind:class="[{ disabled: locked }, 'fas', 'fa-bars']" /></td>
           </tr>
         </draggable>
       </table>
@@ -51,8 +51,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.arrow-size {
-    vertical-align: middle;
-    font-size: 35px;
+.disabled {
+  color: lightgray;
 }
 </style>

@@ -1,13 +1,16 @@
 <template>
   <div v-if="!draft_locked">
     <h5>Set draft order</h5>
-    <ul class="list-group" id="draft-order">
+    <ul class="list-group players container-fluid" id="draft-order">
       <draggable
         :list="draft_order"
         class="list-group"
         ghost-class="ghost"
       >
-        <li v-for="player in draft_order" :key="`draft-${player.id}`" class="list-group-item">{{player.name}}</li>
+        <li v-for="player in draft_order" :key="`draft-${player.id}`" class="list-group-item player">
+          <div class="playerName">{{player.name}}</div>
+          <i class="fas fa-bars hamburger"/>
+        </li>
       </draggable>
     </ul>
     <button type="button" class="btn btn-primary btn-sm" :disabled="draft_locked" @click="lockDraftOrder()">Lock</button>
@@ -175,5 +178,23 @@ img:hover {
 		1px -1px 0 #000,
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
+}
+
+.players {
+  width: 200px;
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.playerName {
+   flex:1;
+}
+
+.hamburger {
+  align-self: center;
 }
 </style>

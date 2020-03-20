@@ -9,13 +9,17 @@
         ghost-class="ghost"
         :disabled="locked"
         >
-        <li v-for="player in players" :key="`${title}-${player.id}`" class="list-group-item">{{player.name}}</li>
+        <li v-for="player in players" :key="`${title}-${player.id}`" class="list-group-item team">
+          <div class="name">{{player.name}}</div>
+          <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-bars']"/>
+        </li>
       </draggable>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import draggable from 'vuedraggable'
 
 export default {
@@ -33,11 +37,14 @@ export default {
       locked: false,
     }
   },
+  methods: {
+    ...mapActions(['updatePlayerPodScore'])
+  },
   watch: {
     'locked': function() {
       this.players.forEach((player, index) => {
         const points = this.locked ? (index+1) : -1 * (index+1);
-        this.$store.dispatch('updatePlayerPodScore', {id: player.id, score: points});
+        this.updatePlayerPodScore({id: player.id, score: points})
       });
 
       if (this.locked) {
@@ -57,5 +64,23 @@ export default {
 <style scoped>
 .pod-header {
   justify-content: space-between;
+}
+
+.team {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.name {
+   flex:1;
+}
+
+.hamburger {
+  align-self: center;
+}
+
+.disabled {
+  color: lightgray;
 }
 </style>
