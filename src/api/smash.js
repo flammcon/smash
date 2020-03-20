@@ -1,6 +1,6 @@
 import delay from './delay';
 import characters from '../data/characters';
-import draft from '../data/draft';
+import active_players from '../data/players';
 
 export default {
   getCharacters(cb) {
@@ -15,10 +15,11 @@ export default {
   },
 
   getPlayers(cb) {
-    const players = draft.map(value => {
+    const players = active_players.map(player => {
       return {
-        name: value.player,
-        id: value.pick,
+        name: player.name,
+        id: player.id,
+        pick: 0,
         character: this.getAssetUrl(0),
         results: {
           bloodbath: 0,
@@ -29,7 +30,7 @@ export default {
           podScore: 0,
           totalAdj: 0
         },
-        disabled: value.disabled
+        disabled: player.disabled
       };
     });
     setTimeout(() => cb(players), delay);
@@ -49,11 +50,13 @@ export default {
     });
   },
 
-  getDraftOrder() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(Object.assign([], draft));
-      }, delay);
+  getDraftOrder(cb) {
+    const players = active_players.map(player => {
+      return {
+        name: player.name,
+        id: player.id,
+      };
     });
+    setTimeout(() => cb(players), delay);
   }
 }

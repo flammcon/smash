@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex'
 import PlayerCard from './components/PlayerCard'
 import Draft from './components/Draft'
 import FourVsFour from './components/4v4';
@@ -67,19 +68,13 @@ export default {
     SoloBracket
   },
   created() {
-    this.$store.dispatch('loadPlayers')
+    this.loadPlayers();
   },
   computed: {
-    players: {
-      set(players) {
-        this.$store.commit('setPlayers', players);
-      },
-      get() {
-        return this.$store.state.players;
-      }
-    },
+    ...mapState(['players']),
+    ...mapGetters(['sortedPlayerList']),
     sortedPlayers() {
-      return [...this.players].sort((a, b) => {
+      return [...this.sortedPlayerList].sort((a, b) => {
         const totalA = this.totalPoints(a.results);
         const totalB = this.totalPoints(b.results);
         return totalA > totalB ? -1 : 1;
@@ -87,6 +82,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['loadPlayers']),
     totalPoints(results) {
       return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
     },

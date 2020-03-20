@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   state: {  
     characters: [],
     players: [],
+    draft_order: [],
     results: {
       bloodbath: [],
       twoVsTwoSeeding: [],
@@ -22,6 +23,13 @@ const store = new Vuex.Store({
     },
     setPlayers (state, players) {
       state.players = players;
+    },
+    setDraftOrder (state, draftOrder) {
+      state.draft_order = draftOrder;
+    },
+    setPlayerDraftPick (state, payload) {
+      const player = state.players.find(x => x.id === payload.playerId);
+      player.pick = payload.draftPick;
     },
     setBloodBathResults (state, results) {
       state.results.bloodbath = results;
@@ -99,7 +107,13 @@ const store = new Vuex.Store({
     loadPlayers ({ commit }) {
       smash.getPlayers(players => {
         commit('setPlayers', players);
-      })
+      });
+      smash.getDraftOrder(players => {
+        commit('setDraftOrder', players);
+      });
+    },
+    setPlayerDraftPicks ({ commit }) {
+      commit('setPlayerDraftPicks');
     },
     updateBloodbathResults: ({ commit }, payload) => {
       commit("setBloodBathResults", payload);
@@ -121,6 +135,11 @@ const store = new Vuex.Store({
   getters: {
     playerById: (state) => (id) => {
       return state.players.find(player => player.id === id)
+    },
+    sortedPlayerList: (state) => {
+      return [...state.players].sort((a, b) => {
+        return a.pick - b.pick;
+      });
     },
     disabledCharactersByPlayerId: (state) => (id) => {
       const player = state.players.find(x => x.id === id);
