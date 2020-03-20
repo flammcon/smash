@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Bloodbath from './Bloodbath';
 
 export default {
@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     ...mapState({
-      players: state => state.players,
+      players: state => state.results.bloodbath
     }),
     red() {
       return this.players.filter(player => {
@@ -77,16 +77,17 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['update4v4Scores']),
     redWin: function() { 
       this.redWins++; 
       if (this.redWins === 3) {
-        this.$store.commit('update4v4Scores', this.red);
+        this.update4v4Scores(this.red);
       }
     },
     blueWin: function() { 
       this.blueWins++; 
       if (this.blueWins === 3) {
-        this.$store.commit('update4v4Scores', this.blue);
+        this.update4v4Scores(this.blue);
       }
     },
 
