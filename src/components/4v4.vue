@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-2">
           <ul id="redteam" class="list-group">
-            <li v-for="player in red" :key="`redteam-${player.id}`" class="list-group-item">{{player.name}}</li>  
+            <li v-for="player in red" :key="`redteam-${player.id}`" class="list-group-item list-group-item-danger">{{player.name}}</li>  
           </ul>
         </div>
         <div class="col-8">
@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-2">
           <ul id="blueteam" class="list-group">
-            <li v-for="player in blue" :key="`blueteam-${player.id}`" class="list-group-item">{{player.name}}</li>  
+            <li v-for="player in blue" :key="`blueteam-${player.id}`" class="list-group-item list-group-item-primary">{{player.name}}</li>  
           </ul>
         </div>
         <div class="col-8">
@@ -63,7 +63,7 @@ export default {
     red() {
       return this.players.filter(player => {
         const rank = player.results.bloodbath;
-        return  rank === 1 || rank === 4 || rank === 5 || rank === 8;
+        return rank === 1 || rank === 4 || rank === 5 || rank === 8;
       });
     },
     blue() {
