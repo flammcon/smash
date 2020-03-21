@@ -4,7 +4,7 @@
       <draggable v-model="results" tag="tbody" :disabled="locked">
         <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
           <th scope="row">{{index + 1}}</th>
-          <td><PlayerCard :player="player" :index="index"/></td>
+          <td><PlayerCard :player="player"/></td>
           <td><i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']" /></td>
         </tr>
       </draggable>

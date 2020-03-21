@@ -17,7 +17,7 @@
           <tbody>
             <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementTotalScore(player)">
               <th scope="row">{{index + 1}}</th>
-              <td><PlayerCard :player="player" :index="index"/></td>
+              <td><PlayerCard :player="player"/></td>
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
