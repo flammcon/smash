@@ -1,17 +1,20 @@
 <template>
-  <div class="row" v-if="isBloodbathSet">
-    <div class="col-2">
-      <h3>Bloodbath</h3>
-      <TwoVsTwoSeeding/>
-    </div>
-    <div class="col" v-if="teams.length > 0">
-      <Bracket :teams="teams"/>
+  <div>
+    <h2>2 Guys 1 Cup</h2>
+    <div class="row">
+      <div class="col-2">
+        <h3>Seeding</h3>
+        <TwoVsTwoSeeding/>
+      </div>
+      <div class="col" v-if="teams.length > 0">
+        <Bracket :teams="teams"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import TwoVsTwoSeeding from './2v2v2v2';
 import Bracket from './Bracket';
 
@@ -21,16 +24,15 @@ export default {
     TwoVsTwoSeeding,
     Bracket
   },
+  mounted() {
+    if (this.teams.length === 0) {
+      this.$router.push('/');
+    }
+  },
   computed: {
     ...mapState({
       teams: state => state.results.twoVsTwoSeeding
-    }),
-    ...mapGetters(['isBloodbathSet']),
-  },
-  methods: {
-    gameOver: function() { 
-      this.$store.commit('update2v2Scores', this.teams);
-    },
+    })
   }
 }
 </script>

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-//import { mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 import BracketTeam from './BracketTeam'
 
 export default {
@@ -133,10 +133,12 @@ export default {
     },
     'game4.isOver': function() {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
-      this.$store.commit('update2v2Scores', results);
+      this.update2v2Scores(results);
+      this.$router.push('pods');
     }
  },
   methods: {
+    ...mapMutations(['update2v2Scores']),
     addWin: function(game, team) {
       if (!game.isOver && game.isCurrent) {
         team.wins++;

@@ -1,18 +1,15 @@
 <template>
   <div>
-    <button v-if="results.length === 0" type="button" class="btn btn-primary" @click="getPlayers">Load</button>
-    <div v-if="results.length > 0">
-      <table class="table table-sm">
-        <draggable v-model="results" tag="tbody" :disabled="locked">
-          <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
-            <th scope="row">{{index + 1}}</th>
-            <td><PlayerCard :player="player" :index="index"/></td>
-            <td><i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']" /></td>
-          </tr>
-        </draggable>
-      </table>
-      <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
-    </div>
+    <table class="table table-sm">
+      <draggable v-model="results" tag="tbody" :disabled="locked">
+        <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
+          <th scope="row">{{index + 1}}</th>
+          <td><PlayerCard :player="player" :index="index"/></td>
+          <td><i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']" /></td>
+        </tr>
+      </draggable>
+    </table>
+    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
   </div>
 </template>
 
@@ -33,6 +30,9 @@ export default {
       locked: false,
     }
   },
+  mounted() {
+    this.results = [...this.sortedPlayerList];
+  },
   computed: {
     ...mapGetters(['sortedPlayerList']),
   },
@@ -42,9 +42,6 @@ export default {
       this.updateBloodbathResults(this.results);
       this.locked = true;
     },
-    getPlayers() {
-      this.results = [...this.sortedPlayerList];
-    }
   }
 }
 </script>

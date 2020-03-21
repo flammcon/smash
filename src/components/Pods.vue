@@ -1,42 +1,45 @@
 <template>
-  <div class="row">
-    <div class="col-3">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Player</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(player, index) in sortedPlayers" :key="player.id">
-            <th scope="row">{{index + 1}}</th>
-            <td @click="incrementPodScore(player)"><PlayerCard :player="player" :index="index"/></td>
-            <th scope="row">{{player.results.podScore.toFixed(1)}}</th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col"><Pod title="ODD" :pool="odds" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="EVEN" :pool="evens" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="RED" :pool="red" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="BLUE" :pool="blue" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+  <div>
+    <h2>Solo Cup Seeding</h2>
+    <div class="row">
+      <div class="col-3">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Player</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(player, index) in sortedPlayers" :key="player.id">
+              <th scope="row">{{index + 1}}</th>
+              <td @click="incrementPodScore(player)"><PlayerCard :player="player" :index="index"/></td>
+              <th scope="row">{{player.results.podScore.toFixed(1)}}</th>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="row">
-        <div class="col"><Pod title="TOP" :pool="top" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="BOTTOM" :pool="bottom" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="MIDDLE" :pool="middle" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
-        <div class="col"><Pod title="EDGES" :pool="edges" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+      <div class="col">
+        <div class="row">
+          <div class="col"><Pod title="ODD" :pool="odds" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="EVEN" :pool="evens" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="RED" :pool="red" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="BLUE" :pool="blue" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+        </div>
+        <div class="row">
+          <div class="col"><Pod title="TOP" :pool="top" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="BOTTOM" :pool="bottom" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="MIDDLE" :pool="middle" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="EDGES" :pool="edges" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import PlayerCard from './PlayerCard';
 import Pod from './Pod';
 
@@ -45,6 +48,11 @@ export default {
   components: {
     Pod,
     PlayerCard
+  },
+  mounted() {
+    if (this.players.length === 0) {
+      this.$router.push('/');
+    }
   },
   data() {
     return {
@@ -109,16 +117,19 @@ export default {
         }
       } else if (oldValue === 8 && this.gameOver) {
         this.gameOver = false;
-        this.$store.commit('set1v1SeedingResults', []);
+        this.set1v1SeedingResults([]);
       }
     },
     'gameOver': function() {
       if (this.gameOver) {
-        this.$store.commit('set1v1SeedingResults', [...this.sortedPlayers]);
+        this.set1v1SeedingResults([...this.sortedPlayers]);
+        this.$router.push('1v1');
       }
     }
   },
   methods: {
+    ...mapMutations(['set1v1SeedingResults']),
+    ...mapActions(['updatePlayerPodScore']),
     hasDuplicatePodScores() {
       const podScores = this.sortedPlayers.map(player => player.results.podScore);
       return podScores.some((item, index) => podScores.indexOf(item) !== index)
@@ -131,7 +142,7 @@ export default {
     },
     incrementPodScore(player) {
       if (this.lockedPods === 8 && this.hasDuplicatePodScore(player)) {
-        this.$store.dispatch('updatePlayerPodScore', {id: player.id, score: -0.1});
+        this.updatePlayerPodScore({id: player.id, score: -0.1});
         if (!this.hasDuplicatePodScores()) {
           this.gameOver = true;
         }

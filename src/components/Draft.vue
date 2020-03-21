@@ -1,23 +1,13 @@
 <template>
-  <div v-if="!draft_locked">
-    <h5>Set draft order</h5>
-    <ul class="list-group players container-fluid" id="draft-order">
-      <draggable
-        :list="draft_order"
-        class="list-group"
-        ghost-class="ghost"
-      >
-        <li v-for="player in draft_order" :key="`draft-${player.id}`" class="list-group-item player">
-          <div class="playerName">{{player.name}}</div>
-          <i class="fas fa-grip-lines grip"/>
-        </li>
-      </draggable>
-    </ul>
-    <button type="button" class="btn btn-primary btn-sm" :disabled="draft_locked" @click="lockDraftOrder()">Lock</button>
-  </div>
-  <div v-else>
-    <h5 v-if="!draft_over">Select character for <span style="font-weight:bold;">{{current_player.name}}</span></h5>
-    <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
+  <div v-if="draft_set">
+    <h2>Draft</h2>
+    <h5>
+      Select character for 
+      <span style="font-weight:bold;">{{current_player.name}}</span>
+      <span>
+        <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
+      </span>
+    </h5>
     <div id="characters">
       <div class="character" v-for="character in characters" 
         v-bind:class="{disabled: disableCharacter(character.id), chosen: chosenCharacter(character.id)}"
@@ -32,37 +22,34 @@
 
 <script>
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
-import draggable from 'vuedraggable'
 
 export default {
   name: 'Draft',
-  components: {
-    draggable
-  },
   created() {
     this.loadCharacters();
+  },
+  mounted() {
+    if (this.players.length === 0) {
+      this.$router.push('/');
+    }
   },
   data() {
     return {
       current_draft_pick: 0,
       drafted_characters: [],
-      draft_locked: false,
     }
   },
   methods: {
     ...mapActions(['loadCharacters']),
-    ...mapMutations(['updatePlayerCharacter', 'setPlayerDraftPick']),
-    lockDraftOrder() {
-      this.draft_locked = true;
-      this.draft_order.forEach((value, index) => {
-        this.setPlayerDraftPick({playerId: value.id, draftPick: index + 1});
-      });
-    },
+    ...mapMutations(['updatePlayerCharacter']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
         this.updatePlayerCharacter({playerId: this.current_player_id, character: character.url});
         this.current_draft_pick++;
         this.drafted_characters.push(character.id);
+        if (this.draft_over) {
+          this.$router.push('4v4');
+        }
       }
     },
     disableCharacter(character) {
@@ -89,11 +76,14 @@ export default {
     draft_over() {
       return this.current_draft_pick === 8;
     },
+    draft_set() {
+      return this.draft_order.length > 0;
+    },
     disabled_characters() {
       return this.draft_over ? [] : this.disabledCharactersByPlayerId(this.current_player_id);
     },
     current_player_id() {
-      return this.draft_over ? -1 : this.draft_order[this.current_draft_pick].id;
+      return this.draft_over || !this.draft_set ? -1 : this.draft_order[this.current_draft_pick].id;
     },
     current_player() {
       return this.draft_over ? {} : this.playerById(this.current_player_id);

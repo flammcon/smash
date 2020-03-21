@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      players: [],
+      players: [...this.pool],
       locked: false,
     }
   },
@@ -52,9 +52,6 @@ export default {
       } else {
         this.$emit('unlocked');
       }
-    },
-    'pool': function() {
-      this.players = this.pool;
     }
   },
 }
