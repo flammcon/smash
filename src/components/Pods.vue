@@ -21,7 +21,7 @@
         </table>
       </div>
       <div class="col">
-        <div class="row">
+        <div class="row my-3">
           <div class="col"><Pod title="ODD" :pool="odds" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
           <div class="col"><Pod title="EVEN" :pool="evens" @locked="lockedPods++" @unlocked="lockedPods--"/></div>
           <div class="col"><Pod title="RED" :pool="red" @locked="lockedPods++" @unlocked="lockedPods--"/></div>

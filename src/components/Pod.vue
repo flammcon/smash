@@ -1,7 +1,11 @@
 <template>
   <div>
-    {{title}}
-    <input type="checkbox" id="checkbox" v-model="locked" v-if="pool.length > 0">
+    <h6>
+      {{title}}
+      <span>
+        <input type="checkbox" id="checkbox" v-model="locked" v-if="pool.length > 0">
+      </span>
+    </h6>
     <ul class="list-group" :id="`${title}`">
       <draggable
         :list="this.players"

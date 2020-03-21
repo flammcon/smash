@@ -4,7 +4,7 @@
     <h5>
       Select character for 
       <span style="font-weight:bold;">{{current_player.name}}</span>
-      <span>
+      <span class="ml-3">
         <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
       </span>
     </h5>
