@@ -32,7 +32,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .team {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
-.team:hover .player {background-color: rgba(255, 255, 255, 0.7)}
+.team:hover .player {opacity: 0.7}
 .right {font-size: 11px;text-transform: uppercase;float: right;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;right: 5px;}
 .left {font-size: 11px;text-transform: uppercase;float: left;color: #2C7399;font-weight: bold;font-family: 'Roboto Condensed', sans-serif;position: absolute;left: 5px;}
 .player {padding: 0 5px;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
@@ -40,4 +40,6 @@ export default {
 .round-three .team {margin:0; height: 60px; padding: 130px 0;}
 .champion li, .round li {background-color: #fff;box-shadow: none; opacity: 0.45;}
 .current li {opacity: 1;}
+.loser li.player {background-color:lightpink; opacity: 0.7;}
+.winner li.player {background-color:lightgreen; opacity:0.7}
 </style>

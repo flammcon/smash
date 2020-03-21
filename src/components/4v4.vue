@@ -7,8 +7,8 @@
         <Bloodbath/>
       </div>
       <div class="col" v-if="red.length > 0">
-        <Team name="Red" :wins.sync="redWins" styling="danger" :players="red" color="indianred" @won="gameOver(red)"/>
-        <Team name="Blue" :wins.sync="blueWins" styling="primary" :players="blue" color="dodgerblue" @won="gameOver(blue)"/>
+        <Team name="Red" :wins.sync="redWins" styling="danger" :players="red" color="indianred" @won="gameOver('Red', red)"/>
+        <Team name="Blue" :wins.sync="blueWins" styling="primary" :players="blue" color="dodgerblue" @won="gameOver('Blue', blue)"/>
       </div>
     </div>
   </div>
@@ -50,8 +50,9 @@ export default {
   },
   methods: {
     ...mapMutations(['update4v4Scores']),
-    gameOver(winner) {
+    gameOver(name, winner) {
       this.update4v4Scores(winner);
+      alert(`${name} team wins!`);
       this.$router.push('2v2');
     }
   }

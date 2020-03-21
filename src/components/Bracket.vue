@@ -3,16 +3,23 @@
     <h4>Winners Bracket</h4>
     <div class="container">
       <div class="split split-one">
-        <div v-bind:class="[{current: game1.isCurrent || game1.isOver}, 'round round-one']">
+        <div :class="[{current: game1.isCurrent}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 1</span></div> 
-          <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.id}`" 
-            :seed="`${team.seed}`" :team="team" @click.native="addWin(game1, team)"/>
+          <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.id}`"
+            :class="backgroundStyle(game1.isOver, team.wins)" 
+            :seed="`${team.seed}`" 
+            :team="team" 
+            @click.native="addWin(game1, team)"/>
         </div> 
         <!-- END ROUND ONE -->
 
         <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
           <div class="round-details"><br/></div>
-          <BracketTeam :seed="`${game4.teams[0].seed}`" :team="game4.teams[0]" @click.native="addWin(game4, game4.teams[0])"/>
+          <BracketTeam 
+            :class="backgroundStyle(game4.isOver, game4.teams[0].wins)" 
+            :seed="`${game4.teams[0].seed}`" 
+            :team="game4.teams[0]" 
+            @click.native="addWin(game4, game4.teams[0])"/>
         </div> 
         <!-- END ROUND TWO -->  
       </div> 
@@ -21,7 +28,7 @@
         <div v-bind:class="[{current: game4.isOver}, 'final']">
           <i class="fa fa-trophy"></i>
           <div class="round-details">Champions<br/><span class="date">Game 4</span></div>    
-          <ul class="team championship">
+          <ul class="team championship first">
             <li class="player player-top">{{game4.winner.player1 ? game4.winner.player1.name : "Winner Game 4"}}<span class="vote-count">&nbsp;</span></li>
             <li class="player player-bottom">{{game4.winner.player2 ? game4.winner.player2.name : "Winner Game 4"}}<span class="vote-count">&nbsp;</span></li>
           </ul>
@@ -38,7 +45,10 @@
         <div v-bind:class="[{current: game2.isCurrent || game2.isOver}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 2</span></div>
           <BracketTeam v-for="team in game2.teams" :key="`game2-team${team.id}`" reverse
-            :seed="`${team.seed}`" :team="team" @click.native="addWin(game2, team)"/>                               
+            :class="backgroundStyle(game2.isOver, team.wins)" 
+            :seed="`${team.seed}`" 
+            :team="team" 
+            @click.native="addWin(game2, team)"/>                               
         </div>
         <!-- END ROUND ONE -->                          
       </div>
@@ -48,13 +58,16 @@
       <div class="split split-one">
         <div v-bind:class="[{current: game3.isCurrent || game3.isOver}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 3</span></div>
-          <BracketTeam v-for="(team, index) in game3.teams" :key="`game3-team${index}`" 
-            :seed="`${team.seed}`" :team="team" @click.native="addWin(game3, team)"/>
+          <BracketTeam v-for="(team, index) in game3.teams" :key="`game3-team${index}`"
+            :class="backgroundStyle(game3.isOver, team.wins)" 
+            :seed="`${team.seed}`" 
+            :team="team" 
+            @click.native="addWin(game3, team)"/>
         </div>  <!-- END ROUND ONE -->
 
         <div v-bind:class="[{current: game3.isOver}, 'round round-two']">
           <div class="round-details">3rd Place<br/></div>     
-          <ul class="team">
+          <ul class="team third">
             <li class="player player-top">{{game3.winner.player1 ? game3.winner.player1.name : "Game 3 Winner"}}<span class="right">&nbsp;</span></li>
             <li class="player player-bottom">{{game3.winner.player2 ? game3.winner.player2.name : "Game 3 Winner"}}<span class="right">&nbsp;</span></li>
           </ul>                                     
@@ -134,11 +147,20 @@ export default {
     'game4.isOver': function() {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
       this.update2v2Scores(results);
+      alert(`
+        1st - ${this.game4.winner.player1.name} and ${this.game4.winner.player2.name}
+        2nd - ${this.game4.loser.player1.name} and ${this.game4.loser.player2.name}
+        3rd - ${this.game3.winner.player1.name} and ${this.game3.winner.player2.name}
+        4th - ${this.game3.loser.player1.name} and ${this.game3.loser.player2.name}
+      `);
       this.$router.push('pods');
     }
  },
   methods: {
     ...mapMutations(['update2v2Scores']),
+    backgroundStyle(gameOver, wins) {
+      return gameOver ? wins === 2 ? 'winner' : 'loser' : '';
+    },
     addWin: function(game, team) {
       if (!game.isOver && game.isCurrent) {
         team.wins++;
@@ -184,6 +206,9 @@ export default {
 .share-icon {font-size: 24px; color: #fff;padding: 25px;}
 .share-wrap {max-width: 1100px; text-align: center; margin: 60px auto;}
 .final {margin: 4.5em 0;}
+.current .third .player {background-color: goldenrod;}
+.current .second .player {background-color: silver;}
+.current .first .player {background-color: gold;}
 
 @-webkit-keyframes pulse {
   0% {

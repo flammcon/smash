@@ -1,8 +1,8 @@
 <template>
-  <ul v-bind:class="[{current: game.isCurrent || gameOver}, 'matchup']">
+  <ul v-bind:class="[{current: game.isCurrent}, 'matchup']">
     <li v-bind:class="[{winner: player1Wins === 2}, {loser: player2Wins === 2}, 'team']">
       <BracketPlayer :player="players[0]" :wins="player1Wins" :reverse="reverse" @click.native="addWin(0)"/>
-    <li v-bind:class="[{winner: player1Wins === 2}, {loser: player2Wins === 2}, 'team']">
+    <li v-bind:class="[{winner: player2Wins === 2}, {loser: player1Wins === 2}, 'team']">
       <BracketPlayer :player="players[1]" :wins="player2Wins" :reverse="reverse" @click.native="addWin(1)"/>
     </li>
   </ul>
@@ -54,11 +54,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .matchup {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
-.team:hover {background-color: rgba(255, 255, 255, 0.7)}
+.team:hover {opacity: 0.7}
 .team {padding: 0 5px;margin: 3px 0;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
-.champion li, .round li {background-color: #fff;box-shadow: none; opacity: 0.45;}
-.current li {opacity: 1;}
-.current div li.team {background-color: #fff;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);opacity: 1;}
-.winner li {background-color: lime};
-.loser li {background-color: red};
+li {background-color: #fff;box-shadow: none; opacity: 0.45;}
+.current li {opacity:1; }
+.current {color: #2C7399; }
+.winner {background-color: lightgreen; opacity: 0.7;}
+.loser {background-color:  lightpink; opacity: 0.7;}
+/* .final .winner {background-color: gold; opacity: 1; color: dimgrey;}
+.final .loser {background-color: silver; opacity: 1; color: white;}
+.third .winner {background-color: goldenrod; opacity: 1; color: dimgrey;} */
 </style>

@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="split split-one">
+        <div class="split split-one third">
           <div class="round round-one">
             <div class="round-details">3rd Place<br/><span class="date">Game 11</span></div>
             <Matchup :players="game11.players" :game.sync="game11"
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Matchup from './Matchup';
 
 export default {
@@ -252,6 +252,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['update1v1Scores']),
     updateNextMatch(currentGame, nextGame, winnerGame, loserGame, index) {
       if (winnerGame) {
         const winner = {...currentGame.winner};
@@ -280,7 +281,7 @@ export default {
           this.game12.loser,
           this.game12.winner,
         ];
-        this.$store.commit('update1v1Scores', results);
+        this.update1v1Scores(results);
       }
     }
   }
