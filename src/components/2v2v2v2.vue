@@ -36,16 +36,21 @@ export default {
     }
   },
   mounted() {
-    const players = this.bloodbathResults;
+    if (this.players.length === 0) {
+      this.$router.push('/');
+    }
+
     this.teams = [
-      {id: 1, player1: players[0], player2: players[6]},
-      {id: 2, player1: players[1], player2: players[7]},
-      {id: 3, player1: players[2], player2: players[4]},
-      {id: 4, player1: players[3], player2: players[5]},
+      {id: 1, player1: this.players[0], player2: this.players[6]},
+      {id: 2, player1: this.players[1], player2: this.players[7]},
+      {id: 3, player1: this.players[2], player2: this.players[4]},
+      {id: 4, player1: this.players[3], player2: this.players[5]},
     ];
   },
   computed: {
-    ...mapGetters(['bloodbathResults']),
+    ...mapGetters({
+      players: 'bloodbathResults'
+    }),
   },
   methods: {
     ...mapActions(['update2v2SeedingResults']),

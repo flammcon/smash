@@ -32,6 +32,9 @@ export default {
   },
   mounted() {
     this.results = [...this.sortedPlayerList];
+    if (this.results.length === 0) {
+      this.$router.push('/');
+    }
   },
   computed: {
     ...mapGetters(['sortedPlayerList']),

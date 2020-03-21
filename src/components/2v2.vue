@@ -24,11 +24,6 @@ export default {
     TwoVsTwoSeeding,
     Bracket
   },
-  mounted() {
-    if (this.teams.length === 0) {
-      this.$router.push('/');
-    }
-  },
   computed: {
     ...mapState({
       teams: state => state.results.twoVsTwoSeeding

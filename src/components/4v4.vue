@@ -53,11 +53,6 @@ export default {
   components: {
     Bloodbath
   },
-  mounted() {
-    if (this.players.length === 0) {
-      this.$router.push('/');
-    }
-  },
   data() {
     return {
       redWins: 0,
