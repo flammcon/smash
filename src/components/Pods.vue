@@ -12,10 +12,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(player, index) in sortedPlayers" :key="player.id">
+            <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementPodScore(player)">
               <th scope="row">{{index + 1}}</th>
-              <td @click="incrementPodScore(player)"><PlayerCard :player="player" :index="index"/></td>
-              <th scope="row">{{player.results.podScore.toFixed(1)}}</th>
+              <td scope="row"><PlayerCard :player="player" :index="index"/></td>
+              <th scope="row" v-bind:class="{tied: needsTieBreaker(player)}">{{player.results.podScore.toFixed(1)}}</th>
             </tr>
           </tbody>
         </table>
@@ -141,12 +141,15 @@ export default {
       return podScores.indexOf(podScore) != podScores.lastIndexOf(podScore);
     },
     incrementPodScore(player) {
-      if (this.lockedPods === 8 && this.hasDuplicatePodScore(player)) {
+      if (this.needsTieBreaker(player)) {
         this.updatePlayerPodScore({id: player.id, score: -0.1});
         if (!this.hasDuplicatePodScores()) {
           this.gameOver = true;
         }
       }
+    },
+    needsTieBreaker(player) {
+      return this.lockedPods === 8 && this.hasDuplicatePodScore(player);
     }
   }
 }
@@ -154,4 +157,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tied {
+  background-color: lightcoral;
+}
 </style>

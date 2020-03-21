@@ -21,7 +21,7 @@
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
-              <td style="font-weight: bold">{{totalPoints(player.results).toFixed(1)}}</td>
+              <td style="font-weight: bold" v-bind:class="{tied: needsTieBreaker(player)}">{{totalPoints(player.results).toFixed(1)}}</td>
             </tr>
           </tbody>
         </table>
@@ -68,9 +68,12 @@ export default {
       return totalScores.indexOf(totalScore) != totalScores.lastIndexOf(totalScore);
     },
     incrementTotalScore(player) {
-      if (this.$store.state.results.gameOver && this.hasDuplicateTotalScore(player)) {
+      if (this.needsTieBreaker(player)) {
         player.results.totalAdj += 0.1;
       }
+    },
+    needsTieBreaker(player) {
+      return this.$store.state.results.gameOver && this.hasDuplicateTotalScore(player);
     }
   }
 }
@@ -88,5 +91,9 @@ export default {
 
 .table td, .table th{
   vertical-align: middle;
+}
+
+.tied {
+  background-color: lightcoral;
 }
 </style>
