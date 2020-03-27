@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import Header from '../Header'
 import Bloodbath from '../4v4/Bloodbath'
 import Team from '../4v4/Team'
@@ -27,25 +27,19 @@ export default {
     Bloodbath,
     Team,
   },
-  data() {
-    return {
-      redWins: 0,
-      blueWins: 0
-    }
-  },
-  mounted() {
-    if (this.isGameOver) {
-      this.redWins = this.redTeamWins;
-      this.blueWins = this.blueTeamWins;
-    }
-  },
   computed: {
     ...mapState({
       players: state => state.results.bloodbath,
       isGameOver: state => state.completed.fourVsFour,
-      redTeamWins: state => state.results.fourVsFour.redWins,
-      blueTeamWins: state => state.results.fourVsFour.blueWins,
     }),
+    redWins: {
+      get() { return this.getRedWins(); },
+      set(value) { this.incrementRedWins(value); }
+    },
+    blueWins: {
+      get() { return this.getBlueWins(); },
+      set(value) { this.incrementBlueWins(value); }
+    },
     red() {
       return this.players.filter(player => {
         const rank = player.results.bloodbath;
@@ -60,9 +54,10 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['update4v4Scores']),
+    ...mapMutations(['update4v4Scores', 'incrementRedWins', 'incrementBlueWins']),
+    ...mapGetters(['getRedWins', 'getBlueWins']),
     gameOver(winner) {
-      this.update4v4Scores({winners: winner, redWins: this.redWins, blueWins: this.blueWins});
+      this.update4v4Scores(winner);
     }
   }
 }

@@ -107,14 +107,18 @@ const store = new Vuex.Store({
       state.results.gameOver = true;
       state.completed.oneVsOne = true;
     },
-    update4v4Scores(state, payload) {
-      payload.winners.forEach(winner => {
+    update4v4Scores(state, winners) {
+      winners.forEach(winner => {
         const player = state.players.find(x => x.id === winner.id);
         player.results.fourVsFour = 2;
       });
-      state.results.fourVsFour.redWins = payload.redWins;
-      state.results.fourVsFour.blueWins = payload.blueWins;
       state.completed.fourVsFour = true;
+    },
+    incrementRedWins(state, value) {
+      state.results.fourVsFour.redWins = value;
+    },
+    incrementBlueWins(state, value) {
+      state.results.fourVsFour.blueWins = value;
     },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
@@ -185,6 +189,8 @@ const store = new Vuex.Store({
     twoVsTwoSeedingResults: (state) => state.results.twoVsTwoSeeding,
     draftCompleted: (state) => state.completed.draft,
     draftPicks: (state) => state.results.draft,
+    getRedWins: (state) => state.results.fourVsFour.redWins,
+    getBlueWins: (state) => state.results.fourVsFour.blueWins,
   }
 });
 
