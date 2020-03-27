@@ -20,7 +20,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import draggable from 'vuedraggable';
-import PlayerCard from './PlayerCard'
+import PlayerCard from '../PlayerCard'
 export default {
   name: 'TwoVsTwoSeeding',
   components: {

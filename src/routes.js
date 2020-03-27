@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import DraftOrder from './components/DraftOrder'
-import Draft from './components/Draft'
-import FourVsFour from './components/4v4'
-import TwoVsTwo from './components/2v2'
-import Pods from './components/Pods'
-import SoloBracket from './components/SoloBracket'
+import DraftOrder from './components/views/DraftOrder'
+import Draft from './components/views/Draft'
+import FourVsFour from './components/views/4v4'
+import TwoVsTwo from './components/views/2v2'
+import Pods from './components/views/Pods'
+import SoloBracket from './components/views/SoloBracket'
 
 Vue.use(VueRouter);
 

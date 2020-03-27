@@ -40,8 +40,8 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import PlayerCard from './PlayerCard';
-import Pod from './Pod';
+import PlayerCard from '../PlayerCard';
+import Pod from '../1v1/Pod';
 
 export default {
   name: 'Pods',

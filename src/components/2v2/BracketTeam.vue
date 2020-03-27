@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ScoreDot from './ScoreDot'
+import ScoreDot from '../ScoreDot'
 
 export default {
   name: 'BracketTeam',

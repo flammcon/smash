@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import WinButton from './WinButton'
-import PlayerCard from './PlayerCard'
+import WinButton from '../4v4/WinButton'
+import PlayerCard from '../PlayerCard'
 
 export default {
   name: 'Team',

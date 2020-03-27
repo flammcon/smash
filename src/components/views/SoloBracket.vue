@@ -98,7 +98,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import Matchup from './Matchup';
+import Matchup from '../1v1/Matchup';
 
 export default {
   name: 'SoloBracket',

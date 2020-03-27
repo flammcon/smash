@@ -15,8 +15,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import TwoVsTwoSeeding from './2v2v2v2';
-import Bracket from './Bracket';
+import TwoVsTwoSeeding from '../2v2/2v2v2v2';
+import Bracket from '../2v2/Bracket';
 
 export default {
   name: 'TwoVsTwo',

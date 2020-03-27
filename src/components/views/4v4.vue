@@ -16,8 +16,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import Bloodbath from './Bloodbath'
-import Team from './Team'
+import Bloodbath from '../4v4/Bloodbath'
+import Team from '../4v4/Team'
 
 export default {
   name: 'FourVsFour',
