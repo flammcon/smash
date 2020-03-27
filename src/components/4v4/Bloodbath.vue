@@ -30,10 +30,14 @@ export default {
     }
   },
   mounted() {
-    this.results = [...this.sortedPlayerList];
+    if (this.isBloodbathSet) {
+      this.results = this.bloodbathResults;
+    } else {
+      this.results = [...this.sortedPlayerList];
+    }
   },
   computed: {
-    ...mapGetters(['sortedPlayerList', 'isBloodbathSet']),
+    ...mapGetters(['sortedPlayerList', 'isBloodbathSet', 'bloodbathResults']),
   },
   methods: {
     ...mapActions(['updateBloodbathResults']),
