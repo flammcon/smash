@@ -1,15 +1,15 @@
 <template>
   <div>
     <table class="table table-sm">
-      <draggable v-model="results" tag="tbody" :disabled="locked">
+      <draggable v-model="results" tag="tbody" :disabled="isBloodbathSet">
         <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
           <th scope="row">{{index + 1}}</th>
           <td><PlayerCard :player="player"/></td>
-          <td><i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']" /></td>
+          <td><i v-bind:class="[{ disabled: isBloodbathSet }, 'fas', 'fa-grip-lines']" /></td>
         </tr>
       </draggable>
     </table>
-    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
+    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="isBloodbathSet">Submit</button>
   </div>
 </template>
 
@@ -27,20 +27,18 @@ export default {
   data() {
     return {
       results: [],
-      locked: false,
     }
   },
   mounted() {
     this.results = [...this.sortedPlayerList];
   },
   computed: {
-    ...mapGetters(['sortedPlayerList']),
+    ...mapGetters(['sortedPlayerList', 'isBloodbathSet']),
   },
   methods: {
     ...mapActions(['updateBloodbathResults']),
     updateRanks() {
       this.updateBloodbathResults(this.results);
-      this.locked = true;
     },
   }
 }
