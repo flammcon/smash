@@ -34,10 +34,6 @@ export default {
     }
   },
   mounted() {
-    if (this.players.length === 0) {
-      this.$router.push('/');
-    }
-
     this.teams = [
       {id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid'},
       {id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue'},

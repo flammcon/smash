@@ -49,11 +49,6 @@ export default {
     Pod,
     PlayerCard
   },
-  mounted() {
-    if (this.players.length === 0) {
-      this.$router.push('/');
-    }
-  },
   data() {
     return {
       lockedPods: 0,

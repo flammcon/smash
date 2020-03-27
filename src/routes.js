@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store/index'
 
 import DraftOrder from './components/views/DraftOrder'
 import Draft from './components/views/Draft'
@@ -23,6 +24,12 @@ const router = new VueRouter({
   mode: 'history',
   base: '/smash/',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  to.path !== '/' && store.state.players.length === 0 
+    ? next('/') 
+    : next();
 })
 
 export default router;

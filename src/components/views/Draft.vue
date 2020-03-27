@@ -28,11 +28,6 @@ export default {
   created() {
     this.loadCharacters();
   },
-  mounted() {
-    if (this.players.length === 0) {
-      this.$router.push('/');
-    }
-  },
   data() {
     return {
       current_draft_pick: 0,
