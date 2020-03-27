@@ -2,7 +2,7 @@
   <button 
     type="button" 
     v-bind:class="[wins > min - 1 ? `btn-${styling}` : `btn-outline-${styling}`, 'btn']" 
-    :disabled="wins !== min - 1">Win {{min}}
+    :disabled="disabled || wins !== min - 1">Win {{min}}
   </button>
 </template>
 
@@ -12,6 +12,7 @@ export default {
   props: {
     min: Number,
     wins: Number,
+    disabled: Boolean,
     styling: String,
   }
 }

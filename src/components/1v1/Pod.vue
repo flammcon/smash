@@ -3,33 +3,21 @@
     <h6>
       {{title}}
       <span>
-        <input type="checkbox" id="checkbox" v-model="locked" v-if="pool.length > 0">
+        <input type="checkbox" id="checkbox" :disabled="disabled" v-model="locked" v-if="pool.length > 0">
       </span>
     </h6>
-    <ul class="list-group" :id="`${title}`">
-      <draggable
-        :list="this.players"
-        class="list-group"
-        ghost-class="ghost"
-        :disabled="locked"
-        >
-        <li v-for="player in players" :key="`${title}-${player.id}`" class="list-group-item team">
-          <div class="name">{{player.name}}</div>
-          <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-grip-lines']"/>
-        </li>
-      </draggable>
-    </ul>
+    <SortablePlayerList :players="players" :name="title" :disabled="locked || disabled"/>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import draggable from 'vuedraggable'
+import { mapActions, mapState } from 'vuex'
+import SortablePlayerList from '../SortablePlayerList'
 
 export default {
   name: 'Pod',
   components: {
-    draggable
+    SortablePlayerList
   },
   props: {
     title: String,
@@ -40,6 +28,11 @@ export default {
       players: [...this.pool],
       locked: false,
     }
+  },
+  computed: {
+    ...mapState({
+      disabled: state => state.completed.pods
+    }),
   },
   methods: {
     ...mapActions(['updatePlayerPodScore'])

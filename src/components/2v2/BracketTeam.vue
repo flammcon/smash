@@ -42,4 +42,7 @@ export default {
 .current li {opacity: 1;}
 .loser li.player {background-color:lightpink; opacity: 0.7;}
 .winner li.player {background-color:lightgreen; opacity:0.7}
+.current .third .player {background-color: goldenrod;}
+.current .second .player {background-color: silver;}
+.current .first .player {background-color: gold;}
 </style>

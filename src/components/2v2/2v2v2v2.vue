@@ -34,16 +34,22 @@ export default {
     }
   },
   mounted() {
-    this.teams = [
-      {id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid'},
-      {id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue'},
-      {id: 3, player1: this.players[2], player2: this.players[4], color: 'yellowgreen'},
-      {id: 4, player1: this.players[3], player2: this.players[5], color: 'orange'},
-    ];
+    if (this.seeding.length > 0) {
+      this.teams = this.seeding;
+      this.locked = true;
+    } else {
+      this.teams = [
+        {id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid'},
+        {id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue'},
+        {id: 3, player1: this.players[2], player2: this.players[4], color: 'yellowgreen'},
+        {id: 4, player1: this.players[3], player2: this.players[5], color: 'orange'},
+      ];
+    }
   },
   computed: {
     ...mapGetters({
-      players: 'bloodbathResults'
+      players: 'bloodbathResults',
+      seeding: 'twoVsTwoSeedingResults',
     }),
   },
   methods: {

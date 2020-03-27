@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Solo Cup</h2>
+    <Header title="Solo Cup" prev="pods"/>
     <section id="bracket">
       <h4>Winners Bracket</h4>
       <div class="container">
@@ -98,12 +98,14 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import Header from '../Header'
 import Matchup from '../1v1/Matchup';
 
 export default {
   name: 'SoloBracket',
   components: {
-    Matchup
+    Header,
+    Matchup,
   },
   data() {
     return {

@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <h4>{{name}} Team</h4>
     <div class="row justify-content-center mb-3">
-      <WinButton class="mx-1" :wins="wins" :min="1" :styling="styling" @click.native="updateWins"/>
-      <WinButton class="mx-1" :wins="wins" :min="2" :styling="styling" @click.native="updateWins"/>
-      <WinButton class="mx-1" :wins="wins" :min="3" :styling="styling" @click.native="updateWins"/>
+      <WinButton class="mx-1" :wins="wins" :min="1" :disabled="disabled" :styling="styling" @click.native="updateWins"/>
+      <WinButton class="mx-1" :wins="wins" :min="2" :disabled="disabled" :styling="styling" @click.native="updateWins"/>
+      <WinButton class="mx-1" :wins="wins" :min="3" :disabled="disabled" :styling="styling" @click.native="updateWins"/>
     </div>
     <div class="row justify-content-center mb-5">
       <PlayerCard 
@@ -34,6 +34,7 @@ export default {
     wins: Number,
     styling: String,
     color: String,
+    disabled: Boolean,
   },
   computed: {
     teamName() {

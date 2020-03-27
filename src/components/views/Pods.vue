@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Solo Cup Seeding</h2>
+    <Header title="Solo Cup Seeding" prev="2v2" next="1v1" :disabled="!locked" :prevDisabled="lockedPods > 0 && lockedPods < 8"/>
     <div class="row">
       <div class="col-3">
         <table class="table table-sm">
@@ -40,6 +40,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import Header from '../Header'
 import PlayerCard from '../PlayerCard';
 import Pod from '../1v1/Pod';
 
@@ -47,7 +48,8 @@ export default {
   name: 'Pods',
   components: {
     Pod,
-    PlayerCard
+    PlayerCard,
+    Header,
   },
   data() {
     return {
@@ -58,6 +60,7 @@ export default {
   computed: {
     ...mapState({
       players: state => state.results.bloodbath,
+      locked: state => state.completed.pods,
     }),
     sortedPlayers() {
       return [...this.players].sort((a, b) => {
@@ -118,7 +121,6 @@ export default {
     'gameOver': function() {
       if (this.gameOver) {
         this.set1v1SeedingResults([...this.sortedPlayers]);
-        this.$router.push('1v1');
       }
     }
   },

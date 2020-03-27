@@ -1,6 +1,6 @@
 <template>
-  <div v-if="draft_set">
-    <h2>Draft</h2>
+  <div>
+    <Header title="Draft" prev="/" next="4v4" :disabled="!draftCompleted"/>
     <h5>
       Select character for 
       <span style="font-weight:bold;">{{current_player.name}}</span>
@@ -21,12 +21,13 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import Header from '../Header'
 
 export default {
   name: 'Draft',
-  created() {
-    this.loadCharacters();
+  components: {
+    Header
   },
   data() {
     return {
@@ -34,21 +35,28 @@ export default {
       drafted_characters: [],
     }
   },
+  mounted() {
+    if (this.draftCompleted) {
+      this.drafted_characters = this.draftPicks;
+    }
+  },
   methods: {
-    ...mapActions(['loadCharacters']),
-    ...mapMutations(['updatePlayerCharacter']),
+    ...mapMutations(['updatePlayerCharacter', 'lockDraftPicks', 'setDraftPicks']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
         this.updatePlayerCharacter({playerId: this.current_player_id, character: character.url});
-        this.current_draft_pick++;
         this.drafted_characters.push(character.id);
-        if (this.draft_over) {
-          this.$router.push('4v4');
+
+        if (this.current_draft_pick === 7) {
+          this.setDraftPicks(this.drafted_characters);
+          this.lockDraftPicks();
+        } else {
+          this.current_draft_pick++;
         }
       }
     },
     disableCharacter(character) {
-      if (this.draft_over) {
+      if (this.draftCompleted) {
         return !this.drafted_characters.find(id => id === character);
       } else {
         return this.disabled_characters.find(id => id === character);
@@ -67,21 +75,15 @@ export default {
   },
   computed: {
     ...mapState(['characters', 'players', 'draft_order']),
-    ...mapGetters(['disabledCharactersByPlayerId', 'playerById']),
-    draft_over() {
-      return this.current_draft_pick === 8;
-    },
-    draft_set() {
-      return this.draft_order.length > 0;
-    },
+    ...mapGetters(['disabledCharactersByPlayerId', 'playerById', 'draftCompleted', 'draftPicks']),
     disabled_characters() {
-      return this.draft_over ? [] : this.disabledCharactersByPlayerId(this.current_player_id);
+      return this.disabledCharactersByPlayerId(this.current_player_id);
     },
     current_player_id() {
-      return this.draft_over || !this.draft_set ? -1 : this.draft_order[this.current_draft_pick].id;
+      return this.draft_order[this.current_draft_pick].id;
     },
     current_player() {
-      return this.draft_over ? {} : this.playerById(this.current_player_id);
+      return this.playerById(this.current_player_id);
     }
   }
 }
@@ -163,23 +165,5 @@ img:hover {
 		1px -1px 0 #000,
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
-}
-
-.players {
-  width: 200px;
-}
-
-.player {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.playerName {
-   flex:1;
-}
-
-.grip {
-  align-self: center;
 }
 </style>

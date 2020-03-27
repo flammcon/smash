@@ -16,7 +16,7 @@
         <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
           <div class="round-details"><br/></div>
           <BracketTeam 
-            :class="backgroundStyle(game4.isOver, game4.teams[0].wins)" 
+            :class="backgroundStyle(game4.isOver, game4.teams[0].wins, true)" 
             :seed="`${game4.teams[0].seed}`" 
             :team="game4.teams[0]" 
             @click.native="addWin(game4, game4.teams[0])"/>
@@ -38,7 +38,11 @@
       <div class="split split-two"> 
         <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
           <div class="round-details"><br/></div>
-          <BracketTeam :seed="`${game4.teams[1].seed}`" :team="game4.teams[1]" @click.native="addWin(game4, game4.teams[1])" reverse/>                   
+          <BracketTeam 
+            :class="backgroundStyle(game4.isOver, game4.teams[1].wins, true)" 
+            :seed="`${game4.teams[1].seed}`" 
+            :team="game4.teams[1]" 
+            @click.native="addWin(game4, game4.teams[1])" reverse/>                   
         </div> 
         <!-- END ROUND TWO -->
 
@@ -87,7 +91,8 @@ export default {
     BracketTeam
   },
   props: {
-    teams: Array
+    teams: Array,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -147,22 +152,21 @@ export default {
     'game4.isOver': function() {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
       this.update2v2Scores(results);
-      alert(`
-        1st - ${this.game4.winner.player1.name} and ${this.game4.winner.player2.name}
-        2nd - ${this.game4.loser.player1.name} and ${this.game4.loser.player2.name}
-        3rd - ${this.game3.winner.player1.name} and ${this.game3.winner.player2.name}
-        4th - ${this.game3.loser.player1.name} and ${this.game3.loser.player2.name}
-      `);
-      this.$router.push('pods');
     }
- },
+  },
   methods: {
     ...mapMutations(['update2v2Scores']),
-    backgroundStyle(gameOver, wins) {
-      return gameOver ? wins === 2 ? 'winner' : 'loser' : '';
+    backgroundStyle(gameOver, wins, runnerup) {
+      return gameOver 
+        ? wins === 2 
+          ? 'winner' 
+          : runnerup 
+            ? 'second' 
+            : 'loser' 
+        : '';
     },
     addWin: function(game, team) {
-      if (!game.isOver && game.isCurrent) {
+      if (!(game.isOver || this.disabled) && game.isCurrent) {
         team.wins++;
         if (team.wins === 2) {
           game.winner = {...team};

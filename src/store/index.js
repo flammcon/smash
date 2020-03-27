@@ -11,10 +11,23 @@ const store = new Vuex.Store({
     players: [],
     draft_order: [],
     results: {
+      draft: [],
       bloodbath: [],
+      fourVsFour: {
+        redWins: 0,
+        blueWins: 0,
+      },
       twoVsTwoSeeding: [],
       oneVsOneSeeding: [],
       gameOver: false
+    },
+    completed: {
+      draftOrder: false,
+      draft: false,
+      fourVsFour: false,
+      twoVsTwo: false,
+      oneVsOne: false,
+      pods: false,
     }
   },
   mutations: {
@@ -26,6 +39,15 @@ const store = new Vuex.Store({
     },
     setDraftOrder (state, draftOrder) {
       state.draft_order = draftOrder;
+    },
+    lockDraftOrder(state) {
+      state.completed.draftOrder = true;
+    },
+    setDraftPicks (state, draftPicks) {
+      state.results.draft = draftPicks;
+    },
+    lockDraftPicks(state) {
+      state.completed.draft = true;
     },
     setPlayerDraftPick (state, payload) {
       const player = state.players.find(x => x.id === payload.playerId);
@@ -39,6 +61,7 @@ const store = new Vuex.Store({
     },
     set1v1SeedingResults (state, results) {
       state.results.oneVsOneSeeding = results;
+      state.completed.pods = true;
     },
     updatePlayerCharacter (state, payload) {
       const player = state.players.find(x => x.id === payload.playerId);
@@ -69,6 +92,7 @@ const store = new Vuex.Store({
         const player2 = state.players.find(x => x.id === team.player2.id);
         player2.results.twoVsTwo = points;
       });
+      state.completed.twoVsTwo = true;
     },
     update1v1Scores(state, results) {
       results.forEach((player, index) => {
@@ -81,12 +105,16 @@ const store = new Vuex.Store({
         team.results.oneVsOne = points;
       });
       state.results.gameOver = true;
+      state.completed.oneVsOne = true;
     },
-    update4v4Scores(state, winners) {
-      winners.forEach(winner => {
+    update4v4Scores(state, payload) {
+      payload.winners.forEach(winner => {
         const player = state.players.find(x => x.id === winner.id);
         player.results.fourVsFour = 2;
       });
+      state.results.fourVsFour.redWins = payload.redWins;
+      state.results.fourVsFour.blueWins = payload.blueWins;
+      state.completed.fourVsFour = true;
     },
     updatePlayerPodScore (state, payload) {
       const player = state.players.find(x => x.id === payload.id);
@@ -112,8 +140,11 @@ const store = new Vuex.Store({
         commit('setDraftOrder', players);
       });
     },
-    setPlayerDraftPicks ({ commit }) {
-      commit('setPlayerDraftPicks');
+    setPlayerDraftPicks ({ commit }, payload) {
+      payload.forEach((value, index) => {
+        commit('setPlayerDraftPick', {playerId: value.id, draftPick: index + 1});
+      });
+      commit('lockDraftOrder');
     },
     updateBloodbathResults: ({ commit }, payload) => {
       commit("setBloodBathResults", payload);
@@ -150,7 +181,10 @@ const store = new Vuex.Store({
         return a.results.bloodbath < b.results.bloodbath ? -1 : 1;
       });
     },
-    isBloodbathSet: (state) => state.results.bloodbath.length > 0
+    isBloodbathSet: (state) => state.results.bloodbath.length > 0,
+    twoVsTwoSeedingResults: (state) => state.results.twoVsTwoSeeding,
+    draftCompleted: (state) => state.completed.draft,
+    draftPicks: (state) => state.results.draft,
   }
 });
 

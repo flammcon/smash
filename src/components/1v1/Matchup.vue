@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import BracketPlayer from './BracketPlayer'
 
 export default {
@@ -28,9 +29,14 @@ export default {
       gameOver: false
     }
   },
+  computed: {
+    ...mapState({
+      locked: state => state.completed.oneVsOne,
+    })
+  },
   methods: {
     addWin: function(index) {
-      if (!this.gameOver && this.game.isCurrent) {
+      if (!(this.gameOver || this.locked) && this.game.isCurrent) {
         if (index === 0) {
           this.player1Wins++;
         } else {
