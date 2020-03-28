@@ -7,9 +7,9 @@
 export default {
   name: 'ScoreDot',
   props: {
-    fill: Boolean
-  }
-}
+    fill: Boolean,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 
 export default {
   name: 'SortablePlayerList',
   components: {
-    draggable
+    draggable,
   },
   props: {
     name: String,
@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       dragging: false,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -42,11 +42,11 @@ export default {
   justify-content: center;
 }
 .name { flex:1; }
-.grip { 
-  align-self: center; 
+.grip {
+  align-self: center;
 }
-.disabled { 
-  color: lightgray; 
+.disabled {
+  color: lightgray;
 }
 
 .ghost {

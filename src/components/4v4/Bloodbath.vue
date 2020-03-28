@@ -14,20 +14,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import draggable from "vuedraggable";
-import PlayerCard from "../PlayerCard";
+import { mapActions, mapGetters } from 'vuex';
+import draggable from 'vuedraggable';
+import PlayerCard from '../PlayerCard.vue';
 
 export default {
   name: 'Bloodbath',
   components: {
     draggable,
-    PlayerCard
+    PlayerCard,
   },
   data() {
     return {
       results: [],
-    }
+    };
   },
   mounted() {
     if (this.isBloodbathSet) {
@@ -44,8 +44,8 @@ export default {
     updateRanks() {
       this.updateBloodbathResults(this.results);
     },
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

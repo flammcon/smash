@@ -21,7 +21,9 @@
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
-              <td style="font-weight: bold" v-bind:class="{tied: needsTieBreaker(player)}">{{totalPoints(player.results).toFixed(1)}}</td>
+              <td style="font-weight: bold" :class="{tied: needsTieBreaker(player)}">
+                {{totalPoints(player.results).toFixed(1)}}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -34,8 +36,8 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
-import PlayerCard from './components/PlayerCard'
+import { mapState, mapActions, mapGetters } from 'vuex';
+import PlayerCard from './components/PlayerCard.vue';
 
 export default {
   name: 'App',
@@ -55,29 +57,30 @@ export default {
         const totalB = this.totalPoints(b.results);
         return totalA > totalB ? -1 : 1;
       });
-    }
+    },
   },
   methods: {
     ...mapActions(['loadPlayers', 'loadCharacters']),
     totalPoints(results) {
       return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
     },
-    hasDuplicateTotalScore(player) {
-      const totalScores = this.sortedPlayers.map(player => this.totalPoints(player.results));
-      const totalScore = this.totalPoints(player.results);
+    hasDuplicateTotalScore(value) {
+      const totalScores = this.sortedPlayers.map((player) => this.totalPoints(player.results));
+      const totalScore = this.totalPoints(value.results);
 
-      return totalScores.indexOf(totalScore) != totalScores.lastIndexOf(totalScore);
+      return totalScores.indexOf(totalScore) !== totalScores.lastIndexOf(totalScore);
     },
-    incrementTotalScore(player) {
-      if (this.needsTieBreaker(player)) {
+    incrementTotalScore(value) {
+      if (this.needsTieBreaker(value)) {
+        const player = this.players.find((x) => x.id === value.id);
         player.results.totalAdj += 0.1;
       }
     },
     needsTieBreaker(player) {
       return this.$store.state.results.gameOver && this.hasDuplicateTotalScore(player);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>

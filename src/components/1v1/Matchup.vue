@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import BracketPlayer from './BracketPlayer'
+import { mapState } from 'vuex';
+import BracketPlayer from './BracketPlayer.vue';
 
 export default {
   name: 'Matchup',
@@ -20,54 +20,70 @@ export default {
   props: {
     game: Object,
     players: Array,
-    reverse: Boolean
+    reverse: Boolean,
   },
   data() {
     return {
       player1Wins: 0,
       player2Wins: 0,
-      gameOver: false
-    }
+      gameOver: false,
+    };
   },
   computed: {
     ...mapState({
-      locked: state => state.completed.oneVsOne,
-    })
+      locked: (state) => state.completed.oneVsOne,
+    }),
   },
   methods: {
-    addWin: function(index) {
+    addWin(index) {
       if (!(this.gameOver || this.locked) && this.game.isCurrent) {
         if (index === 0) {
-          this.player1Wins++;
+          this.player1Wins += 1;
         } else {
-          this.player2Wins++;
+          this.player2Wins += 1;
         }
 
         if (this.player1Wins === 2 || this.player2Wins === 2) {
           this.gameOver = true;
-          const updatedGame = {...this.game};
+          const updatedGame = { ...this.game };
           updatedGame.winner = this.players[index];
-          updatedGame.loser = this.players.find(x => x.id !== updatedGame.winner.id);
+          updatedGame.loser = this.players.find((x) => x.id !== updatedGame.winner.id);
           this.$emit('update:game', updatedGame);
           this.$emit('matchOver');
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.matchup {margin:0;width: 100%;padding: 10px 0;height:60px;-webkit-transition: all 0.2s;transition: all 0.2s;}
-.team:hover {opacity: 0.7}
-.team {padding: 0 5px;margin: 3px 0;height: 25px; line-height: 25px;white-space: nowrap; overflow: hidden;position: relative;}
-li {background-color: #fff;box-shadow: none; opacity: 0.45;}
-.current li {opacity:1; }
-.current {color: #2C7399; }
-.winner {background-color: lightgreen; opacity: 0.7;}
-.loser {background-color:  lightpink; opacity: 0.7;}
-/* .final .winner {background-color: gold; opacity: 1; color: dimgrey;}
-.final .loser {background-color: silver; opacity: 1; color: white;}
-.third .winner {background-color: goldenrod; opacity: 1; color: dimgrey;} */
+.matchup {
+  margin:0;
+  width: 100%;
+  padding: 10px 0;
+  height:60px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.team:hover { opacity: 0.7 }
+.team {
+  padding: 0 5px;
+  margin: 3px 0;
+  height: 25px;
+  line-height: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+li {
+  background-color: #fff;
+  box-shadow: none;
+  opacity: 0.45;
+}
+.current li { opacity:1; }
+.current { color: #2C7399; }
+.winner { background-color: lightgreen; opacity: 0.7;}
+.loser { background-color: lightpink; opacity: 0.7;}
 </style>

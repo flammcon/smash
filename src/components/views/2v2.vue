@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Header from '../Header'
-import TwoVsTwoSeeding from '../2v2/2v2v2v2'
-import Bracket from '../2v2/Bracket'
+import { mapState } from 'vuex';
+import Header from '../Header.vue';
+import TwoVsTwoSeeding from '../2v2/2v2v2v2.vue';
+import Bracket from '../2v2/Bracket.vue';
 
 export default {
   name: 'TwoVsTwo',
@@ -28,11 +28,11 @@ export default {
   },
   computed: {
     ...mapState({
-      teams: state => state.results.twoVsTwoSeeding,
-      gameOver: state => state.completed.twoVsTwo,
+      teams: (state) => state.results.twoVsTwoSeeding,
+      gameOver: (state) => state.completed.twoVsTwo,
     }),
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

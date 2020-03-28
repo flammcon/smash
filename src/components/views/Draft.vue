@@ -1,17 +1,23 @@
 <template>
   <div>
     <Header title="Draft" prev="/" next="4v4" :disabled="!draftCompleted"/>
-    <h5>
-      Select character for 
+    <h5 :class="{'hidden': draftCompleted}">
+      Select character for
       <span style="font-weight:bold;">{{current_player.name}}</span>
       <span class="ml-3">
-        <button type="button" class="btn btn-danger btn-sm" @click="selectRandomCharacter" v-if="current_player.id === 5">Random</button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="selectRandomCharacter"
+          v-if="current_player.id === 5">
+          Random
+        </button>
       </span>
     </h5>
     <div id="characters">
-      <div class="character" v-for="character in characters" 
+      <div class="character" v-for="character in characters"
         v-bind:class="{disabled: disableCharacter(character.id), chosen: chosenCharacter(character.id)}"
-        :key="character.id" 
+        :key="character.id"
         @click="selectCharacter(character)">
         <img :src="character.url" :alt="character.name"/>
         <div class="name">{{character.name.toUpperCase()}}</div>
@@ -21,19 +27,19 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
-import Header from '../Header'
+import { mapState, mapGetters, mapMutations } from 'vuex';
+import Header from '../Header.vue';
 
 export default {
   name: 'Draft',
   components: {
-    Header
+    Header,
   },
   data() {
     return {
       current_draft_pick: 0,
       drafted_characters: [],
-    }
+    };
   },
   mounted() {
     if (this.draftCompleted) {
@@ -44,34 +50,35 @@ export default {
     ...mapMutations(['updatePlayerCharacter', 'lockDraftPicks', 'setDraftPicks']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
-        this.updatePlayerCharacter({playerId: this.current_player_id, character: character.url});
+        this.updatePlayerCharacter({ playerId: this.current_player_id, character: character.url });
         this.drafted_characters.push(character.id);
 
         if (this.current_draft_pick === 7) {
           this.setDraftPicks(this.drafted_characters);
           this.lockDraftPicks();
         } else {
-          this.current_draft_pick++;
+          this.current_draft_pick += 1;
         }
       }
     },
     disableCharacter(character) {
       if (this.draftCompleted) {
-        return !this.drafted_characters.find(id => id === character);
-      } else {
-        return this.disabled_characters.find(id => id === character);
+        return !this.drafted_characters.find((id) => id === character);
       }
+      return this.disabled_characters.find((id) => id === character);
     },
     chosenCharacter(character) {
-      return this.drafted_characters.find(id => id === character);
+      return this.drafted_characters.find((id) => id === character);
     },
     selectRandomCharacter() {
-      const available = this.characters.filter(character => {
-        return !(this.drafted_characters.find(id => id === character.id) || this.disabled_characters.find(id => id === character.id));
-      }, this);
+      const available = this.characters.filter((character) => {
+        const drafted = this.drafted_characters.find((id) => id === character.id);
+        const disabled = this.disabled_characters.find((id) => id === character.id);
+        return !drafted && !disabled;
+      });
       const index = Math.floor(Math.random() * available.length);
       this.selectCharacter(available[index]);
-    }
+    },
   },
   computed: {
     ...mapState(['characters', 'players', 'draft_order']),
@@ -84,9 +91,9 @@ export default {
     },
     current_player() {
       return this.playerById(this.current_player_id);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -161,9 +168,13 @@ img:hover {
   bottom: 5px;
   color: white;
   text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.hidden {
+  visibility: hidden;
 }
 </style>

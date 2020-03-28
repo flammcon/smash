@@ -7,26 +7,26 @@
       <WinButton class="mx-1" :wins="wins" :min="3" :disabled="disabled" :styling="styling" @click.native="updateWins"/>
     </div>
     <div class="row justify-content-center mb-5">
-      <PlayerCard 
-        v-for="player in players" 
+      <PlayerCard
+        v-for="player in players"
         :key="`${teamName}-team-${player.id}`"
         :player="player"
         :color="color"
-        class="mx-3" 
+        class="mx-3"
       />
     </div>
   </div>
 </template>
 
 <script>
-import WinButton from '../4v4/WinButton'
-import PlayerCard from '../PlayerCard'
+import WinButton from './WinButton.vue';
+import PlayerCard from '../PlayerCard.vue';
 
 export default {
   name: 'Team',
   components: {
     WinButton,
-    PlayerCard
+    PlayerCard,
   },
   props: {
     name: String,
@@ -39,7 +39,7 @@ export default {
   computed: {
     teamName() {
       return this.name.toLowerCase();
-    }
+    },
   },
   methods: {
     updateWins() {
@@ -47,9 +47,9 @@ export default {
       if (this.wins + 1 === 3) {
         this.$emit('won');
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

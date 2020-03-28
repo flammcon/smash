@@ -10,20 +10,20 @@
 </template>
 
 <script>
-import ScoreDot from '../ScoreDot'
+import ScoreDot from '../ScoreDot.vue';
 
 export default {
   name: 'BracketPlayer',
   components: {
-    ScoreDot
+    ScoreDot,
   },
   props: {
     current: Boolean,
     player: Object,
     wins: Number,
-    reverse: Boolean
+    reverse: Boolean,
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

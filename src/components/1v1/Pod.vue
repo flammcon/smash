@@ -11,37 +11,37 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import SortablePlayerList from '../SortablePlayerList'
+import { mapActions, mapState } from 'vuex';
+import SortablePlayerList from '../SortablePlayerList.vue';
 
 export default {
   name: 'Pod',
   components: {
-    SortablePlayerList
+    SortablePlayerList,
   },
   props: {
     title: String,
-    pool: Array
+    pool: Array,
   },
   data() {
     return {
       players: [...this.pool],
       locked: false,
-    }
+    };
   },
   computed: {
     ...mapState({
-      disabled: state => state.completed.pods
+      disabled: (state) => state.completed.pods,
     }),
   },
   methods: {
-    ...mapActions(['updatePlayerPodScore'])
+    ...mapActions(['updatePlayerPodScore']),
   },
   watch: {
-    'locked': function() {
+    locked() {
       this.players.forEach((player, index) => {
-        const points = this.locked ? (index+1) : -1 * (index+1);
-        this.updatePlayerPodScore({id: player.id, score: points})
+        const points = this.locked ? (index + 1) : -1 * (index + 1);
+        this.updatePlayerPodScore({ id: player.id, score: points });
       });
 
       if (this.locked) {
@@ -49,9 +49,9 @@ export default {
       } else {
         this.$emit('unlocked');
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
