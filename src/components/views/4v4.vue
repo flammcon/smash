@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <Header title="Red vs Blue" prev="draft" next="2v2" :disabled="!isGameOver"/>
+    <Header title="Red vs Blue" prev="draft" next="2v2" :disabled="!four_vs_four_locked()"/>
     <div class="row">
       <div class="col-3">
         <h4>Bloodbath</h4>
@@ -9,20 +9,20 @@
       <div class="col" v-if="red.length > 0">
         <Team
           name="Red"
-          :wins.sync="redWins"
+          :wins.sync="red_wins"
           styling="danger"
           :players="red"
           color="indianred"
-          :disabled="isGameOver"
+          :disabled="four_vs_four_locked()"
           @won="gameOver(red)"
         />
         <Team
           name="Blue"
-          :wins.sync="blueWins"
+          :wins.sync="blue_wins"
           styling="primary"
           :players="blue"
           color="dodgerblue"
-          :disabled="isGameOver"
+          :disabled="four_vs_four_locked()"
           @won="gameOver(blue)"
         />
       </div>
@@ -31,10 +31,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
 import Header from '../Header.vue';
 import Bloodbath from '../4v4/Bloodbath.vue';
 import Team from '../4v4/Team.vue';
+
+import { mapMutations, createNamespacedHelpers } from 'vuex';
+const { mapState, mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'FourVsFour',
@@ -45,15 +47,14 @@ export default {
   },
   computed: {
     ...mapState({
-      players: (state) => state.results.bloodbath,
-      isGameOver: (state) => state.completed.fourVsFour,
+      players: (state) => state.bloodbath,
     }),
-    redWins: {
-      get() { return this.getRedWins(); },
+    red_wins: {
+      get() { return this.get_red_wins(); },
       set(value) { this.incrementRedWins(value); },
     },
-    blueWins: {
-      get() { return this.getBlueWins(); },
+    blue_wins: {
+      get() { return this.get_blue_wins(); },
       set(value) { this.incrementBlueWins(value); },
     },
     red() {
@@ -70,8 +71,9 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['update4v4Scores', 'incrementRedWins', 'incrementBlueWins']),
-    ...mapGetters(['getRedWins', 'getBlueWins']),
+    ...mapMutations(['update4v4Scores']),
+    ...mapMutations('results', ['incrementRedWins', 'incrementBlueWins']),
+    ...mapGetters(['get_red_wins', 'get_blue_wins', 'four_vs_four_locked']),
     gameOver(winner) {
       this.update4v4Scores(winner);
     },

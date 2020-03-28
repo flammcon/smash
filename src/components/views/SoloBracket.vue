@@ -97,9 +97,11 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
 import Header from '../Header.vue';
 import Matchup from '../1v1/Matchup.vue';
+
+import { mapMutations, createNamespacedHelpers } from 'vuex';
+const { mapState } = createNamespacedHelpers('results');
 
 export default {
   name: 'SoloBracket',
@@ -247,7 +249,7 @@ export default {
   },
   computed: {
     ...mapState({
-      players: (state) => state.results.oneVsOneSeeding,
+      players: (state) => state.one_vs_one.seeding,
     }),
     game1Players() {
       return this.players.length > 0
@@ -284,6 +286,7 @@ export default {
   },
   methods: {
     ...mapMutations(['update1v1Scores']),
+    ...mapMutations('results', ['set1v1Results']),
     updateNextMatch(currentGame, nextGame, winnerGame, loserGame, index) {
       if (winnerGame) {
         const winner = { ...currentGame.winner };
@@ -314,6 +317,7 @@ export default {
           this.game12.loser,
           this.game12.winner,
         ];
+        this.set1v1Results(results);
         this.update1v1Scores(results);
       }
     },

@@ -47,7 +47,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['updatePlayerCharacter', 'lockDraftPicks', 'setDraftPicks']),
+    ...mapMutations(['updatePlayerCharacter', 'setDraftPicks']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
         this.updatePlayerCharacter({ playerId: this.current_player_id, character: character.url });
@@ -55,7 +55,6 @@ export default {
 
         if (this.current_draft_pick === 7) {
           this.setDraftPicks(this.drafted_characters);
-          this.lockDraftPicks();
         } else {
           this.current_draft_pick += 1;
         }

@@ -77,7 +77,7 @@ export default {
       }
     },
     needsTieBreaker(player) {
-      return this.$store.state.results.gameOver && this.hasDuplicateTotalScore(player);
+      return this.$store.state.gameOver && this.hasDuplicateTotalScore(player);
     },
   },
 };

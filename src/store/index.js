@@ -1,34 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import results from './modules/results';
 import smash from '../api/smash';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  modules: {
+    results,
+  },
   state: {
     characters: [],
     players: [],
     draft_order: [],
-    results: {
-      draft: [],
-      bloodbath: [],
-      fourVsFour: {
-        redWins: 0,
-        blueWins: 0,
-      },
-      twoVsTwoSeeding: [],
-      oneVsOneSeeding: [],
-      gameOver: false,
-    },
-    completed: {
-      draftOrder: false,
-      draft: false,
-      fourVsFour: false,
-      twoVsTwo: false,
-      oneVsOne: false,
-      pods: false,
-    },
+    draft: [],
+    gameOver: false,
+    draft_order_locked: false,
   },
   mutations: {
     setCharacters(state, characters) {
@@ -41,27 +28,14 @@ const store = new Vuex.Store({
       state.draft_order = draftOrder;
     },
     lockDraftOrder(state) {
-      state.completed.draftOrder = true;
+      state.draft_order_locked = true;
     },
     setDraftPicks(state, draftPicks) {
-      state.results.draft = draftPicks;
-    },
-    lockDraftPicks(state) {
-      state.completed.draft = true;
+      state.draft = draftPicks;
     },
     setPlayerDraftPick(state, payload) {
       const player = state.players.find((x) => x.id === payload.playerId);
       player.pick = payload.draftPick;
-    },
-    setBloodBathResults(state, results) {
-      state.results.bloodbath = results;
-    },
-    set2v2SeedingResults(state, results) {
-      state.results.twoVsTwoSeeding = results;
-    },
-    set1v1SeedingResults(state, results) {
-      state.results.oneVsOneSeeding = results;
-      state.completed.pods = true;
     },
     updatePlayerCharacter(state, payload) {
       const player = state.players.find((x) => x.id === payload.playerId);
@@ -75,8 +49,8 @@ const store = new Vuex.Store({
       const player = state.players.find((x) => x.id === payload.playerId);
       player.results.twoVsTwoSeeding = payload.rank;
     },
-    update2v2Scores(state, results) {
-      results.forEach((team, index) => {
+    update2v2Scores(state, value) {
+      value.forEach((team, index) => {
         let points = 0;
         if (index === 0) {
           points = 4;
@@ -92,10 +66,9 @@ const store = new Vuex.Store({
         const player2 = state.players.find((x) => x.id === team.player2.id);
         player2.results.twoVsTwo = points;
       });
-      state.completed.twoVsTwo = true;
     },
-    update1v1Scores(state, results) {
-      results.forEach((player, index) => {
+    update1v1Scores(state, value) {
+      value.forEach((player, index) => {
         let points = index;
         if (index === 7) {
           points = 8;
@@ -104,21 +77,13 @@ const store = new Vuex.Store({
         const team = state.players.find((x) => x.id === player.id);
         team.results.oneVsOne = points;
       });
-      state.results.gameOver = true;
-      state.completed.oneVsOne = true;
+      state.gameOver = true;
     },
     update4v4Scores(state, winners) {
       winners.forEach((winner) => {
         const player = state.players.find((x) => x.id === winner.id);
         player.results.fourVsFour = 2;
       });
-      state.completed.fourVsFour = true;
-    },
-    incrementRedWins(state, value) {
-      state.results.fourVsFour.redWins = value;
-    },
-    incrementBlueWins(state, value) {
-      state.results.fourVsFour.blueWins = value;
     },
     updatePlayerPodScore(state, payload) {
       const player = state.players.find((x) => x.id === payload.id);
@@ -146,13 +111,11 @@ const store = new Vuex.Store({
       commit('lockDraftOrder');
     },
     updateBloodbathResults: ({ commit }, payload) => {
-      commit('setBloodBathResults', payload);
       payload.forEach((player, index) => {
         commit('updateBloodbathRank', { playerId: player.id, rank: index + 1 });
       });
     },
     update2v2SeedingResults: ({ commit }, payload) => {
-      commit('set2v2SeedingResults', payload);
       payload.forEach((team, index) => {
         commit('update2v2SeedingRank', { playerId: team.player1.id, rank: index + 1 });
         commit('update2v2SeedingRank', { playerId: team.player2.id, rank: index + 1 });
@@ -169,13 +132,8 @@ const store = new Vuex.Store({
       const player = state.players.find((x) => x.id === id);
       return player.disabled;
     },
-    bloodbathResults: (state) => state.players.sort((a, b) => (a.results.bloodbath < b.results.bloodbath ? -1 : 1)),
-    isBloodbathSet: (state) => state.results.bloodbath.length > 0,
-    twoVsTwoSeedingResults: (state) => state.results.twoVsTwoSeeding,
-    draftCompleted: (state) => state.completed.draft,
-    draftPicks: (state) => state.results.draft,
-    getRedWins: (state) => state.results.fourVsFour.redWins,
-    getBlueWins: (state) => state.results.fourVsFour.blueWins,
+    draftCompleted: (state) => state.draft.length > 0,
+    draftPicks: (state) => state.draft,
   },
 });
 

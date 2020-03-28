@@ -179,11 +179,13 @@ export default {
     },
     'game4.isOver': function fn() {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
+      this.set2v2Results(results);
       this.update2v2Scores(results);
     },
   },
   methods: {
     ...mapMutations(['update2v2Scores']),
+    ...mapMutations('results', ['set2v2Results']),
     backgroundStyle(gameOver, wins, runnerup) {
       if (gameOver) {
         if (wins === 2) {
@@ -193,7 +195,6 @@ export default {
         }
         return 'loser';
       }
-
       return '';
     },
     addWin(currentGame, winner) {

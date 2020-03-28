@@ -4,7 +4,7 @@
       title="Solo Cup Seeding"
       prev="2v2"
       next="1v1"
-      :disabled="!locked"
+      :disabled="!one_vs_one_seeding_locked"
       :prevDisabled="lockedPods > 0 && lockedPods < 8"
     />
     <div class="row">
@@ -45,10 +45,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
 import Header from '../Header.vue';
 import PlayerCard from '../PlayerCard.vue';
 import Pod from '../1v1/Pod.vue';
+
+import { mapActions, createNamespacedHelpers } from 'vuex';
+const { mapState, mapGetters, mapMutations } = createNamespacedHelpers('results');
 
 export default {
   name: 'Pods',
@@ -65,9 +67,9 @@ export default {
   },
   computed: {
     ...mapState({
-      players: (state) => state.results.bloodbath,
-      locked: (state) => state.completed.pods,
+      players: (state) => state.bloodbath,
     }),
+    ...mapGetters(['one_vs_one_seeding_locked']),
     sortedPlayers() {
       return [...this.players].sort((a, b) => {
         if (a.results.podScore === 0) return 1;

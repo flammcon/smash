@@ -27,7 +27,7 @@ export default {
   computed: {
     ...mapState({
       draft_order: (state) => state.draft_order,
-      locked: (state) => state.completed.draftOrder,
+      locked: (state) => state.draft_order_locked,
     }),
   },
 };

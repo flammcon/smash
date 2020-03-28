@@ -9,8 +9,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import BracketPlayer from './BracketPlayer.vue';
+
+import { createNamespacedHelpers } from 'vuex';
+const { mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'Matchup',
@@ -30,8 +32,8 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      locked: (state) => state.completed.oneVsOne,
+    ...mapGetters({
+      locked: 'one_vs_one_locked',
     }),
   },
   methods: {

@@ -41,7 +41,9 @@
     "rules": {
       "comma-dangle": ["error", "always-multiline"],
       "max-len": ["error", { "code": 120 }],
-      "import/no-dynamic-require": 0
+      "import/no-dynamic-require": 0,
+      "no-shadow": ["error", { "allow": ["state", "getters"] }],
+      "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"]}]
     }
   },
   "browserslist": [

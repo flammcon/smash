@@ -18,9 +18,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 import PlayerCard from '../PlayerCard.vue';
+
+import { mapActions, createNamespacedHelpers } from 'vuex';
+const { mapState, mapMutations } = createNamespacedHelpers('results');
 
 export default {
   name: 'TwoVsTwoSeeding',
@@ -56,14 +58,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      players: 'bloodbathResults',
-      seeding: 'twoVsTwoSeedingResults',
+    ...mapState({
+      players: (state) => state.bloodbath,
+      seeding: (state) => state.two_vs_two.seeding,
     }),
   },
   methods: {
     ...mapActions(['update2v2SeedingResults']),
+    ...mapMutations(['set2v2SeedingResults']),
     updateRanks() {
+      this.set2v2SeedingResults(this.teams);
       this.update2v2SeedingResults(this.teams);
       this.locked = true;
     },

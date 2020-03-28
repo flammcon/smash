@@ -11,8 +11,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
 import SortablePlayerList from '../SortablePlayerList.vue';
+
+import { mapActions, createNamespacedHelpers } from 'vuex';
+const { mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'Pod',
@@ -30,8 +32,8 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      disabled: (state) => state.completed.pods,
+    ...mapGetters({
+      disabled: 'one_vs_one_seeding_locked',
     }),
   },
   methods: {
