@@ -58,15 +58,13 @@ export default {
       set(value) { this.incrementBlueWins(value); },
     },
     red() {
-      return this.players.filter((player) => {
-        const rank = player.results.bloodbath;
-        return rank === 1 || rank === 4 || rank === 5 || rank === 8;
+      return this.players.filter((player, index) => {
+        return index === 0 || index === 3 || index === 4 || index === 7;
       });
     },
     blue() {
-      return this.players.filter((player) => {
-        const rank = player.results.bloodbath;
-        return rank === 2 || rank === 3 || rank === 6 || rank === 7;
+      return this.players.filter((player, index) => {
+        return index === 1 || index === 2 || index === 5 || index === 6;
       });
     },
   },

@@ -21,9 +21,7 @@ export default {
       pick: 0,
       character: this.getAssetUrl(0),
       results: {
-        bloodbath: 0,
         fourVsFour: 0,
-        twoVsTwoSeeding: 0,
         twoVsTwo: 0,
         oneVsOne: 0,
         podScore: 0,

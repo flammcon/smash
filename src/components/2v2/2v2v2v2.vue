@@ -21,7 +21,7 @@
 import draggable from 'vuedraggable';
 import PlayerCard from '../PlayerCard.vue';
 
-import { mapActions, createNamespacedHelpers } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapMutations } = createNamespacedHelpers('results');
 
 export default {
@@ -64,11 +64,9 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['update2v2SeedingResults']),
     ...mapMutations(['set2v2SeedingResults']),
     updateRanks() {
       this.set2v2SeedingResults(this.teams);
-      this.update2v2SeedingResults(this.teams);
       this.locked = true;
     },
   },

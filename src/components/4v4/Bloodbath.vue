@@ -17,7 +17,7 @@
 import draggable from 'vuedraggable';
 import PlayerCard from '../PlayerCard.vue';
 
-import { mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
+import { mapGetters, createNamespacedHelpers } from 'vuex';
 const { mapState, mapMutations } = createNamespacedHelpers('results');
 
 export default {
@@ -45,10 +45,8 @@ export default {
   },
   methods: {
     ...mapMutations(['setBloodbathResults']),
-    ...mapActions(['updateBloodbathResults']),
     updateRanks() {
       this.setBloodbathResults(this.results);
-      this.updateBloodbathResults(this.results);
     },
   },
 };

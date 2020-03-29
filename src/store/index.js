@@ -41,14 +41,6 @@ const store = new Vuex.Store({
       const player = state.players.find((x) => x.id === payload.playerId);
       player.character = payload.character;
     },
-    updateBloodbathRank(state, payload) {
-      const player = state.players.find((x) => x.id === payload.playerId);
-      player.results.bloodbath = payload.rank;
-    },
-    update2v2SeedingRank(state, payload) {
-      const player = state.players.find((x) => x.id === payload.playerId);
-      player.results.twoVsTwoSeeding = payload.rank;
-    },
     update2v2Scores(state, value) {
       value.forEach((team, index) => {
         let points = 0;
@@ -109,17 +101,6 @@ const store = new Vuex.Store({
         commit('setPlayerDraftPick', { playerId: value.id, draftPick: index + 1 });
       });
       commit('lockDraftOrder');
-    },
-    updateBloodbathResults: ({ commit }, payload) => {
-      payload.forEach((player, index) => {
-        commit('updateBloodbathRank', { playerId: player.id, rank: index + 1 });
-      });
-    },
-    update2v2SeedingResults: ({ commit }, payload) => {
-      payload.forEach((team, index) => {
-        commit('update2v2SeedingRank', { playerId: team.player1.id, rank: index + 1 });
-        commit('update2v2SeedingRank', { playerId: team.player2.id, rank: index + 1 });
-      });
     },
     updatePlayerPodScore({ commit }, payload) {
       commit('updatePlayerPodScore', payload);
