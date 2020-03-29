@@ -19,9 +19,9 @@
 
 <script>
 import draggable from 'vuedraggable';
+import { createNamespacedHelpers } from 'vuex';
 import PlayerCard from '../PlayerCard.vue';
 
-import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapMutations } = createNamespacedHelpers('results');
 
 export default {

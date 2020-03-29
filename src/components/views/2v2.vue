@@ -14,11 +14,11 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import TwoVsTwoSeeding from '../2v2/2v2v2v2.vue';
 import Bracket from '../2v2/Bracket.vue';
 
-import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapGetters } = createNamespacedHelpers('results');
 
 export default {

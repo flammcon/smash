@@ -9,9 +9,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import BracketPlayer from './BracketPlayer.vue';
 
-import { createNamespacedHelpers } from 'vuex';
 const { mapGetters } = createNamespacedHelpers('results');
 
 export default {

@@ -97,10 +97,10 @@
 </template>
 
 <script>
+import { mapMutations, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import Matchup from '../1v1/Matchup.vue';
 
-import { mapMutations, createNamespacedHelpers } from 'vuex';
 const { mapState } = createNamespacedHelpers('results');
 
 export default {

@@ -11,9 +11,9 @@
 </template>
 
 <script>
+import { mapActions, createNamespacedHelpers } from 'vuex';
 import SortablePlayerList from '../SortablePlayerList.vue';
 
-import { mapActions, createNamespacedHelpers } from 'vuex';
 const { mapGetters } = createNamespacedHelpers('results');
 
 export default {

@@ -31,11 +31,11 @@
 </template>
 
 <script>
+import { mapMutations, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import Bloodbath from '../4v4/Bloodbath.vue';
 import Team from '../4v4/Team.vue';
 
-import { mapMutations, createNamespacedHelpers } from 'vuex';
 const { mapState, mapGetters } = createNamespacedHelpers('results');
 
 export default {
@@ -58,14 +58,10 @@ export default {
       set(value) { this.incrementBlueWins(value); },
     },
     red() {
-      return this.players.filter((player, index) => {
-        return index === 0 || index === 3 || index === 4 || index === 7;
-      });
+      return this.players.filter((player, index) => index === 0 || index === 3 || index === 4 || index === 7);
     },
     blue() {
-      return this.players.filter((player, index) => {
-        return index === 1 || index === 2 || index === 5 || index === 6;
-      });
+      return this.players.filter((player, index) => index === 1 || index === 2 || index === 5 || index === 6);
     },
   },
   methods: {

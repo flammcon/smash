@@ -45,11 +45,11 @@
 </template>
 
 <script>
+import { mapActions, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import PlayerCard from '../PlayerCard.vue';
 import Pod from '../1v1/Pod.vue';
 
-import { mapActions, createNamespacedHelpers } from 'vuex';
 const { mapState, mapGetters, mapMutations } = createNamespacedHelpers('results');
 
 export default {
