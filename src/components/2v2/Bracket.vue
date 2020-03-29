@@ -3,20 +3,20 @@
     <h4>Winners Bracket</h4>
     <div class="container">
       <div class="split split-one">
-        <div :class="[{current: game1.isCurrent}, 'round round-one']">
+        <div :class="[{current: game1.current}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 1</span></div>
-          <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.id}`"
-            :class="backgroundStyle(game1.isOver, team.wins)"
+          <BracketTeam v-for="team in game1.teams" :key="`game1-team${team.seed}`"
+            :class="backgroundStyle(game1.completed, team.wins)"
             :seed="`${team.seed}`"
             :team="team"
             @click.native="addWin(game1, team)"/>
         </div>
         <!-- END ROUND ONE -->
 
-        <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
+        <div v-bind:class="[{current: game4.current || game4.completed}, 'round round-two']">
           <div class="round-details"><br/></div>
           <BracketTeam
-            :class="backgroundStyle(game4.isOver, game4.teams[0].wins, true)"
+            :class="backgroundStyle(game4.completed, game4.teams[0].wins, true)"
             :seed="`${game4.teams[0].seed}`"
             :team="game4.teams[0]"
             @click.native="addWin(game4, game4.teams[0])"/>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="champion">
-        <div v-bind:class="[{current: game4.isOver}, 'final']">
+        <div v-bind:class="[{current: game4.completed}, 'final']">
           <i class="fa fa-trophy"></i>
           <div class="round-details">Champions<br/><span class="date">Game 4</span></div>
           <ul class="team championship first">
@@ -40,20 +40,20 @@
       </div>
 
       <div class="split split-two">
-        <div v-bind:class="[{current: game4.isCurrent || game4.isOver}, 'round round-two']">
+        <div v-bind:class="[{current: game4.current || game4.completed}, 'round round-two']">
           <div class="round-details"><br/></div>
           <BracketTeam
-            :class="backgroundStyle(game4.isOver, game4.teams[1].wins, true)"
+            :class="backgroundStyle(game4.completed, game4.teams[1].wins, true)"
             :seed="`${game4.teams[1].seed}`"
             :team="game4.teams[1]"
             @click.native="addWin(game4, game4.teams[1])" reverse/>
         </div>
         <!-- END ROUND TWO -->
 
-        <div v-bind:class="[{current: game2.isCurrent || game2.isOver}, 'round round-one']">
+        <div v-bind:class="[{current: game2.current || game2.completed}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 2</span></div>
-          <BracketTeam v-for="team in game2.teams" :key="`game2-team${team.id}`" reverse
-            :class="backgroundStyle(game2.isOver, team.wins)"
+          <BracketTeam v-for="team in game2.teams" :key="`game2-team${team.seed}`" reverse
+            :class="backgroundStyle(game2.completed, team.wins)"
             :seed="`${team.seed}`"
             :team="team"
             @click.native="addWin(game2, team)"/>
@@ -64,16 +64,16 @@
     <h4>Losers Bracket</h4>
     <div class="container">
       <div class="split split-one">
-        <div v-bind:class="[{current: game3.isCurrent || game3.isOver}, 'round round-one']">
+        <div v-bind:class="[{current: game3.current || game3.completed}, 'round round-one']">
           <div class="round-details"><br/><span class="date">Game 3</span></div>
           <BracketTeam v-for="(team, index) in game3.teams" :key="`game3-team${index}`"
-            :class="backgroundStyle(game3.isOver, team.wins)"
+            :class="backgroundStyle(game3.completed, team.wins)"
             :seed="`${team.seed}`"
             :team="team"
             @click.native="addWin(game3, team)"/>
         </div>  <!-- END ROUND ONE -->
 
-        <div v-bind:class="[{current: game3.isOver}, 'round round-two']">
+        <div v-bind:class="[{current: game3.completed}, 'round round-two']">
           <div class="round-details">3rd Place<br/></div>
           <ul class="team third">
             <li class="player player-top">
@@ -90,8 +90,9 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import BracketTeam from './BracketTeam.vue';
+
 
 export default {
   name: 'Bracket',
@@ -102,82 +103,33 @@ export default {
     teams: Array,
     disabled: Boolean,
   },
-  data() {
-    return {
-      games: [
-        {
-          id: 1,
-          teams: [{ ...this.teams[0], wins: 0, seed: 1 }, { ...this.teams[3], wins: 0, seed: 4 }],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: true,
-        },
-        {
-          id: 2,
-          teams: [{ ...this.teams[1], wins: 0, seed: 2 }, { ...this.teams[2], wins: 0, seed: 3 }],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 3,
-          teams: [
-            {
-              player1: { name: 'Loser Game 1' }, player2: { name: 'Loser Game 1' }, wins: 0, seed: '',
-            },
-            {
-              player1: { name: 'Loser Game 2' }, player2: { name: 'Loser Game 2' }, wins: 0, seed: '',
-            },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 4,
-          teams: [
-            {
-              player1: { name: 'Winner Game 1' }, player2: { name: 'Winner Game 1' }, wins: 0, seed: '',
-            },
-            {
-              player1: { name: 'Winner Game 2' }, player2: { name: 'Winner Game 2' }, wins: 0, seed: '',
-            },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-      ],
-    };
-  },
   computed: {
+    ...mapState({
+      games: (state) => state.results.two_vs_two.games,
+    }),
     game1() { return this.games[0]; },
     game2() { return this.games[1]; },
     game3() { return this.games[2]; },
     game4() { return this.games[3]; },
   },
   watch: {
-    'game1.isOver': function fn() {
+    'game1.completed': function fn() {
       this.updateNextGame(this.game3, this.game1.loser, 0);
       this.updateNextGame(this.game4, this.game1.winner, 0);
-      this.game1.isCurrent = false;
-      this.game2.isCurrent = true;
+      this.game1.current = false;
+      this.game2.current = true;
     },
-    'game2.isOver': function fn() {
+    'game2.completed': function fn() {
       this.updateNextGame(this.game3, this.game2.loser, 1);
       this.updateNextGame(this.game4, this.game2.winner, 1);
-      this.game2.isCurrent = false;
-      this.game3.isCurrent = true;
+      this.game2.current = false;
+      this.game3.current = true;
     },
-    'game3.isOver': function fn() {
-      this.game3.isCurrent = false;
-      this.game4.isCurrent = true;
+    'game3.completed': function fn() {
+      this.game3.current = false;
+      this.game4.current = true;
     },
-    'game4.isOver': function fn() {
+    'game4.completed': function fn() {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
       this.set2v2Results(results);
       this.update2v2Scores(results);
@@ -198,14 +150,14 @@ export default {
       return '';
     },
     addWin(currentGame, winner) {
-      if (!(currentGame.isOver || this.disabled) && currentGame.isCurrent) {
+      if (!(currentGame.completed || this.disabled) && currentGame.current) {
         const game = this.games.find((x) => x.id === currentGame.id);
         const team = game.teams.find((x) => x.seed === winner.seed);
         team.wins += 1;
         if (team.wins === 2) {
           game.winner = { ...team };
-          game.loser = { ...game.teams.find((x) => x.id !== team.id) };
-          game.isOver = true;
+          game.loser = { ...game.teams.find((x) => x.seed !== team.seed) };
+          game.completed = true;
         }
       }
     },

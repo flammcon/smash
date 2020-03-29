@@ -21,8 +21,8 @@ const state = {
         ],
         winner: {},
         loser: {},
-        is_over: false,
-        is_current: true,
+        completed: false,
+        current: true,
       },
       {
         id: 2,
@@ -36,8 +36,8 @@ const state = {
         ],
         winner: {},
         loser: {},
-        isOver: false,
-        isCurrent: false,
+        completed: false,
+        current: false,
       },
       {
         id: 3,
@@ -51,8 +51,8 @@ const state = {
         ],
         winner: {},
         loser: {},
-        isOver: false,
-        isCurrent: false,
+        completed: false,
+        current: false,
       },
       {
         id: 4,
@@ -66,8 +66,8 @@ const state = {
         ],
         winner: {},
         loser: {},
-        isOver: false,
-        isCurrent: false,
+        completed: false,
+        current: false,
       },
     ],
   },
@@ -92,7 +92,21 @@ const getters = {
 
 // actions
 const actions = {
+  update2v2Round1Games({ state, commit }) {
+    const game1 = [
+      state.two_vs_two.seeding[0],
+      state.two_vs_two.seeding[3],
+    ];
 
+    commit('update2v2GameTeams', { id: 1, teams: game1 });
+
+    const game2 = [
+      state.two_vs_two.seeding[1],
+      state.two_vs_two.seeding[2],
+    ];
+
+    commit('update2v2GameTeams', { id: 2, teams: game2 });
+  },
 };
 
 // mutations
@@ -117,6 +131,15 @@ const mutations = {
   },
   set1v1Results(state, payload) {
     state.one_vs_one.final = payload;
+  },
+  update2v2GameTeams(state, { id, teams }) {
+    const game = state.two_vs_two.games.find((x) => x.id === id);
+
+    game.teams[0].player1 = teams[0].player1;
+    game.teams[0].player2 = teams[0].player2;
+
+    game.teams[1].player1 = teams[1].player1;
+    game.teams[1].player2 = teams[1].player2;
   },
 };
 
