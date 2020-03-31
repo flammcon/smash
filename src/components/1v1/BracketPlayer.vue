@@ -3,8 +3,8 @@
     <span :class="['base',reverse ? 'right' : 'left']">{{player.seed === 0 ? '' : player.seed}}</span>
     {{ player.name }}
     <span :class="['base', reverse ? 'left' : 'right']">
-      <ScoreDot :fill="reverse ? wins > 0 : wins > 1"/>
-      <ScoreDot style="margin-left: 1px" :fill="reverse ? wins > 1 : wins > 0"/>
+      <ScoreDot :fill="reverse ? player.wins > 0 : player.wins > 1"/>
+      <ScoreDot style="margin-left: 1px" :fill="reverse ? player.wins > 1 : player.wins > 0"/>
     </span>
   </div>
 </template>
@@ -18,9 +18,7 @@ export default {
     ScoreDot,
   },
   props: {
-    current: Boolean,
     player: Object,
-    wins: Number,
     reverse: Boolean,
   },
 };

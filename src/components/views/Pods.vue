@@ -117,12 +117,14 @@ export default {
     gameOver() {
       if (this.gameOver) {
         this.set1v1SeedingResults([...this.sortedPlayers]);
+        this.update1v1Round1Games();
       }
     },
   },
   methods: {
     ...mapMutations(['set1v1SeedingResults']),
     ...mapActions(['updatePlayerPodScore']),
+    ...mapActions('results', ['update1v1Round1Games']),
     hasDuplicatePodScores() {
       const podScores = this.sortedPlayers.map((player) => player.results.podScore);
       return podScores.some((item, index) => podScores.indexOf(item) !== index);

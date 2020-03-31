@@ -7,16 +7,13 @@
         <div class="split split-one">
           <div class="round round-one">
             <div class="round-details">Round 1<br/><span class="date">Games 1 and 2</span></div>
-            <Matchup :players="game1Players" :game.sync="game1"
-              @matchOver="updateNextMatch(game1, game2, game7, game5, 0)"/>
-            <Matchup :players="game2Players" :game.sync="game2"
-              @matchOver="updateNextMatch(game2, game3, game7, game5, 1)"/>
+            <Matchup :gameId="1" @matchOver="updateNextMatch(1, 2, 7, 5, 0)"/>
+            <Matchup :gameId="2" @matchOver="updateNextMatch(2, 3, 7, 5, 1)"/>
           </div>  <!-- END ROUND ONE -->
 
           <div class="round round-two">
             <div class="round-details">Round 2<br/><span class="date">Game 7</span></div>
-            <Matchup :players="game7.players" :game.sync="game7"
-              @matchOver="updateNextMatch(game7, game8, game12, game11, 0)"/>
+            <Matchup :gameId="7" @matchOver="updateNextMatch(7, 8, 12, 11, 0)"/>
           </div>  <!-- END ROUND TWO -->
         </div>
 
@@ -24,24 +21,20 @@
           <div class="final">
             <i class="fa fa-trophy"></i>
             <div class="round-details">Championship<br/><span class="date">Game 12</span></div>
-            <Matchup :players="game12.players" :game.sync="game12"
-              @matchOver="updateNextMatch(game12, null, null, null, 0)"/>
+            <Matchup :gameId="12" @matchOver="updateNextMatch(12, null, null, null, 0)"/>
           </div>
         </div>
 
         <div class="split split-two">
           <div class="round round-two">
             <div class="round-details">Round 2<br/><span class="date">Game 8</span></div>
-            <Matchup :players="game8.players" :game.sync="game8" reverse
-              @matchOver="updateNextMatch(game8, game9, game12, game11, 1)"/>
+            <Matchup :gameId="8" @matchOver="updateNextMatch(8, 9, 12, 11, 1)" reverse/>
           </div>  <!-- END ROUND TWO -->
 
           <div class="round round-one">
             <div class="round-details">Round 1<br/><span class="date">Games 3 and 4</span></div>
-            <Matchup :players="game3Players" :game.sync="game3" reverse
-              @matchOver="updateNextMatch(game3, game4, game8, game6, 0)"/>
-            <Matchup :players="game4Players" :game.sync="game4" reverse
-              @matchOver="updateNextMatch(game4, game5, game8, game6, 1)"/>
+            <Matchup :gameId="3" @matchOver="updateNextMatch(3, 4, 8, 6, 0)" reverse/>
+            <Matchup :gameId="4" @matchOver="updateNextMatch(4, 5, 8, 6, 1)" reverse/>
           </div>  <!-- END ROUND ONE -->
         </div>
       </div>
@@ -49,8 +42,7 @@
         <div class="split split-one third">
           <div class="round round-one">
             <div class="round-details">3rd Place<br/><span class="date">Game 11</span></div>
-            <Matchup :players="game11.players" :game.sync="game11"
-              @matchOver="updateNextMatch(game11, game12, null, null, 0)"/>
+            <Matchup :gameId="11" @matchOver="updateNextMatch(11, 12, null, null, 0)"/>
           </div>  <!-- END ROUND ONE -->
           <div class="round round-two"/>
         </div>
@@ -66,16 +58,13 @@
         <div class="split split-one">
           <div class="round round-one">
             <div class="round-details"><br/><span class="date">Games 5 and 6</span></div>
-            <Matchup :players="game5.players" :game.sync="game5"
-              @matchOver="updateNextMatch(game5, game6, game10, game9, 0)"/>
-            <Matchup :players="game6.players" :game.sync="game6"
-              @matchOver="updateNextMatch(game6, game7, game10, game9, 1)"/>
+            <Matchup :gameId="5" @matchOver="updateNextMatch(5, 6, 10, 9, 0)"/>
+            <Matchup :gameId="6" @matchOver="updateNextMatch(6, 7, 10, 9, 1)"/>
           </div>  <!-- END ROUND ONE -->
 
           <div class="round round-two">
             <div class="round-details">5th Place<br/><span class="date">Game 10</span></div>
-            <Matchup :players="game10.players" :game.sync="game10"
-              @matchOver="updateNextMatch(game10, game11, null, null, 0)"/>
+            <Matchup :gameId="10" @matchOver="updateNextMatch(10, 11, null, null, 0)"/>
           </div>  <!-- END ROUND TWO -->
         </div>
 
@@ -84,8 +73,7 @@
         <div class="split split-two">
           <div class="round round-two">
             <div class="round-details">7th Place<br/><span class="date">Game 9</span></div>
-            <Matchup :players="game9.players" :game.sync="game9"
-              @matchOver="updateNextMatch(game9, game10, null, null, 0)"/>
+            <Matchup :gameId="9" @matchOver="updateNextMatch(9, 10, null, null, 0)"/>
           </div>  <!-- END ROUND TWO -->
 
           <div class="round round-one">
@@ -101,7 +89,7 @@ import { mapMutations, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import Matchup from '../1v1/Matchup.vue';
 
-const { mapState } = createNamespacedHelpers('results');
+const { mapState, mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'SoloBracket',
@@ -109,185 +97,20 @@ export default {
     Header,
     Matchup,
   },
-  data() {
-    return {
-      games: [
-        {
-          id: 1,
-          players: [
-            { name: '1 Seed', seed: 1, wins: 0 },
-            { name: '8 Seed', seed: 8, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: true,
-        },
-        {
-          id: 2,
-          players: [
-            { name: '3 Seed', seed: 3, wins: 0 },
-            { name: '4 Seed', seed: 4, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 3,
-          players: [
-            { name: '3 Seed', seed: 3, wins: 0 },
-            { name: '6 Seed', seed: 6, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 4,
-          players: [
-            { name: '2 Seed', seed: 2, wins: 0 },
-            { name: '7 Seed', seed: 7, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 5,
-          players: [
-            { name: 'Loser Game 1', seed: 0, wins: 0 },
-            { name: 'Loser Game 2', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 6,
-          players: [
-            { name: 'Loser Game 3', seed: 0, wins: 0 },
-            { name: 'Loser Game 4', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 7,
-          players: [
-            { name: 'Winner Game 1', seed: 0, wins: 0 },
-            { name: 'Winner Game 2', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 8,
-          players: [
-            { name: 'Winner Game 3', seed: 0, wins: 0 },
-            { name: 'Winner Game 4', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 9,
-          players: [
-            { name: 'Loser Game 5', seed: 0, wins: 0 },
-            { name: 'Loser Game 6', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 10,
-          players: [
-            { name: 'Winner Game 5', seed: 0, wins: 0 },
-            { name: 'Winner Game 6', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 11,
-          players: [
-            { name: 'Loser Game 7', seed: 0, wins: 0 },
-            { name: 'Loser Game 8', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-        {
-          id: 12,
-          players: [
-            { name: 'Winner Game 7', seed: 0, wins: 0 },
-            { name: 'Winner Game 8', seed: 0, wins: 0 },
-          ],
-          winner: {},
-          loser: {},
-          isOver: false,
-          isCurrent: false,
-        },
-      ],
-    };
-  },
   computed: {
     ...mapState({
-      players: (state) => state.one_vs_one.seeding,
+      games: (state) => state.one_vs_one.games,
     }),
-    game1Players() {
-      return this.players.length > 0
-        ? [{ ...this.players[0], wins: 0, seed: 1 }, { ...this.players[7], wins: 0, seed: 8 }]
-        : this.game1.players;
-    },
-    game2Players() {
-      return this.players.length > 0
-        ? [{ ...this.players[3], wins: 0, seed: 4 }, { ...this.players[4], wins: 0, seed: 5 }]
-        : this.game2.players;
-    },
-    game3Players() {
-      return this.players.length > 0
-        ? [{ ...this.players[2], wins: 0, seed: 3 }, { ...this.players[5], wins: 0, seed: 6 }]
-        : this.game3.players;
-    },
-    game4Players() {
-      return this.players.length > 0
-        ? [{ ...this.players[1], wins: 0, seed: 2 }, { ...this.players[6], wins: 0, seed: 7 }]
-        : this.game4.players;
-    },
-    game1() { return this.games[0]; },
-    game2() { return this.games[1]; },
-    game3() { return this.games[2]; },
-    game4() { return this.games[3]; },
-    game5() { return this.games[4]; },
-    game6() { return this.games[5]; },
-    game7() { return this.games[6]; },
-    game8() { return this.games[7]; },
-    game9() { return this.games[8]; },
-    game10() { return this.games[9]; },
-    game11() { return this.games[10]; },
-    game12() { return this.games[11]; },
   },
   methods: {
+    ...mapGetters(['gameById']),
     ...mapMutations(['update1v1Scores']),
     ...mapMutations('results', ['set1v1Results']),
-    updateNextMatch(currentGame, nextGame, winnerGame, loserGame, index) {
+    updateNextMatch(currentId, nextId, winnerId, loserId, index) {
+      const currentGame = this.gameById()(currentId);
+      const winnerGame = this.gameById()(winnerId);
+      const loserGame = this.gameById()(loserId);
+
       if (winnerGame) {
         const winner = { ...currentGame.winner };
         winner.wins = 0;
@@ -295,27 +118,31 @@ export default {
         const loser = { ...currentGame.loser };
         loser.wins = 0;
 
-        winnerGame.players.splice(index, 1, winner);
-        loserGame.players.splice(index, 1, loser);
+        winnerGame.teams.splice(index, 1, winner);
+        loserGame.teams.splice(index, 1, loser);
       }
 
-      const current = this.games.find((x) => x.id === nextGame.id);
-      current.isOver = true;
-      current.isCurrent = false;
+      currentGame.completed = true;
+      currentGame.current = false;
 
-      if (nextGame) {
-        const next = this.games.find((x) => x.id === nextGame.id);
-        next.isCurrent = true;
+      if (nextId) {
+        const nextGame = this.gameById()(nextId);
+        nextGame.current = true;
       } else {
+        const game9 = this.gameById()(9);
+        const game10 = this.gameById()(10);
+        const game11 = this.gameById()(11);
+        const game12 = this.gameById()(12);
+
         const results = [
-          this.game9.loser,
-          this.game9.winner,
-          this.game10.loser,
-          this.game10.winner,
-          this.game11.loser,
-          this.game11.winner,
-          this.game12.loser,
-          this.game12.winner,
+          game9.loser,
+          game9.winner,
+          game10.loser,
+          game10.winner,
+          game11.loser,
+          game11.winner,
+          game12.loser,
+          game12.winner,
         ];
         this.set1v1Results(results);
         this.update1v1Scores(results);
