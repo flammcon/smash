@@ -29,8 +29,8 @@ export default {
     next: String,
     disabled: Boolean,
     prevDisabled: Boolean, // remove when all state is saved
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

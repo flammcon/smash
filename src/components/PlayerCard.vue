@@ -21,9 +21,9 @@ export default {
   computed: {
     backgroundStyle() {
       return `background-color: ${this.color ? this.color : 'gold'}`;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

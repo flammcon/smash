@@ -18,20 +18,23 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import draggable from 'vuedraggable';
-import PlayerCard from '../PlayerCard'
+import { createNamespacedHelpers } from 'vuex';
+import PlayerCard from '../PlayerCard.vue';
+
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('results');
+
 export default {
   name: 'TwoVsTwoSeeding',
   components: {
     draggable,
-    PlayerCard
+    PlayerCard,
   },
   data() {
     return {
       teams: [],
       locked: false,
-    }
+    };
   },
   mounted() {
     if (this.seeding.length > 0) {
@@ -39,27 +42,37 @@ export default {
       this.locked = true;
     } else {
       this.teams = [
-        {id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid'},
-        {id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue'},
-        {id: 3, player1: this.players[2], player2: this.players[4], color: 'yellowgreen'},
-        {id: 4, player1: this.players[3], player2: this.players[5], color: 'orange'},
+        {
+          id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid',
+        },
+        {
+          id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue',
+        },
+        {
+          id: 3, player1: this.players[2], player2: this.players[4], color: 'yellowgreen',
+        },
+        {
+          id: 4, player1: this.players[3], player2: this.players[5], color: 'orange',
+        },
       ];
     }
   },
   computed: {
-    ...mapGetters({
-      players: 'bloodbathResults',
-      seeding: 'twoVsTwoSeedingResults',
+    ...mapState({
+      players: (state) => state.bloodbath,
+      seeding: (state) => state.two_vs_two.seeding,
     }),
   },
   methods: {
-    ...mapActions(['update2v2SeedingResults']),
+    ...mapMutations(['set2v2SeedingResults']),
+    ...mapActions(['update2v2Round1Games']),
     updateRanks() {
-      this.update2v2SeedingResults(this.teams);
+      this.set2v2SeedingResults(this.teams);
+      this.update2v2Round1Games();
       this.locked = true;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

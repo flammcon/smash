@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import Header from '../Header'
-import SortablePlayerList from '../SortablePlayerList'
+import { mapState, mapActions } from 'vuex';
+import Header from '../Header.vue';
+import SortablePlayerList from '../SortablePlayerList.vue';
 
 export default {
   name: 'DraftOrder',
@@ -26,11 +26,11 @@ export default {
   },
   computed: {
     ...mapState({
-      draft_order: state => state.draft_order,
-      locked: state => state.completed.draftOrder,
+      draft_order: (state) => state.draft_order,
+      locked: (state) => state.draft_order_locked,
     }),
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

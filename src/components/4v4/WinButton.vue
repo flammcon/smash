@@ -1,7 +1,7 @@
 <template>
-  <button 
-    type="button" 
-    v-bind:class="[wins > min - 1 ? `btn-${styling}` : `btn-outline-${styling}`, 'btn']" 
+  <button
+    type="button"
+    v-bind:class="[wins > min - 1 ? `btn-${styling}` : `btn-outline-${styling}`, 'btn']"
     :disabled="disabled || wins !== min - 1">Win {{min}}
   </button>
 </template>
@@ -14,8 +14,8 @@ export default {
     wins: Number,
     disabled: Boolean,
     styling: String,
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

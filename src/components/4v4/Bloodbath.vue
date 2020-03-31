@@ -1,51 +1,55 @@
 <template>
   <div>
     <table class="table table-sm">
-      <draggable v-model="results" tag="tbody" :disabled="isBloodbathSet">
+      <draggable v-model="results" tag="tbody" :disabled="bloodbath_locked">
         <tr v-for="(player, index) in this.results" :key="`bloodbath-${player.id}`">
           <th scope="row">{{index + 1}}</th>
           <td><PlayerCard :player="player"/></td>
-          <td><i v-bind:class="[{ disabled: isBloodbathSet }, 'fas', 'fa-grip-lines']" /></td>
+          <td><i v-bind:class="[{ disabled: bloodbath_locked }, 'fas', 'fa-grip-lines']" /></td>
         </tr>
       </draggable>
     </table>
-    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="isBloodbathSet">Submit</button>
+    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="bloodbath_locked">Submit</button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import draggable from "vuedraggable";
-import PlayerCard from "../PlayerCard";
+import draggable from 'vuedraggable';
+import { mapGetters, createNamespacedHelpers } from 'vuex';
+import PlayerCard from '../PlayerCard.vue';
+
+const { mapState, mapMutations } = createNamespacedHelpers('results');
 
 export default {
   name: 'Bloodbath',
   components: {
     draggable,
-    PlayerCard
+    PlayerCard,
   },
   data() {
     return {
       results: [],
-    }
+    };
   },
   mounted() {
-    if (this.isBloodbathSet) {
-      this.results = this.bloodbathResults;
+    if (this.bloodbath_locked) {
+      this.results = this.bloodbath;
     } else {
       this.results = [...this.sortedPlayerList];
     }
   },
   computed: {
-    ...mapGetters(['sortedPlayerList', 'isBloodbathSet', 'bloodbathResults']),
+    ...mapState(['bloodbath']),
+    ...mapGetters('results', ['bloodbath_locked']),
+    ...mapGetters(['sortedPlayerList']),
   },
   methods: {
-    ...mapActions(['updateBloodbathResults']),
+    ...mapMutations(['setBloodbathResults']),
     updateRanks() {
-      this.updateBloodbathResults(this.results);
+      this.setBloodbathResults(this.results);
     },
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
