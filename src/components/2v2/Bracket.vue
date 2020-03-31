@@ -272,9 +272,9 @@ export default {
 .share-icon { font-size: 24px; color: #fff; padding: 25px; }
 .share-wrap { max-width: 1100px; text-align: center; margin: 60px auto; }
 .final { margin: 4.5em 0; }
-.current .third .player { background-color: goldenrod; }
-.current .second .player { background-color: silver; }
 .current .first .player { background-color: gold; }
+.current .second .player { background-color: silver; }
+.current .third .player { background-color: goldenrod; }
 
 @-webkit-keyframes pulse {
   0% {

@@ -91,8 +91,11 @@ li {
   box-shadow: none;
   opacity: 0.45;
 }
-.current li { opacity:1; }
+.current li { opacity: 1; }
 .current { color: #2C7399; }
-.winner { background-color: lightgreen; opacity: 0.7;}
-.loser { background-color: lightpink; opacity: 0.7;}
+.winner { background-color: lightgreen; opacity: 0.7; }
+.loser { background-color: lightpink; opacity: 0.7; }
+.final .winner { background-color: gold; opacity: 1; }
+.final .loser { background-color: silver; opacity: 1; }
+.third .winner { background-color: goldenrod; opacity: 1; }
 </style>
