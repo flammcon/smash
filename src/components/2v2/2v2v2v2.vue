@@ -13,7 +13,7 @@
         <i v-bind:class="[{ disabled: locked }, 'fas', 'fa-arrows-alt-v']"/>
       </div>
     </draggable>
-    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="locked">Submit</button>
+    <button v-if="!locked" type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
   </div>
 </template>
 

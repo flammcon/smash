@@ -2,7 +2,7 @@
   <div>
     <Header title="Draft Order" next="draft" :disabled="!locked"/>
     <SortablePlayerList :players="draft_order" name="draft-order" :disabled="locked"/>
-    <button type="button" class="btn btn-primary mt-2" @click="lockDraftOrder()" :disabled="locked">Lock</button>
+    <button v-if="!locked" type="button" class="btn btn-primary mt-2" @click="lockDraftOrder()">Lock</button>
   </div>
 </template>
 

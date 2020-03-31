@@ -9,7 +9,7 @@
         </tr>
       </draggable>
     </table>
-    <button type="button" class="btn btn-primary" @click="updateRanks" :disabled="bloodbath_locked">Submit</button>
+    <button v-if="!bloodbath_locked" type="button" class="btn btn-primary" @click="updateRanks">Submit</button>
   </div>
 </template>
 
