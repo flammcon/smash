@@ -1,0 +1,254 @@
+{
+  "games_2v2": {
+    "1": {
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [2,3]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 0,
+          "team": [6,1]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 0,
+          "team": [4,8]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [7,5]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 4,
+          "wins": 0,
+          "team": [6,1]
+        },
+        "team2": {
+          "seed": 2,
+          "wins": 2,
+          "team": [4,8]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [2,3]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 0,
+          "team": [7,5]
+        }
+      }
+    },
+    "2": {
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [7,4]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 0,
+          "team": [5,1]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 2,
+          "team": [6,8]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 0,
+          "team": [3,1]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 4,
+          "wins": 2,
+          "team": [5,2]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 1,
+          "team": [3,1]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [7,4]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 0,
+          "team": [6,8]
+        }
+      }
+    },
+    "3": {
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [6,4]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 0,
+          "team": [0,0]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 0,
+          "team": [3,7]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [2,5]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 4,
+          "wins": 0,
+          "team": [0,0]
+        },
+        "team2": {
+          "seed": 2,
+          "wins": 2,
+          "team": [3,7]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [6,4]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 0,
+          "team": [2,5]
+        }
+      }
+    },
+    "4": {
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 0,
+          "team": [5,8]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 2,
+          "team": [6,2]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 0,
+          "team": [3,4]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [7,1]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 1,
+          "wins": 1,
+          "team": [5,8]
+        },
+        "team2": {
+          "seed": 2,
+          "wins": 2,
+          "team": [3,4]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 4,
+          "wins": 0,
+          "team": [6,2]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [7,1]
+        }
+      }
+    },
+    "5": {
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [6,9]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 0,
+          "team": [3,4]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 1,
+          "team": [1,2]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [7,5]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 4,
+          "wins": 2,
+          "team": [3,4]
+        },
+        "team2": {
+          "seed": 2,
+          "wins": 0,
+          "team": [1,2]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 1,
+          "wins": 0,
+          "team": [6,9]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [7,5]
+        }
+      }
+    }
+  }
+}

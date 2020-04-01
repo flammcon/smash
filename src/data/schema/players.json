@@ -1,0 +1,76 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Marlene",
+      "active": true,
+      "played_characters": [9, 69, 16, 45],
+      "disabled_characters": [16],
+      "events_played": [1, 2, 4, 5]
+    },
+    {
+      "id": 2,
+      "name": "Nick",
+      "active": true,
+      "played_characters": [24, 45, 63, 33, 71],
+      "disabled_characters": [33, 71],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 3,
+      "name": "Mike",
+      "active": true,
+      "played_characters": [16, 36, 37, 44, 2],
+      "disabled_characters": [16],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 4,
+      "name": "Phil",
+      "active": true,
+      "played_characters": [38, 9, 26, 7, 60],
+      "disabled_characters": [9],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 5,
+      "name": "Kyle",
+      "active": true,
+      "played_characters": [47, 54, 16, 42, 65],
+      "disabled_characters": [16, 54],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 6,
+      "name": "Jan",
+      "active": true,
+      "played_characters": [65, 62, 57, 75, 9],
+      "disabled_characters": [65, 62, 57, 75, 9],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 7,
+      "name": "Brian",
+      "active": true,
+      "played_characters": [3, 50, 55, 80, 69],
+      "disabled_characters": [3, 50, 55, 80, 69],
+      "events_played": [1, 2, 3, 4, 5]
+    },
+    {
+      "id": 8,
+      "name": "Nik",
+      "active": false,
+      "played_characters": [4, 25, 68],
+      "disabled_characters": [],
+      "events_played": [1, 2, 4]
+    },
+    {
+      "id": 9,
+      "name": "Sam",
+      "active": true,
+      "played_characters": [49],
+      "disabled_characters": [49],
+      "events_played": [5]
+    }
+  ]
+}

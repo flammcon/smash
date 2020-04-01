@@ -1,0 +1,442 @@
+{
+  "characters": [
+    {
+      "id": 1,
+      "name": "Mario",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Hero"
+    },
+    {
+      "id": 2,
+      "name": "Donkey Kong",
+      "franchise": "Donkey Kong",
+      "classification": "Hero"
+    },
+    {
+      "id": 3,
+      "name": "Link",
+      "franchise": "Zelda",
+      "classification": "Hero"
+    },
+    {
+      "id": 4,
+      "name": "Samus",
+      "franchise": "Metroid",
+      "classification": "Hero"
+    },
+    {
+      "id": 5,
+      "name": "Dark Samus",
+      "franchise": "Metroid",
+      "classification": "Villain"
+    },
+    {
+      "id": 6,
+      "name": "Yoshi",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 7,
+      "name": "Kirby",
+      "franchise": "Kirby",
+      "classification": "Hero"
+    },
+    {
+      "id": 8,
+      "name": "Fox",
+      "franchise": "Star Fox",
+      "classification": "Hero"
+    },
+    {
+      "id": 9,
+      "name": "Pikachu",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 10,
+      "name": "Luigi",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 11,
+      "name": "Ness",
+      "franchise": "EarthBound"
+    },
+    {
+      "id": 12,
+      "name": "Captain Falcon",
+      "franchise": "F-Zero"
+    },
+    {
+      "id": 13,
+      "name": "Jigglypuff",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 14,
+      "name": "Peach",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 15,
+      "name": "Daisy",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 16,
+      "name": "Bowser",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Villain"
+    },
+    {
+      "id": 17,
+      "name": "Ice Climbers",
+      "franchise": "Ice Climber"
+    },
+    {
+      "id": 18,
+      "name": "Sheik",
+      "franchise": "Zelda",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 19,
+      "name": "Zelda",
+      "franchise": "Zelda",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 20,
+      "name": "Dr. Mario",
+      "franchise": "Mushroom Kingdom"
+    },
+    {
+      "id": 21,
+      "name": "Pichu",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 22,
+      "name": "Falco",
+      "franchise": "Star Fox",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 23,
+      "name": "Marth",
+      "franchise": "Fire Emblem",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 24,
+      "name": "Lucina",
+      "franchise": "Fire Emblem",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 25,
+      "name": "Young Link",
+      "franchise": "Zelda"
+    },
+    {
+      "id": 26,
+      "name": "Ganondorf",
+      "franchise": "Zelda",
+      "classification": "Villain"
+    },
+    {
+      "id": 27,
+      "name": "Mewtwo",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 28,
+      "name": "Roy",
+      "franchise": "Fire Emblem",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 29,
+      "name": "Chrom",
+      "franchise": "Fire Emblem",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 30,
+      "name": "Mr. Game & Watch",
+      "franchise": ""
+    },
+    {
+      "id": 31,
+      "name": "Meta Knight",
+      "franchise": "Kirby",
+      "classification": "Villain"
+    },
+    {
+      "id": 32,
+      "name": "Pit",
+      "franchise": "Kid Icarus",
+      "classification": "Hero"
+    },
+    {
+      "id": 33,
+      "name": "Dark Pit",
+      "franchise": "Kid Icarus",
+      "classification": "Villain"
+    },
+    {
+      "id": 34,
+      "name": "Zero Suit Samus",
+      "franchise": "Metroid"
+    },
+    {
+      "id": 35,
+      "name": "Wario",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Villain"
+    },
+    {
+      "id": 36,
+      "name": "Snake",
+      "franchise": "Metal Gear Solid",
+      "classification": "Hero"
+    },
+    {
+      "id": 37,
+      "name": "Ike",
+      "franchise": "Fire Emblem",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 38,
+      "name": "Pokemon Trainer",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 39,
+      "name": "Diddy Kong",
+      "franchise": "Donkey Kong",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 40,
+      "name": "Lucas",
+      "franchise": "EarthBound"
+    },
+    {
+      "id": 41,
+      "name": "Sonic",
+      "franchise": "Sonic",
+      "classification": "Hero"
+    },
+    {
+      "id": 42,
+      "name": "King Dedede",
+      "franchise": "Kirby",
+      "classification": "Villain"
+    },
+    {
+      "id": 43,
+      "name": "Olimar",
+      "franchise": "Pikmin"
+    },
+    {
+      "id": 44,
+      "name": "Lucario",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 45,
+      "name": "R.O.B.",
+      "franchise": "R.O.B."
+    },
+    {
+      "id": 46,
+      "name": "Toon Link",
+      "franchise": "Zelda"
+    },
+    {
+      "id": 47,
+      "name": "Wolf",
+      "franchise": "Star Fox",
+      "classification": "Villain"
+    },
+    {
+      "id": 48,
+      "name": "Villager",
+      "franchise": "Animal Crossing"
+    },
+    {
+      "id": 49,
+      "name": "Mega Man",
+      "franchise": "Mega Man",
+      "classification": "Hero"
+    },
+    {
+      "id": 50,
+      "name": "Wii Fit Trainer",
+      "franchise": ""
+    },
+    {
+      "id": 51,
+      "name": "Rosalina & Luma",
+      "franchise": "Mushroom Kingdom"
+    },
+    {
+      "id": 52,
+      "name": "Little Mac",
+      "franchise": "Punch-Out"
+    },
+    {
+      "id": 53,
+      "name": "Greninja",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 54,
+      "name": "Palutena",
+      "franchise": "Kid Icarus",
+      "classification": "Sidekick"
+    },
+    {
+      "id": 55,
+      "name": "Pac-Man",
+      "franchise": "Pac-Man"
+    },
+    {
+      "id": 56,
+      "name": "Robin",
+      "franchise": "Fire Emblem"
+    },
+    {
+      "id": 57,
+      "name": "Shulk",
+      "franchise": "Xenoblade"
+    },
+    {
+      "id": 58,
+      "name": "Bowser Jr.",
+      "franchise": "Mushroom Kingdom",
+      "classification": "Villain"
+    },
+    {
+      "id": 59,
+      "name": "'Duck Hunt",
+      "franchise": "Duck Hunt"
+    },
+    {
+      "id": 60,
+      "name": "Ryu",
+      "franchise": "Street Fighter",
+      "classification": "Hero"
+    },
+    {
+      "id": 61,
+      "name": "Ken",
+      "franchise": "Street Fighter",
+      "classification": "Villain"
+    },
+    {
+      "id": 62,
+      "name": "Cloud",
+      "franchise": "Final Fantasy"
+    },
+    {
+      "id": 63,
+      "name": "Corrin",
+      "franchise": "Fire Emblem",
+      "classification": "Hero"
+    },
+    {
+      "id": 64,
+      "name": "Bayonetta",
+      "franchise": "Bayonetta"
+    },
+    {
+      "id": 65,
+      "name": "Inkling",
+      "franchise": "Splatoon"
+    },
+    {
+      "id": 66,
+      "name": "Ridley",
+      "franchise": "Metroid",
+      "classification": "Villain"
+    },
+    {
+      "id": 67,
+      "name": "Simon",
+      "franchise": "Castlevania"
+    },
+    {
+      "id": 68,
+      "name": "Richter",
+      "franchise": "Castlevania"
+    },
+    {
+      "id": 69,
+      "name": "King K. Rool",
+      "franchise": "Donkey Kong",
+      "classification": "Villain"
+    },
+    {
+      "id": 70,
+      "name": "Isabelle",
+      "franchise": "Animal Crossing"
+    },
+    {
+      "id": 71,
+      "name": "Incineroar",
+      "franchise": "Pokemon"
+    },
+    {
+      "id": 72,
+      "name": "Brawler",
+      "franchise": "Mii"
+    },
+    {
+      "id": 73,
+      "name": "Swordfighter",
+      "franchise": "Mii"
+    },
+    {
+      "id": 74,
+      "name": "Gunner",
+      "franchise": "Mii"
+    },
+    {
+      "id": 75,
+      "name": "Joker",
+      "franchise": "Persona"
+    },
+    {
+      "id": 76,
+      "name": "Hero",
+      "franchise": "Dragon Quest"
+    },
+    {
+      "id": 77,
+      "name": "Banjo & Kazooie",
+      "franchise": "Donkey Kong"
+    },
+    {
+      "id": 78,
+      "name": "Terry",
+      "franchise": "Fatal Fury"
+    },
+    {
+      "id": 79,
+      "name": "Blythe",
+      "franchise": "Fire Emblem"
+    },
+    {
+      "id": 80,
+      "name": "Piranha Plant",
+      "franchise": "Mushroom Kingdom"
+    }
+  ]
+}
