@@ -20,7 +20,7 @@
           <tbody>
             <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementPodScore(player)">
               <th scope="row">{{index + 1}}</th>
-              <td scope="row"><PlayerCard :player="player" :index="index"/></td>
+              <td scope="row"><PlayerCard :player="player"/></td>
               <th scope="row" v-bind:class="{tied: needsTieBreaker(player)}">{{player.results.podScore.toFixed(1)}}</th>
             </tr>
           </tbody>

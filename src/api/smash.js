@@ -19,6 +19,8 @@ export default {
       name: player.name,
       id: player.id,
       pick: 0,
+      drafted: false,
+      mii: this.getMiiUrl(player.id),
       character: this.getAssetUrl(0),
       results: {
         fourVsFour: 0,
@@ -37,6 +39,12 @@ export default {
     const filename = id === 0 ? 'Unknown' : `${id}-${character.name.replace(/[.]/g, '')}`;
     // eslint-disable-next-line global-require
     return require(`../assets/characters/${filename}.png`);
+  },
+
+  getMiiUrl(id) {
+    const player = activePlayers.find((x) => x.id === id);
+    // eslint-disable-next-line global-require
+    return require(`../assets/players/${id}-${player.name}.png`);
   },
 
   getCharacter(id) {

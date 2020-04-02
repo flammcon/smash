@@ -2,7 +2,7 @@
   <div class="card border-0 player-card">
     <div class="row no-gutters">
       <div class="col-5">
-         <img class="card-img" :style="backgroundStyle" :alt="player.name" :src="player.character"/>
+         <img class="card-img" :style="backgroundStyle" :alt="player.name" :src="useMii ? player.mii : player.character"/>
       </div>
       <div class="col-7 name">
           {{player.name}}
@@ -17,6 +17,7 @@ export default {
   props: {
     player: Object,
     color: String,
+    useMii: Boolean
   },
   computed: {
     backgroundStyle() {

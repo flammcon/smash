@@ -40,6 +40,7 @@ const store = new Vuex.Store({
     updatePlayerCharacter(state, payload) {
       const player = state.players.find((x) => x.id === payload.playerId);
       player.character = payload.character;
+      player.drafted = true;
     },
     update2v2Scores(state, value) {
       value.forEach((team, index) => {
