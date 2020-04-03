@@ -1,4 +1,4 @@
-const activePlayers = [
+const allPlayers = [
   {
     id: 1,
     name: 'Marlene',
@@ -35,10 +35,15 @@ const activePlayers = [
     disabled: [3, 50, 69, 80, 55],
   },
   {
+    id: 8,
+    name: 'Nik',
+    disabled: [],
+  },
+  {
     id: 9,
     name: 'Sam',
     disabled: [49],
   },
 ];
 
-export default activePlayers;
+export default allPlayers;

@@ -21,7 +21,7 @@ export default {
     ...mapActions(['setPlayerDraftPicks']),
     lockDraftOrder() {
       this.setPlayerDraftPicks(this.draft_order);
-      this.$router.push('draft');
+      this.$router.push('event/draft');
     },
   },
   computed: {

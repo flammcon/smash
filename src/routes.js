@@ -2,6 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from './store/index';
 
+import Home from './components/views/Home.vue';
+import PlayerSelector from './components/views/PlayerSelector.vue';
+import Event from './components/views/Event.vue';
 import DraftOrder from './components/views/DraftOrder.vue';
 import Draft from './components/views/Draft.vue';
 import FourVsFour from './components/views/4v4.vue';
@@ -12,12 +15,22 @@ import SoloBracket from './components/views/SoloBracket.vue';
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/draft', component: Draft },
-  { path: '/4v4', component: FourVsFour },
-  { path: '/2v2', component: TwoVsTwo },
-  { path: '/pods', component: Pods },
-  { path: '/1v1', component: SoloBracket },
-  { path: '*', component: DraftOrder },
+  { path: '/players', component: PlayerSelector },
+  { path: '/draft_order', component: DraftOrder },
+  {
+    path: '/event',
+    component: Event,
+    children: [
+      { path: '/draft_order', component: DraftOrder },
+      { path: '/draft', component: Draft },
+      { path: '/4v4', component: FourVsFour },
+      { path: '/2v2', component: TwoVsTwo },
+      { path: '/pods', component: Pods },
+      { path: '/1v1', component: SoloBracket },
+      { path: '*', component: Draft },
+    ],
+  },
+  { path: '*', component: Home },
 ];
 
 const router = new VueRouter({
@@ -27,7 +40,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/' && store.state.players.length === 0) {
+  if (to.path.includes('event') && store.state.players.length === 0) {
     next('/');
   } else {
     next();

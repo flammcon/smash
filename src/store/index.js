@@ -23,9 +23,10 @@ const store = new Vuex.Store({
     },
     setPlayers(state, players) {
       state.players = players;
-    },
-    setDraftOrder(state, draftOrder) {
-      state.draft_order = draftOrder;
+      state.draft_order = players.map((player) => ({
+        name: player.name,
+        id: player.id,
+      }));
     },
     lockDraftOrder(state) {
       state.draft_order_locked = true;
@@ -89,12 +90,9 @@ const store = new Vuex.Store({
         commit('setCharacters', characters);
       });
     },
-    loadPlayers({ commit }) {
-      smash.getPlayers((players) => {
+    loadPlayers({ commit }, payload) {
+      smash.getPlayersFromIds(payload, (players) => {
         commit('setPlayers', players);
-      });
-      smash.getDraftOrder((players) => {
-        commit('setDraftOrder', players);
       });
     },
     setPlayerDraftPicks({ commit }, payload) {

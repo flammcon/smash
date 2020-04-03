@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="Draft" prev="/" next="4v4" :disabled="!draftCompleted"/>
+    <Header title="Draft" prev="draft_order" next="4v4" :disabled="!draftCompleted"/>
     <h5 :class="{'hidden': draftCompleted}">
       Select character for
       <span style="font-weight:bold;">{{current_player.name}}</span>
