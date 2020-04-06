@@ -45,7 +45,6 @@ export default {
     PlayerCard,
   },
   created() {
-    // this.loadPlayers();
     this.loadCharacters();
   },
   computed: {
@@ -60,7 +59,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['loadPlayers', 'loadCharacters']),
+    ...mapActions(['loadCharacters']),
     totalPoints(results) {
       return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
     },
