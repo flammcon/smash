@@ -17,7 +17,7 @@
           <tbody>
             <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementTotalScore(player)">
               <th scope="row">{{index + 1}}</th>
-              <td><PlayerCard :player="player" :useMii="!player.drafted"/></td>
+              <td><PlayerCard :player="player" :image="!player.drafted ? 'mii' : 'character'"/></td>
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
@@ -36,16 +36,13 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PlayerCard from '../PlayerCard.vue';
 
 export default {
   name: 'Event',
   components: {
     PlayerCard,
-  },
-  created() {
-    this.loadCharacters();
   },
   computed: {
     ...mapState(['players']),
@@ -59,7 +56,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['loadCharacters']),
     totalPoints(results) {
       return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
     },

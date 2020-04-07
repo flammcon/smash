@@ -18,16 +18,21 @@ export default {
     SortablePlayerList,
   },
   methods: {
-    ...mapActions(['setPlayerDraftPicks']),
+    ...mapActions(['setPlayerDraftOrder']),
     lockDraftOrder() {
-      this.setPlayerDraftPicks(this.draft_order);
-      this.$router.push('event/draft');
+      this.setPlayerDraftOrder(this.draft_order);
+      if (this.special_draft) {
+        this.$router.push('special/draft');
+      } else {
+        this.$router.push('event/draft');
+      }
     },
   },
   computed: {
     ...mapState({
       draft_order: (state) => state.draft_order,
       locked: (state) => state.draft_order_locked,
+      special_draft: (state) => state.special_draft,
     }),
   },
 };

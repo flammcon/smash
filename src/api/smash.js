@@ -31,6 +31,7 @@ export default {
         name: player.name,
         id: player.id,
         pick: 0,
+        picks: [0, 0, 0],
         drafted: false,
         mii: this.getMiiUrl(player.id),
         character: this.getAssetUrl(0),

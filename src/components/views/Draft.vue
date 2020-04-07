@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Header title="Draft" prev="draft_order" next="4v4" :disabled="!draftCompleted"/>
+    <Header v-if="special_draft" title="Draft" :disabled="true" :prevDisabled="true"/>
+    <Header v-else title="Draft" prev="draft_order" next="4v4" :disabled="!draftCompleted"/>
     <h5 :class="{'hidden': draftCompleted}">
       Select character for
       <span style="font-weight:bold;">{{current_player.name}}</span>
@@ -28,6 +29,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex';
+import smash from '../../api/smash';
 import Header from '../Header.vue';
 
 export default {
@@ -35,10 +37,17 @@ export default {
   components: {
     Header,
   },
+  created() {
+    smash.getCharacters((characters) => {
+      this.characters = characters;
+    });
+  },
   data() {
     return {
+      current_counter: 0,
       current_draft_pick: 0,
       drafted_characters: [],
+      characters: [],
     };
   },
   mounted() {
@@ -47,16 +56,33 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['updatePlayerCharacter', 'setDraftPicks']),
+    ...mapMutations(['updatePlayerCharacter', 'setDraftPicks', 'addPlayerCharacter']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
-        this.updatePlayerCharacter({ playerId: this.current_player_id, character: character.url });
-        this.drafted_characters.push(character.id);
+        if (this.special_draft) {
+          this.addPlayerCharacter({ id: this.current_player_id, index: this.current_counter, pick: character.id });
+          this.drafted_characters.push(character.id);
 
-        if (this.current_draft_pick === 7) {
-          this.setDraftPicks(this.drafted_characters);
+          if (this.current_counter === 2) {
+            if (this.current_draft_pick === 7) {
+              this.$router.push('exhibition');
+            } else {
+              this.current_draft_pick += 1;
+              this.current_counter = 0;
+              this.drafted_characters = [];
+            }
+          } else {
+            this.current_counter += 1;
+          }
         } else {
-          this.current_draft_pick += 1;
+          this.updatePlayerCharacter({ id: this.current_player_id, character: character.url });
+          this.drafted_characters.push(character.id);
+
+          if (this.current_draft_pick === 7) {
+            this.setDraftPicks(this.drafted_characters);
+          } else {
+            this.current_draft_pick += 1;
+          }
         }
       }
     },
@@ -80,7 +106,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['characters', 'players', 'draft_order']),
+    ...mapState(['players', 'draft_order', 'special_draft']),
     ...mapGetters(['disabledCharactersByPlayerId', 'playerById', 'draftCompleted', 'draftPicks']),
     disabled_characters() {
       return this.disabledCharactersByPlayerId(this.current_player_id);

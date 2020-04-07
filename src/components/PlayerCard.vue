@@ -5,7 +5,7 @@
          <img class="card-img"
           :style="backgroundStyle"
           :alt="player.name"
-          :src="useMii ? player.mii : player.character"/>
+          :src="source"/>
       </div>
       <div class="col-7 name">
           {{player.name}}
@@ -15,16 +15,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'PlayerCard',
   props: {
     player: Object,
     color: String,
-    useMii: Boolean,
+    image: {
+      type: String,
+      default: 'character',
+    },
   },
   computed: {
+    ...mapGetters(['characterById']),
     backgroundStyle() {
       return `background-color: ${this.color ? this.color : 'gold'}`;
+    },
+    source() {
+      switch (this.image) {
+        case 'mii':
+          return this.player.mii;
+        case 'character':
+        case undefined:
+          return this.player.character;
+        default: {
+          const index = parseInt(this.image, 10);
+          return this.characterById(this.player.picks[index - 1]);
+        }
+      }
     },
   },
 };

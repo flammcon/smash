@@ -10,7 +10,6 @@ const store = new Vuex.Store({
     results,
   },
   state: {
-    characters: [],
     players: [],
     draft_order: [],
     draft: [],
@@ -20,9 +19,6 @@ const store = new Vuex.Store({
     online: false,
   },
   mutations: {
-    setCharacters(state, characters) {
-      state.characters = characters;
-    },
     setPlayers(state, players) {
       state.players = players;
       state.draft_order = players.map((player) => ({
@@ -41,11 +37,15 @@ const store = new Vuex.Store({
       state.draft = draftPicks;
     },
     setPlayerDraftPick(state, payload) {
-      const player = state.players.find((x) => x.id === payload.playerId);
+      const player = state.players.find((x) => x.id === payload.id);
       player.pick = payload.draftPick;
     },
+    addPlayerCharacter(state, payload) {
+      const player = state.players.find((x) => x.id === payload.id);
+      player.picks.splice(payload.index, 1, payload.pick);
+    },
     updatePlayerCharacter(state, payload) {
-      const player = state.players.find((x) => x.id === payload.playerId);
+      const player = state.players.find((x) => x.id === payload.id);
       player.character = payload.character;
       player.drafted = true;
     },
@@ -91,19 +91,14 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    loadCharacters({ commit }) {
-      smash.getCharacters((characters) => {
-        commit('setCharacters', characters);
-      });
-    },
     loadPlayers({ commit }, payload) {
       smash.getPlayersFromIds(payload, (players) => {
         commit('setPlayers', players);
       });
     },
-    setPlayerDraftPicks({ commit }, payload) {
+    setPlayerDraftOrder({ commit }, payload) {
       payload.forEach((value, index) => {
-        commit('setPlayerDraftPick', { playerId: value.id, draftPick: index + 1 });
+        commit('setPlayerDraftPick', { id: value.id, draftPick: index + 1 });
       });
       commit('lockDraftOrder');
     },
@@ -113,6 +108,7 @@ const store = new Vuex.Store({
   },
   getters: {
     playerById: (state) => (id) => state.players.find((player) => player.id === id),
+    characterById: () => (id) => smash.getAssetUrl(id),
     sortedPlayerList: (state) => [...state.players].sort((a, b) => a.pick - b.pick),
     disabledCharactersByPlayerId: (state) => (id) => {
       const player = state.players.find((x) => x.id === id);
