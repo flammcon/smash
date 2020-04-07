@@ -10,7 +10,7 @@
           type="button"
           class="btn btn-danger btn-sm"
           @click="selectRandomCharacter"
-          v-if="current_player.id === 5">
+          v-if="current_player.name === 'Phil'">
           Random
         </button>
       </span>
