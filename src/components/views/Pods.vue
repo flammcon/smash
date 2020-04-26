@@ -1,6 +1,13 @@
 <template>
   <div>
-    <Header
+    <Header v-if="online"
+      title="Bloodbath"
+      prev="draft"
+      next="4v4"
+      :disabled="!one_vs_one_seeding_locked"
+      :prevDisabled="lockedPods > 0 && lockedPods < 8"
+    />
+    <Header v-else
       title="Solo Cup Seeding"
       prev="2v2"
       next="1v1"
@@ -45,12 +52,14 @@
 </template>
 
 <script>
-import { mapActions, createNamespacedHelpers } from 'vuex';
+import {
+  mapState, mapGetters, mapActions, createNamespacedHelpers,
+} from 'vuex';
 import Header from '../Header.vue';
 import PlayerCard from '../PlayerCard.vue';
 import Pod from '../1v1/Pod.vue';
 
-const { mapState, mapGetters, mapMutations } = createNamespacedHelpers('results');
+const { mapMutations } = createNamespacedHelpers('results');
 
 export default {
   name: 'Pods',
@@ -66,10 +75,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      players: (state) => state.bloodbath,
-    }),
-    ...mapGetters(['one_vs_one_seeding_locked']),
+    ...mapState(['bloodbath', 'online']),
+    ...mapGetters(['sortedPlayerList']),
+    ...mapGetters('results', ['one_vs_one_seeding_locked']),
+    players() {
+      return this.online ? [...this.sortedPlayerList] : [...this.bloodbath];
+    },
     sortedPlayers() {
       return [...this.players].sort((a, b) => {
         if (a.results.podScore === 0) return 1;
@@ -116,13 +127,17 @@ export default {
     },
     gameOver() {
       if (this.gameOver) {
+        if (this.online) {
+          this.setBloodbathResults([...this.sortedPlayers]);
+        }
+
         this.set1v1SeedingResults([...this.sortedPlayers]);
         this.update1v1Round1Games();
       }
     },
   },
   methods: {
-    ...mapMutations(['set1v1SeedingResults']),
+    ...mapMutations(['set1v1SeedingResults', 'setBloodbathResults']),
     ...mapActions(['updatePlayerPodScore']),
     ...mapActions('results', ['update1v1Round1Games']),
     hasDuplicatePodScores() {

@@ -213,10 +213,12 @@ const state = {
 
 // getters
 const getters = {
-  get_red_wins: (state) => state.four_vs_four.red_wins,
-  get_blue_wins: (state) => state.four_vs_four.blue_wins,
+  redWins: (state) => state.four_vs_four.red_wins,
+  blueWins: (state) => state.four_vs_four.blue_wins,
   bloodbath_locked: (state) => state.bloodbath.length > 0,
-  four_vs_four_locked: (state, getters) => getters.get_red_wins === 3 || getters.get_blue_wins === 3,
+  four_vs_four_locked: (state, getters, rootState) => (rootState.online
+    ? (getters.redWins + getters.blueWins === 6)
+    : (getters.redWins === 3 || getters.blueWins === 3)),
   two_vs_two_seeding_locked: (state) => state.two_vs_two.seeding.length > 0,
   two_vs_two_locked: (state) => state.two_vs_two.final.length > 0,
   one_vs_one_seeding_locked: (state) => state.one_vs_one.seeding.length > 0,
@@ -278,11 +280,11 @@ const actions = {
 
 // mutations
 const mutations = {
-  incrementRedWins(state, payload) {
-    state.four_vs_four.red_wins = payload;
+  incrementRedWins(state) {
+    state.four_vs_four.red_wins += 1;
   },
-  incrementBlueWins(state, payload) {
-    state.four_vs_four.blue_wins = payload;
+  incrementBlueWins(state) {
+    state.four_vs_four.blue_wins += 1;
   },
   setBloodbathResults(state, payload) {
     state.bloodbath = payload;

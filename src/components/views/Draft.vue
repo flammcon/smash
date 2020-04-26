@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header v-if="special_draft" title="Draft" :disabled="true" :prevDisabled="true"/>
-    <Header v-else title="Draft" prev="draft_order" next="4v4" :disabled="!draftCompleted"/>
+    <Header v-else title="Draft" prev="draft_order" :next="online ? 'pods' : 'bloodbath'" :disabled="!draftCompleted"/>
     <h5 :class="{'hidden': draftCompleted}">
       Select character for
       <span style="font-weight:bold;">{{current_player.name}}</span>
@@ -10,7 +10,7 @@
           type="button"
           class="btn btn-danger btn-sm"
           @click="selectRandomCharacter"
-          v-if="current_player.name === 'Phil'">
+          v-if="current_player.name === 'Phil' || true">
           Random
         </button>
       </span>
@@ -106,7 +106,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['players', 'draft_order', 'special_draft']),
+    ...mapState(['players', 'draft_order', 'special_draft', 'online']),
     ...mapGetters(['disabledCharactersByPlayerId', 'playerById', 'draftCompleted', 'draftPicks']),
     disabled_characters() {
       return this.disabledCharactersByPlayerId(this.current_player_id);

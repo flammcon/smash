@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="Solo Cup" prev="pods"/>
+    <Header title="Solo Cup" :prev="online ? '2v2' : 'pods'"/>
     <section id="bracket">
       <h4>Winners Bracket</h4>
       <div class="container">
@@ -85,11 +85,11 @@
 </template>
 
 <script>
-import { mapMutations, createNamespacedHelpers } from 'vuex';
+import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import Matchup from '../1v1/Matchup.vue';
 
-const { mapState, mapGetters } = createNamespacedHelpers('results');
+const { mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'SoloBracket',
@@ -99,7 +99,8 @@ export default {
   },
   computed: {
     ...mapState({
-      games: (state) => state.one_vs_one.games,
+      games: (state) => state.results.one_vs_one.games,
+      online: (state) => state.online,
     }),
   },
   methods: {

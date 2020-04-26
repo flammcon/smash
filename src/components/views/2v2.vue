@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="2 Guys 1 Cup" prev="4v4" next="pods" :disabled="!two_vs_two_locked"/>
+    <Header title="2 Guys 1 Cup" prev="4v4" :next="online ? '1v1' : 'pods'" :disabled="!two_vs_two_locked"/>
     <div class="row">
       <div class="col-2">
         <h3>Seeding</h3>
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapState, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import TwoVsTwoSeeding from '../2v2/2v2v2v2.vue';
 import Bracket from '../2v2/Bracket.vue';
 
-const { mapState, mapGetters } = createNamespacedHelpers('results');
+const { mapGetters } = createNamespacedHelpers('results');
 
 export default {
   name: 'TwoVsTwo',
@@ -30,7 +30,8 @@ export default {
   },
   computed: {
     ...mapState({
-      teams: (state) => state.two_vs_two.seeding,
+      teams: (state) => state.results.two_vs_two.seeding,
+      online: (state) => state.online,
     }),
     ...mapGetters(['two_vs_two_locked']),
   },

@@ -7,6 +7,7 @@ import PlayerSelector from './components/views/PlayerSelector.vue';
 import DraftOrder from './components/views/DraftOrder.vue';
 import Draft from './components/views/Draft.vue';
 import Event from './components/views/Event.vue';
+import Bloodbath from './components/views/Bloodbath.vue';
 import FourVsFour from './components/views/4v4.vue';
 import TwoVsTwo from './components/views/2v2.vue';
 import Pods from './components/views/Pods.vue';
@@ -26,6 +27,7 @@ const routes = [
     children: [
       { path: '/draft_order', component: DraftOrder },
       { path: '/draft', component: Draft },
+      { path: '/bloodbath', component: Bloodbath },
       { path: '/4v4', component: FourVsFour },
       { path: '/2v2', component: TwoVsTwo },
       { path: '/pods', component: Pods },
