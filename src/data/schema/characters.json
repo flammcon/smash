@@ -437,6 +437,11 @@
       "id": 80,
       "name": "Piranha Plant",
       "franchise": "Mushroom Kingdom"
+    },
+    {
+      "id": 81,
+      "name": "Min Min",
+      "franchise": "Arms"
     }
   ]
 }

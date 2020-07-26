@@ -254,6 +254,57 @@
           "team": [7,5]
         }
       }
+    },
+    {
+      "event_id": 6,
+      "game1": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [5,1]
+        },
+        "team2": {
+          "seed": 4,
+          "wins": 1,
+          "team": [4,2]
+        }
+      },
+      "game2": {
+        "team1": {
+          "seed": 2,
+          "wins": 2,
+          "team": [7,6]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 0,
+          "team": [9,3]
+        }
+      },
+      "game3": {
+        "team1": {
+          "seed": 4,
+          "wins": 0,
+          "team": [4,2]
+        },
+        "team2": {
+          "seed": 3,
+          "wins": 2,
+          "team": [9,3]
+        }
+      },
+      "game4": {
+        "team1": {
+          "seed": 1,
+          "wins": 2,
+          "team": [5,1]
+        },
+        "team2": {
+          "seed": 2,
+          "wins": 0,
+          "team": [7,6]
+        }
+      }
     }
   ]
 }

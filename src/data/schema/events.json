@@ -47,7 +47,7 @@
     },
     {
       "event_id": 5,
-      "date": "2019-02-22",
+      "date": "2020-02-22",
       "birthday": "Nick",
       "host": "Brian",
       "players": [1, 2, 3, 4, 5, 6, 7, 9],
@@ -58,11 +58,11 @@
     },
     {
       "event_id": 6,
-      "date": "2019-04-26",
+      "date": "2020-04-25",
       "birthday": "Sam",
       "host": "Online",
       "players": [1, 2, 3, 4, 5, 6, 7, 9],
-      "final_standings": [],
+      "final_standings": [6, 5, 9, 2, 1, 7, 4, 3],
       "youtube": "",
       "current": true
     }

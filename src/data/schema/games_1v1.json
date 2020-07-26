@@ -734,6 +734,153 @@
           "wins": 0
         }
       }
+    },
+    {
+      "event_id": 6,
+      "game1": {
+        "player1": {
+          "seed": 1,
+          "id": 5,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 8,
+          "id": 3,
+          "wins": 1
+        }
+      },
+      "game2": {
+        "player1": {
+          "seed": 4,
+          "id": 7,
+          "wins": 1
+        },
+        "player2": {
+          "seed": 5,
+          "id": 2,
+          "wins": 2
+        }
+      },
+      "game3": {
+        "player1": {
+          "seed": 3,
+          "id": 4,
+          "wins": 0
+        },
+        "player2": {
+          "seed": 6,
+          "id": 6,
+          "wins": 2
+        }
+      },
+      "game4": {
+        "player1": {
+          "seed": 2,
+          "id": 9,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 7,
+          "id": 1,
+          "wins": 1
+        }
+      },
+      "game5": {
+        "player1": {
+          "seed": 8,
+          "id": 3,
+          "wins": 0
+        },
+        "player2": {
+          "seed": 4,
+          "id": 7,
+          "wins": 2
+        }
+      },
+      "game6": {
+        "player1": {
+          "seed": 3,
+          "id": 4,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 7,
+          "id": 1,
+          "wins": 0
+        }
+      },
+      "game7": {
+        "player1": {
+          "seed": 1,
+          "id": 5,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 5,
+          "id": 2,
+          "wins": 0
+        }
+      },
+      "game8": {
+        "player1": {
+          "seed": 6,
+          "id": 6,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 2,
+          "id": 9,
+          "wins": 1
+        }
+      },
+      "game9": {
+        "player1": {
+          "seed": 8,
+          "id": 3,
+          "wins": 2
+        },
+        "player2": {
+          "seed": 7,
+          "id": 1,
+          "wins": 0
+        }
+      },
+      "game10": {
+        "player1": {
+          "seed": 4,
+          "id": 7,
+          "wins": 0
+        },
+        "player2": {
+          "seed": 3,
+          "id": 4,
+          "wins": 2
+        }
+      },
+      "game11": {
+        "player1": {
+          "seed": 5,
+          "id": 2,
+          "wins": 1
+        },
+        "player2": {
+          "seed": 2,
+          "id": 9,
+          "wins": 2
+        }
+      },
+      "game12": {
+        "player1": {
+          "seed": 1,
+          "id": 5,
+          "wins": 1
+        },
+        "player2": {
+          "seed": 6,
+          "id": 6,
+          "wins": 2
+        }
+      }
     }
   ]
 }
