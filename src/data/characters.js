@@ -437,6 +437,11 @@ const characters = [
     name: 'Piranha Plant',
     franchise: 'Mushroom Kingdom',
   },
+  {
+    id: 81,
+    name: 'Min Min',
+    franchise: '',
+  },
 ];
 
 export default characters;
