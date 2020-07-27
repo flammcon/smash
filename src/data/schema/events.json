@@ -75,6 +75,16 @@
       "final_standings": [7, 2, 1, 6, 5, 3, 8, 4],
       "youtube": "",
       "current": false
+    },
+    {
+      "event_id": 8,
+      "date": "2020-07-25",
+      "birthday": "Nik + Marlene",
+      "host": "Online",
+      "players": [1, 2, 3, 4, 5, 7, 8, 9],
+      "final_standings": [5, 3, 9, 8, 4, 7, 1, 2],
+      "youtube": "",
+      "current": false
     }
   ]
 }
