@@ -53,13 +53,11 @@
 
 <script>
 import {
-  mapState, mapGetters, mapActions, createNamespacedHelpers,
+  mapState, mapGetters, mapActions, mapMutations,
 } from 'vuex';
 import Header from '../Header.vue';
 import PlayerCard from '../PlayerCard.vue';
 import Pod from '../1v1/Pod.vue';
-
-const { mapMutations } = createNamespacedHelpers('results');
 
 export default {
   name: 'Pods',
@@ -131,13 +129,16 @@ export default {
           this.setBloodbathResults([...this.sortedPlayers]);
         }
 
+        this.updatePodScores([...this.sortedPlayers].reverse());
+
         this.set1v1SeedingResults([...this.sortedPlayers]);
         this.update1v1Round1Games();
       }
     },
   },
   methods: {
-    ...mapMutations(['set1v1SeedingResults', 'setBloodbathResults']),
+    ...mapMutations(['updatePodScores']),
+    ...mapMutations('results', ['set1v1SeedingResults', 'setBloodbathResults']),
     ...mapActions(['updatePlayerPodScore']),
     ...mapActions('results', ['update1v1Round1Games']),
     hasDuplicatePodScores() {

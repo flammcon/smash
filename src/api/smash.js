@@ -36,6 +36,7 @@ export default {
         mii: this.getMiiUrl(player.id),
         character: this.getAssetUrl(0),
         results: {
+          pods: 0,
           fourVsFour: 0,
           twoVsTwo: 0,
           oneVsOne: 0,

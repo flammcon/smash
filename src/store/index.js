@@ -49,8 +49,8 @@ const store = new Vuex.Store({
       player.character = payload.character;
       player.drafted = true;
     },
-    update2v2Scores(state, value) {
-      value.forEach((team, index) => {
+    update2v2Scores(state, payload) {
+      payload.forEach((team, index) => {
         let points = 0;
         if (index === 0) {
           points = 4;
@@ -67,8 +67,8 @@ const store = new Vuex.Store({
         player2.results.twoVsTwo = points;
       });
     },
-    update1v1Scores(state, value) {
-      value.forEach((player, index) => {
+    update1v1Scores(state, payload) {
+      payload.forEach((player, index) => {
         let points = index;
         if (index === 7) {
           points = 8;
@@ -83,6 +83,17 @@ const store = new Vuex.Store({
       winners.forEach((winner) => {
         const player = state.players.find((x) => x.id === winner.id);
         player.results.fourVsFour = 2;
+      });
+    },
+    updatePodScores(state, payload) {
+      payload.forEach((player, index) => {
+        let points = index;
+        if (index === 7) {
+          points = 8;
+        }
+
+        const team = state.players.find((x) => x.id === player.id);
+        team.results.pods = points;
       });
     },
     updatePlayerPodScore(state, payload) {

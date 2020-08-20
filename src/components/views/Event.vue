@@ -8,6 +8,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Player</th>
+              <th scope="col">Pods</th>
               <th scope="col">4v4</th>
               <th scope="col">2v2</th>
               <th scope="col">1v1</th>
@@ -18,6 +19,7 @@
             <tr v-for="(player, index) in sortedPlayers" :key="player.id" @click="incrementTotalScore(player)">
               <th scope="row">{{index + 1}}</th>
               <td><PlayerCard :player="player" :image="!player.drafted ? 'mii' : 'character'"/></td>
+              <td>{{player.results.pods}}</td>
               <td>{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
@@ -57,7 +59,7 @@ export default {
   },
   methods: {
     totalPoints(results) {
-      return results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
+      return results.pods + results.fourVsFour + results.twoVsTwo + results.oneVsOne + results.totalAdj;
     },
     hasDuplicateTotalScore(value) {
       const totalScores = this.sortedPlayers.map((player) => this.totalPoints(player.results));
