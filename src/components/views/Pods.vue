@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header v-if="online"
-      title="Bloodbath"
+      title="Pods"
       prev="draft"
       next="2v2"
       :disabled="!bloodbath_locked"

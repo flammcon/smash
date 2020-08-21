@@ -93,13 +93,8 @@ const store = new Vuex.Store({
     },
     updatePodScores(state, payload) {
       payload.forEach((player, index) => {
-        let points = index;
-        if (index === 7) {
-          points = 8;
-        }
-
         const team = state.players.find((x) => x.id === player.id);
-        team.results.pods = points;
+        team.results.pods = index;
       });
     },
     updatePlayerPodScore(state, payload) {

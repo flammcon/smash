@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Header title="2 Guys 1 Cup" prev="4v4" :next="online ? '1v1' : 'pods'" :disabled="!two_vs_two_locked"/>
+    <Header title="2 Guys 1 Cup"
+      :prev="online ? 'pods' : '4v4'"
+      :next="online ? '1v1' : 'pods'"
+      :disabled="!two_vs_two_locked"/>
     <div class="row">
       <div class="col-2">
         <h3>Seeding</h3>
