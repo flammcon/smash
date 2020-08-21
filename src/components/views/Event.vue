@@ -1,5 +1,8 @@
 <template>
   <div id="event" class="container-fluid">
+  <div class="alert alert-success" role="alert" v-if="$store.state.gameOver">
+    Take screenshots!
+  </div>
     <div class="row">
       <div class="col-3">
         <h2>Standings</h2>
