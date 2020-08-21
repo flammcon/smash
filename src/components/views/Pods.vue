@@ -3,7 +3,7 @@
     <Header v-if="online"
       title="Bloodbath"
       prev="draft"
-      next="4v4"
+      next="2v2"
       :disabled="!bloodbath_locked"
       :prevDisabled="lockedPods > 0 && lockedPods < 8"
     />

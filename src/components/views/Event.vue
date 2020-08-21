@@ -12,7 +12,7 @@
               <th scope="col">#</th>
               <th scope="col">Player</th>
               <th scope="col">Pods</th>
-              <th scope="col">4v4</th>
+              <th scope="col" v-if="!online">4v4</th>
               <th scope="col">2v2</th>
               <th scope="col">1v1</th>
               <th scope="col">Total</th>
@@ -23,7 +23,7 @@
               <th scope="row">{{index + 1}}</th>
               <td><PlayerCard :player="player" :image="!player.drafted ? 'mii' : 'character'"/></td>
               <td>{{player.results.pods}}</td>
-              <td>{{player.results.fourVsFour}}</td>
+              <td v-if="!online">{{player.results.fourVsFour}}</td>
               <td>{{player.results.twoVsTwo}}</td>
               <td>{{player.results.oneVsOne}}</td>
               <td style="font-weight: bold" :class="{tied: needsTieBreaker(player)}">
@@ -50,7 +50,7 @@ export default {
     PlayerCard,
   },
   computed: {
-    ...mapState(['players']),
+    ...mapState(['players', 'online']),
     ...mapGetters(['sortedPlayerList']),
     sortedPlayers() {
       return [...this.sortedPlayerList].sort((a, b) => {
