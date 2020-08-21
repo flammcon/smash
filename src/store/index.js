@@ -70,8 +70,14 @@ const store = new Vuex.Store({
     update1v1Scores(state, payload) {
       payload.forEach((player, index) => {
         let points = index;
-        if (index === 7) {
-          points = 8;
+        switch (index) {
+          case 7:
+          case 5:
+          case 3:
+            points = index + 1;
+            break;
+          default:
+            points = index;
         }
 
         const team = state.players.find((x) => x.id === player.id);
@@ -127,7 +133,7 @@ const store = new Vuex.Store({
       const totalB = b.results.pods + b.results.fourVsFour + b.results.twoVsTwo
         + b.results.oneVsOne + b.results.totalAdj;
 
-      return totalA - totalB;
+      return totalA > totalB ? 1 : -1;
     }),
     disabledCharactersByPlayerId: (state) => (id) => {
       const player = state.players.find((x) => x.id === id);
