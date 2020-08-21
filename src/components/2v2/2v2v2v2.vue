@@ -43,16 +43,16 @@ export default {
     } else {
       this.teams = [
         {
-          id: 1, player1: this.players[0], player2: this.players[6], color: 'orchid',
+          id: 1, player1: this.players[0], player2: this.players[7], color: 'indianred',
         },
         {
-          id: 2, player1: this.players[1], player2: this.players[7], color: 'dodgerblue',
+          id: 2, player1: this.players[1], player2: this.players[6], color: 'dodgerblue',
         },
         {
-          id: 3, player1: this.players[2], player2: this.players[4], color: 'yellowgreen',
+          id: 3, player1: this.players[2], player2: this.players[5], color: 'yellowgreen',
         },
         {
-          id: 4, player1: this.players[3], player2: this.players[5], color: 'orange',
+          id: 4, player1: this.players[3], player2: this.players[4], color: 'orange',
         },
       ];
     }
