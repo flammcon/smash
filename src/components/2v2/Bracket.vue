@@ -90,7 +90,9 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import {
+  mapMutations, mapActions, mapState, mapGetters,
+} from 'vuex';
 import BracketTeam from './BracketTeam.vue';
 
 
@@ -106,7 +108,9 @@ export default {
   computed: {
     ...mapState({
       games: (state) => state.results.two_vs_two.games,
+      online: (state) => state.online,
     }),
+    ...mapGetters(['playersByTotalScore']),
     game1() { return this.games[0]; },
     game2() { return this.games[1]; },
     game3() { return this.games[2]; },
@@ -133,11 +137,17 @@ export default {
       const results = [this.game4.winner, this.game4.loser, this.game3.winner, this.game3.loser];
       this.set2v2Results(results);
       this.update2v2Scores(results);
+
+      if (this.online) {
+        this.set1v1SeedingResults([...this.playersByTotalScore].reverse());
+        this.update1v1Round1Games();
+      }
     },
   },
   methods: {
     ...mapMutations(['update2v2Scores']),
-    ...mapMutations('results', ['set2v2Results']),
+    ...mapMutations('results', ['set2v2Results', 'set1v1SeedingResults']),
+    ...mapActions('results', ['update1v1Round1Games']),
     backgroundStyle(gameOver, wins, runnerup) {
       if (gameOver) {
         if (wins === 2) {

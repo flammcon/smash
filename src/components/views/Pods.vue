@@ -4,7 +4,7 @@
       title="Bloodbath"
       prev="draft"
       next="4v4"
-      :disabled="!one_vs_one_seeding_locked"
+      :disabled="!bloodbath_locked"
       :prevDisabled="lockedPods > 0 && lockedPods < 8"
     />
     <Header v-else
@@ -75,7 +75,7 @@ export default {
   computed: {
     ...mapState(['bloodbath', 'online']),
     ...mapGetters(['sortedPlayerList']),
-    ...mapGetters('results', ['one_vs_one_seeding_locked']),
+    ...mapGetters('results', ['one_vs_one_seeding_locked', 'bloodbath_locked']),
     players() {
       return this.online ? [...this.sortedPlayerList] : [...this.bloodbath];
     },
@@ -127,12 +127,12 @@ export default {
       if (this.gameOver) {
         if (this.online) {
           this.setBloodbathResults([...this.sortedPlayers]);
+        } else {
+          this.set1v1SeedingResults([...this.sortedPlayers]);
+          this.update1v1Round1Games();
         }
 
         this.updatePodScores([...this.sortedPlayers].reverse());
-
-        this.set1v1SeedingResults([...this.sortedPlayers]);
-        this.update1v1Round1Games();
       }
     },
   },

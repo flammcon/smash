@@ -121,6 +121,14 @@ const store = new Vuex.Store({
     playerById: (state) => (id) => state.players.find((player) => player.id === id),
     characterById: () => (id) => smash.getAssetUrl(id),
     sortedPlayerList: (state) => [...state.players].sort((a, b) => a.pick - b.pick),
+    playersByTotalScore: (state) => [...state.players].sort((a, b) => {
+      const totalA = a.results.pods + a.results.fourVsFour + a.results.twoVsTwo
+        + a.results.oneVsOne + a.results.totalAdj;
+      const totalB = b.results.pods + b.results.fourVsFour + b.results.twoVsTwo
+        + b.results.oneVsOne + b.results.totalAdj;
+
+      return totalA - totalB;
+    }),
     disabledCharactersByPlayerId: (state) => (id) => {
       const player = state.players.find((x) => x.id === id);
       return player.disabled;
