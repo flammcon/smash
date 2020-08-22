@@ -31,14 +31,14 @@
       <div class="col">
         <div class="row pt-4">
           <div class="col">
-            <SplitMatch :id="1" :red="getMatchTeam(0, 3)" :blue="getMatchTeam(5, 6)" @gameOver="gameOver()"/>
-            <SplitMatch :id="3" :red="getMatchTeam(0, 4)" :blue="getMatchTeam(2, 6)" @gameOver="gameOver()"/>
-            <SplitMatch :id="5" :red="getMatchTeam(0, 7)" :blue="getMatchTeam(1, 6)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="1" :teamOne="getMatchTeam(0, 3)" :teamTwo="getMatchTeam(5, 6)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="3" :teamOne="getMatchTeam(0, 4)" :teamTwo="getMatchTeam(2, 6)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="5" :teamOne="getMatchTeam(0, 7)" :teamTwo="getMatchTeam(1, 6)" @gameOver="gameOver()"/>
           </div>
           <div class="col">
-            <SplitMatch :id="2" :red="getMatchTeam(4, 7)" :blue="getMatchTeam(1, 2)" @gameOver="gameOver()"/>
-            <SplitMatch :id="4" :red="getMatchTeam(3, 7)" :blue="getMatchTeam(1, 5)" @gameOver="gameOver()"/>
-            <SplitMatch :id="6" :red="getMatchTeam(3, 4)" :blue="getMatchTeam(2, 5)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="2" :teamOne="getMatchTeam(4, 7)" :teamTwo="getMatchTeam(1, 2)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="4" :teamOne="getMatchTeam(3, 7)" :teamTwo="getMatchTeam(1, 5)" @gameOver="gameOver()"/>
+            <TwoVsTwoMatch :id="6" :teamOne="getMatchTeam(3, 4)" :teamTwo="getMatchTeam(2, 5)" @gameOver="gameOver()"/>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@ import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
 import Header from '../Header.vue';
 import PlayerCard from '../PlayerCard.vue';
 import Team from '../4v4/Team.vue';
-import SplitMatch from '../4v4/SplitMatch.vue';
+import TwoVsTwoMatch from '../2v2Match.vue';
 
 const { mapGetters } = createNamespacedHelpers('results');
 
@@ -81,7 +81,7 @@ export default {
     Header,
     PlayerCard,
     Team,
-    SplitMatch,
+    TwoVsTwoMatch,
   },
   computed: {
     ...mapState({
