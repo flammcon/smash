@@ -35,16 +35,23 @@
       </div>
       <div class="col">
         <div class="row my-3">
-          <div class="col"><Pod title="ODD" :pool="odds" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
-          <div class="col"><Pod title="EVEN" :pool="evens" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
-          <div class="col"><Pod title="RED" :pool="red" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
-          <div class="col"><Pod title="BLUE" :pool="blue" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
-        </div>
-        <div class="row">
           <div class="col"><Pod title="TOP" :pool="top" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
           <div class="col"><Pod title="BOTTOM" :pool="bottom" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
           <div class="col"><Pod title="MIDDLE" :pool="middle" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
           <div class="col"><Pod title="EDGES" :pool="edges" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="WAIFUS" :pool="waifus" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+        </div>
+        <div class="row">
+          <div class="col"><Pod title="1010"
+            :pool="checkerTop" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="0101"
+            :pool="checkerBottom" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="PINEAPPLE"
+            :pool="pineapple" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="ASSMILK"
+            :pool="assmilk" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
+          <div class="col"><Pod title="HUSBANDOS"
+            :pool="husbandos" @locked="lockedPods += 1" @unlocked="lockedPods--"/></div>
         </div>
       </div>
     </div>
@@ -87,18 +94,6 @@ export default {
         return a.results.podScore < b.results.podScore ? -1 : 1;
       });
     },
-    odds() {
-      return this.players.filter((player, index) => index % 2 === 0);
-    },
-    evens() {
-      return this.players.filter((player, index) => index % 2 !== 0);
-    },
-    red() {
-      return this.players.filter((player, index) => index === 0 || index === 3 || index === 4 || index === 7);
-    },
-    blue() {
-      return this.players.filter((player, index) => index === 1 || index === 2 || index === 5 || index === 6);
-    },
     top() {
       return this.players.slice(0, 4);
     },
@@ -111,14 +106,32 @@ export default {
     edges() {
       return this.players.filter((player, index) => index < 2 || index > 5);
     },
+    checkerTop() {
+      return this.players.filter((player, index) => index === 0 || index === 1 || index === 4 || index === 5);
+    },
+    checkerBottom() {
+      return this.players.filter((player, index) => index === 2 || index === 3 || index === 6 || index === 7);
+    },
+    pineapple() {
+      return this.players.filter((player, index) => index === 1 || index === 3 || index === 5 || index === 6);
+    },
+    assmilk() {
+      return this.players.filter((player, index) => index === 0 || index === 3 || index === 4 || index === 7);
+    },
+    waifus() {
+      return this.players.filter((player, index) => index === 1 || index === 2 || index === 4 || index === 7);
+    },
+    husbandos() {
+      return this.players.filter((player, index) => index === 0 || index === 2 || index === 5 || index === 6);
+    },
   },
   watch: {
     lockedPods(newValue, oldValue) {
-      if (newValue === 8) {
+      if (newValue === 10) {
         if (!this.hasDuplicatePodScores()) {
           this.gameOver = true;
         }
-      } else if (oldValue === 8 && this.gameOver) {
+      } else if (oldValue === 10 && this.gameOver) {
         this.gameOver = false;
         this.set1v1SeedingResults([]);
       }
@@ -160,7 +173,7 @@ export default {
       }
     },
     needsTieBreaker(player) {
-      return this.lockedPods === 8 && this.hasDuplicatePodScore(player);
+      return this.lockedPods === 10 && this.hasDuplicatePodScore(player);
     },
   },
 };
