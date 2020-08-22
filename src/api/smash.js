@@ -38,6 +38,7 @@ export default {
         results: {
           pods: 0,
           fourVsFour: 0,
+          roundRobin: 0,
           twoVsTwo: 0,
           oneVsOne: 0,
           podScore: 0,

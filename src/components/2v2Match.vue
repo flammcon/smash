@@ -1,6 +1,5 @@
 <template>
   <div class="row pb-4 mr-4" v-if="teamOne">
-    <!-- <div :class="['col border', winner ? isWinner('one') ? 'border-danger' : 'border-primary' : '']"> -->
     <div class="col border"
       :style="{ borderColor: winner ? winner.color+'!important' : '' }">
       <h6>Game {{id}}</h6>

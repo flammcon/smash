@@ -19,10 +19,10 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { createNamespacedHelpers } from 'vuex';
+import { mapMutations, createNamespacedHelpers } from 'vuex';
 import PlayerCard from '../PlayerCard.vue';
 
-const { mapState, mapMutations, mapActions } = createNamespacedHelpers('results');
+const { mapState, mapActions } = createNamespacedHelpers('results');
 
 export default {
   name: 'TwoVsTwoSeeding',
@@ -64,10 +64,12 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(['set2v2SeedingResults']),
+    ...mapMutations(['updateRoundRobinScores']),
+    ...mapMutations('results', ['set2v2SeedingResults']),
     ...mapActions(['update2v2Round1Games']),
     updateRanks() {
       this.set2v2SeedingResults(this.teams);
+      this.updateRoundRobinScores(this.teams);
       this.update2v2Round1Games();
       this.locked = true;
     },

@@ -67,6 +67,16 @@ const store = new Vuex.Store({
         player2.results.twoVsTwo = points;
       });
     },
+    updateRoundRobinScores(state, payload) {
+      const teams = [...payload].reverse();
+      teams.forEach((team, index) => {
+        const player1 = state.players.find((x) => x.id === team.player1.id);
+        player1.results.roundRobin = index;
+
+        const player2 = state.players.find((x) => x.id === team.player2.id);
+        player2.results.roundRobin = index;
+      });
+    },
     update1v1Scores(state, payload) {
       payload.forEach((player, index) => {
         let points = index;
@@ -124,9 +134,9 @@ const store = new Vuex.Store({
     sortedPlayerList: (state) => [...state.players].sort((a, b) => a.pick - b.pick),
     playersByTotalScore: (state) => [...state.players].sort((a, b) => {
       const totalA = a.results.pods + a.results.fourVsFour + a.results.twoVsTwo
-        + a.results.oneVsOne + a.results.totalAdj;
+        + a.results.roundRobin + a.results.oneVsOne + a.results.totalAdj;
       const totalB = b.results.pods + b.results.fourVsFour + b.results.twoVsTwo
-        + b.results.oneVsOne + b.results.totalAdj;
+        + b.results.roundRobin + b.results.oneVsOne + b.results.totalAdj;
 
       return totalA > totalB ? 1 : -1;
     }),
