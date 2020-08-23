@@ -16,7 +16,7 @@ const allPlayers = [
   },
   {
     id: 4,
-    name: 'Phil',
+    name: 'Peter',
     disabled: [9],
   },
   {
