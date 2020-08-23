@@ -44,6 +44,11 @@ const allPlayers = [
     name: 'Sam',
     disabled: [49],
   },
+  {
+    id: 10,
+    name: 'Peter',
+    disabled: [],
+  },
 ];
 
 export default allPlayers;
