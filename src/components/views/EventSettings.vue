@@ -20,9 +20,6 @@
             <label :class="getToggleClass(draft, 'normal')">
               <input type="radio" value="normal" id="normal" v-model="draft"> Normal
             </label>
-            <label :class="getToggleClass(draft, 'sam')">
-              <input type="radio" value="sam" id="sam" v-model="draft"> Sam's Rules
-            </label>
           </div>
           <h5 class="mt-2">Event format</h5>
           <div class="btn-group btn-group-toggle">
