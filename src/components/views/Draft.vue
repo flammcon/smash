@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header v-if="special_draft" title="Draft" :disabled="true" :prevDisabled="true"/>
+    <Header v-if="ruleset === 'sam'" title="Draft" :disabled="true" :prevDisabled="true"/>
     <Header v-else title="Draft" prev="draft_order" :next="online ? 'pods' : 'bloodbath'" :disabled="!draftCompleted"/>
     <h5 :class="{'hidden': draftCompleted}">
       Select character for
@@ -59,7 +59,7 @@ export default {
     ...mapMutations(['updatePlayerCharacter', 'setDraftPicks', 'addPlayerCharacter']),
     selectCharacter(character) {
       if (!(this.disableCharacter(character.id) || this.chosenCharacter(character.id))) {
-        if (this.special_draft) {
+        if (this.ruleset === 'sam') {
           this.addPlayerCharacter({ id: this.current_player_id, index: this.current_counter, pick: character.id });
           this.drafted_characters.push(character.id);
 
@@ -106,9 +106,12 @@ export default {
     },
   },
   computed: {
-    ...mapState(['players', 'draft_order', 'special_draft', 'online']),
+    ...mapState(['players', 'draft_order', 'ruleset', 'online']),
     ...mapGetters(['disabledCharactersByPlayerId', 'playerById', 'draftCompleted', 'draftPicks']),
     disabled_characters() {
+      if (this.ruleset === 'jan') {
+        return [];
+      }
       return this.disabledCharactersByPlayerId(this.current_player_id);
     },
     current_player_id() {

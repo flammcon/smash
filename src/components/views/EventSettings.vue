@@ -15,13 +15,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <h5>Draft type</h5>
+          <h5>Ruleset</h5>
           <div class="btn-group btn-group-toggle">
-            <label :class="getToggleClass(draft, 'normal')">
-              <input type="radio" value="normal" id="normal" v-model="draft"> Normal
+            <label :class="getToggleClass(ruleset, 'normal')">
+              <input type="radio" value="normal" id="normal" v-model="ruleset"> Normal
             </label>
-            <label :class="getToggleClass(draft, 'sam')">
-              <input type="radio" value="sam" id="sam" v-model="draft"> Sam's Rules
+            <label :class="getToggleClass(ruleset, 'sam')">
+              <input type="radio" value="sam" id="sam" v-model="ruleset"> Sam's Rules
+            </label>
+            <label :class="getToggleClass(ruleset, 'jan')">
+              <input type="radio" value="jan" id="jan" v-model="ruleset"> Jan's Rules
             </label>
           </div>
           <h5 class="mt-2">Event format</h5>
@@ -51,7 +54,7 @@ export default {
   },
   data() {
     return {
-      draft: 'normal',
+      ruleset: 'normal',
       format: 'local',
     };
   },
@@ -63,10 +66,10 @@ export default {
       return ['btn btn-secondary', { active: toggle === value }];
     },
     navigate() {
-      const draft = this.draft !== 'normal';
+      const { ruleset } = this;
       const online = this.format === 'online';
 
-      this.setEventRules({ draft, online });
+      this.setEventRules({ ruleset, online });
       this.$router.push('players');
     },
   },

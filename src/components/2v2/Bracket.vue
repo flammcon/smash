@@ -109,6 +109,7 @@ export default {
     ...mapState({
       games: (state) => state.results.two_vs_two.games,
       online: (state) => state.online,
+      ruleset: (state) => state.ruleset,
     }),
     ...mapGetters(['playersByTotalScore']),
     game1() { return this.games[0]; },
@@ -139,7 +140,17 @@ export default {
       this.update2v2Scores(results);
 
       if (this.online) {
-        this.set1v1SeedingResults([...this.playersByTotalScore].reverse());
+        if (this.ruleset === 'jan') {
+          const shuffle = [...this.playersByTotalScore];
+          // eslint-disable-next-line no-plusplus
+          for (let i = shuffle.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffle[i], shuffle[j]] = [shuffle[j], shuffle[i]];
+          }
+          this.set1v1SeedingResults(shuffle);
+        } else {
+          this.set1v1SeedingResults([...this.playersByTotalScore].reverse());
+        }
         this.update1v1Round1Games();
       }
     },

@@ -3,6 +3,7 @@
     <span :class="['base',reverse ? 'right' : 'left']">{{player.seed === 0 ? '' : player.seed}}</span>
     {{ player.name }}
     <span :class="['base', reverse ? 'left' : 'right']">
+      <ScoreDot v-if="bestOfFive" style="margin-left: 1px" :fill="player.wins > 2" />
       <ScoreDot :fill="reverse ? player.wins > 0 : player.wins > 1"/>
       <ScoreDot style="margin-left: 1px" :fill="reverse ? player.wins > 1 : player.wins > 0"/>
     </span>
@@ -20,6 +21,7 @@ export default {
   props: {
     player: Object,
     reverse: Boolean,
+    bestOfFive: Boolean,
   },
 };
 </script>

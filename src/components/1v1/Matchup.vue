@@ -1,9 +1,13 @@
 <template>
   <ul v-bind:class="[{current: game.current}, 'matchup']">
-    <li v-bind:class="[{winner: getPlayerWins(0) === 2}, {loser: getPlayerWins(1) === 2}, 'team']">
-      <BracketPlayer :player="getPlayer(0)" :reverse="reverse" @click.native="addWin(0)"/>
-    <li v-bind:class="[{winner: getPlayerWins(1) === 2}, {loser: getPlayerWins(0) === 2}, 'team']">
-      <BracketPlayer :player="getPlayer(1)" :reverse="reverse" @click.native="addWin(1)"/>
+    <li v-bind:class="[{winner: getPlayerWins(0) === this.winsNeeded},
+        {loser: getPlayerWins(1) === this.winsNeeded}, 'team']">
+      <BracketPlayer :player="getPlayer(0)" :reverse="reverse" @click.native="addWin(0)"
+        :bestOfFive="this.bestOfFive" />
+    <li v-bind:class="[{winner: getPlayerWins(1) === this.winsNeeded},
+        {loser: getPlayerWins(0) === this.winsNeeded}, 'team']">
+      <BracketPlayer :player="getPlayer(1)" :reverse="reverse" @click.native="addWin(1)"
+        :bestOfFive="this.bestOfFive" />
     </li>
   </ul>
 </template>
@@ -22,6 +26,7 @@ export default {
   props: {
     gameId: Number,
     reverse: Boolean,
+    bestOfFive: Boolean,
   },
   data() {
     return {
@@ -41,6 +46,9 @@ export default {
     players() {
       return this.game.teams;
     },
+    winsNeeded() {
+      return this.bestOfFive ? 3 : 2;
+    },
   },
   methods: {
     ...mapMutations(['update1v1GameResults']),
@@ -54,7 +62,7 @@ export default {
       if (!(this.gameOver || this.locked) && this.game.current) {
         this.players[index].wins += 1;
 
-        if (this.getPlayerWins(0) === 2 || this.getPlayerWins(1) === 2) {
+        if (this.getPlayerWins(0) === this.winsNeeded || this.getPlayerWins(1) === this.winsNeeded) {
           this.gameOver = true;
           const winner = this.getPlayer(index);
           this.update1v1GameResults({ id: this.gameId, winner, loser: this.players.find((x) => x.id !== winner.id) });

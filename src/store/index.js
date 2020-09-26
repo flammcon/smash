@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     draft: [],
     gameOver: false,
     draft_order_locked: false,
-    special_draft: false,
+    ruleset: '',
     online: false,
   },
   mutations: {
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
       }));
     },
     setEventRules(state, payload) {
-      state.special_draft = payload.draft;
+      state.ruleset = payload.ruleset;
       state.online = payload.online;
     },
     lockDraftOrder(state) {

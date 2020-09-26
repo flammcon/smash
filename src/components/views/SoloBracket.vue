@@ -21,7 +21,11 @@
           <div class="final">
             <i class="fa fa-trophy"></i>
             <div class="round-details">Championship<br/><span class="date">Game 12</span></div>
-            <Matchup :gameId="12" @matchOver="updateNextMatch(12, null, null, null, 0)"/>
+            <Matchup
+              :gameId="12"
+              @matchOver="updateNextMatch(12, null, null, null, 0)"
+              :bestOfFive="this.ruleset === 'jan'"
+            />
           </div>
         </div>
 
@@ -101,6 +105,7 @@ export default {
     ...mapState({
       games: (state) => state.results.one_vs_one.games,
       online: (state) => state.online,
+      ruleset: (state) => state.ruleset,
     }),
   },
   methods: {

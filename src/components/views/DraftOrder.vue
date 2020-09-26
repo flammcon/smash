@@ -21,7 +21,7 @@ export default {
     ...mapActions(['setPlayerDraftOrder']),
     lockDraftOrder() {
       this.setPlayerDraftOrder(this.draft_order);
-      if (this.special_draft) {
+      if (this.ruleset === 'sam') {
         this.$router.push('special/draft');
       } else {
         this.$router.push('event/draft');
@@ -32,7 +32,7 @@ export default {
     ...mapState({
       draft_order: (state) => state.draft_order,
       locked: (state) => state.draft_order_locked,
-      special_draft: (state) => state.special_draft,
+      ruleset: (state) => state.ruleset,
     }),
   },
 };
