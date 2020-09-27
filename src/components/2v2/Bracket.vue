@@ -140,17 +140,13 @@ export default {
       this.update2v2Scores(results);
 
       if (this.online) {
-        if (this.ruleset === 'jan') {
-          const shuffle = [...this.playersByTotalScore];
-          // eslint-disable-next-line no-plusplus
-          for (let i = shuffle.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffle[i], shuffle[j]] = [shuffle[j], shuffle[i]];
-          }
-          this.set1v1SeedingResults(shuffle);
-        } else {
-          this.set1v1SeedingResults([...this.playersByTotalScore].reverse());
+        const shuffle = [...this.playersByTotalScore];
+        // eslint-disable-next-line no-plusplus
+        for (let i = shuffle.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffle[i], shuffle[j]] = [shuffle[j], shuffle[i]];
         }
+        this.set1v1SeedingResults(shuffle);
         this.update1v1Round1Games();
       }
     },
