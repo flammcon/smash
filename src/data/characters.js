@@ -429,7 +429,7 @@ const characters = [
   },
   {
     id: 79,
-    name: 'Byleth',
+    name: 'Blythe',
     franchise: 'Fire Emblem',
   },
   {
@@ -441,6 +441,21 @@ const characters = [
     id: 81,
     name: 'Min Min',
     franchise: '',
+  },
+  {
+    id: 82,
+    name: 'Steve',
+    franchise: 'Minecraft',
+  },
+  {
+    id: 83,
+    name: 'Sephiroth',
+    franchise: 'Final Fantasy',
+  },
+  {
+    id: 84,
+    name: 'Pyra',
+    franchise: 'Xenoblade',
   },
 ];
 
