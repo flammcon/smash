@@ -280,7 +280,6 @@ export default {
 .share-icon:hover { opacity:1;  -webkit-animation: pulse 0.5s; animation: pulse 0.5s; }
 .date { font-size: 10px; letter-spacing: 2px; font-family: 'Istok Web', sans-serif; color: #3F915F; }
 
-
 @media screen and (min-width: 981px) and (max-width: 1099px) {
   .container { margin: 0 1%; }
   .champion { width: 14%; }
@@ -300,7 +299,6 @@ export default {
   .hero h1 { font-size: 3em; margin: 15px 0; }
   .hero p { font-size: 1em; }
 }
-
 
 @media screen and (max-width: 400px) {
   .split { width: 95%; margin: 25px 2.5%; }

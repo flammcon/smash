@@ -95,7 +95,6 @@ import {
 } from 'vuex';
 import BracketTeam from './BracketTeam.vue';
 
-
 export default {
   name: 'Bracket',
   components: {
@@ -353,7 +352,6 @@ export default {
   .hero h1 {font-size: 3em; margin: 15px 0;}
   .hero p {font-size: 1em;}
 }
-
 
 @media screen and (max-width: 400px) {
   .split {width: 95%;margin: 25px 2.5%;}
