@@ -79,6 +79,14 @@
       "played_characters": [],
       "disabled_characters": [],
       "events_played": []
+    },
+    {
+      "id": 11,
+      "name": "Mark",
+      "active": true,
+      "played_characters": [],
+      "disabled_characters": [],
+      "events_played": []
     }
   ]
 }
